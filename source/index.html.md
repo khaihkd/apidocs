@@ -883,6 +883,8 @@ License: <a href="https://github.com/tomochain/tomoscan">Github</a>
 
 Base URL: https://scan.tomochain.com
 
+Swagger API Document: [https://scan.tomochain.com/docs/](https://scan.tomochain.com/docs/)
+
 <h1 id="tomoscan-apis-accounts">Accounts</h1>
 
 Accounts API
@@ -2196,6 +2198,8 @@ Happy to code TomoMaster APIs
 License: <a href="https://github.com/tomochain/tomomaster">Github</a>
 
 Base URL: https://master.tomochain.com
+
+Swagger API Document: [https://master.tomochain.com/api-docs/](https://master.tomochain.com/api-docs/)
 
 <h1 id="tomomaster-apis-config">Config</h1>
 
