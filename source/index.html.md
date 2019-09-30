@@ -6,6 +6,7 @@ language_tabs:
   - go: GO
   - ruby: Ruby
   - python: Python
+  - java: Java
 toc_footers: []
 includes: []
 search: true
@@ -22,855 +23,6744 @@ Happy to code TomoChain APIs
 
 License: <a href="https://github.com/tomochain/tomochain">Github</a>
 
-<h1 id="tomochain-apis-json-rpc">JSON-RPC</h1>
+<!-- Generator: Widdershins v3.6.6 -->
 
-TomoChain JSON-RPC Protocol
+<h1 id="tomochain-json-rpc">Tomochain JSON-RPC v1.0.0</h1>
 
-## eth_accounts
+> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
+
+A collection holding all the Tomochain JSON​ RPC API calls
+
+Base URLs:
+
+* <a href="https://rpc.tomochain.com/">https://rpc.tomochain.com/</a>
+
+<h1 id="tomochain-json-rpc-web3">web3</h1>
+
+API for web3 request
+
+## clientRequest
+
+<a id="opIdclientRequest"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/clientVersion \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "web3_clientVersion",
+  "params": [],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/clientVersion',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/clientVersion", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/clientVersion',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/clientVersion', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/clientVersion");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /clientVersion`
+
+Returns the current client version.
+
+**Parameters**
+
+none
+
+**Returns**
+
+`String` - The current client version
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "web3_clientVersion",
+  "params": [],
+  "id": 1
+}
+```
+
+<h3 id="clientrequest-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[clientVersionRequest](#schemaclientversionrequest)|true|none|
+
+<h3 id="clientrequest-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## sha3Request
+
+<a id="opIdsha3Request"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/sha3 \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "web3_sha3",
+  "params": [
+    "0x68656c6c6f20776f726c64"
+  ],
+  "id": 64
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/sha3',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/sha3", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/sha3',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/sha3', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/sha3");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /sha3`
+
+Returns Keccak-256 (not the standardized SHA3-256) of the given data.
+
+**Parameters**
+
+- `DATA` - the data to convert into a SHA3 hash
+
+`params:` `[
+  "0x68656c6c6f20776f726c64"
+]`
+
+**Returns**
+
+`DATA` - The SHA3 result of the given string.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "web3_sha3",
+  "params": [
+    "0x68656c6c6f20776f726c64"
+  ],
+  "id": 64
+}
+```
+
+<h3 id="sha3request-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[sha3request](#schemasha3request)|true|none|
+
+<h3 id="sha3request-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+<h1 id="tomochain-json-rpc-net">net</h1>
+
+API for network request
+
+## versionRequest
+
+<a id="opIdversionRequest"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/version \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "net_version",
+  "params": [],
+  "id": 67
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/version',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/version", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/version',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/version', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/version");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /version`
+
+Returns the current network id.
+
+**Parameters**
+
+none
+
+**Returns**
+
+- `String` - The current network id.
+
+  - `"88"`: Tomochain Mainnet
+
+  - `"89"`: Tomochain Testnet
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "net_version",
+  "params": [],
+  "id": 67
+}
+```
+
+<h3 id="versionrequest-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[versionrequest](#schemaversionrequest)|true|none|
+
+<h3 id="versionrequest-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## listeningRequest
+
+<a id="opIdlisteningRequest"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/listening \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "net_listening",
+  "params": [],
+  "id": 67
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/listening',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/listening", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/listening',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/listening', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/listening");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /listening`
+
+Returns `true` if client is actively listening for network connections.
+
+**Parameters**
+
+none
+
+**Returns**
+
+- `Boolean` - `true` when listening, otherwise `false`.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "net_listening",
+  "params": [],
+  "id": 67
+}
+```
+
+<h3 id="listeningrequest-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[listeningrequest](#schemalisteningrequest)|true|none|
+
+<h3 id="listeningrequest-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## peerCountRequest
+
+<a id="opIdpeerCountRequest"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/peerCount \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "net_peerCount",
+  "params": [],
+  "id": 74
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/peerCount',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/peerCount", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/peerCount',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/peerCount', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/peerCount");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /peerCount`
+
+Returns number of peers currently connected to the client.
+
+**Parameters**
+
+none
+
+**Returns**
+
+- `QUANTITY` - integer of the number of connected peers.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "net_peerCount",
+  "params": [],
+  "id": 74
+}
+```
+
+<h3 id="peercountrequest-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[peerCountRequest](#schemapeercountrequest)|true|none|
+
+<h3 id="peercountrequest-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+<h1 id="tomochain-json-rpc-eth">eth</h1>
+
+API for eth information
+
+## protocolVersionRequest
+
+<a id="opIdprotocolVersionRequest"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/protocolVersion \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_protocolVersion",
+  "params": [],
+  "id": 67
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/protocolVersion',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/protocolVersion", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/protocolVersion',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/protocolVersion', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/protocolVersion");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /protocolVersion`
+
+Returns the current ethereum protocol version.
+
+**Parameters**
+
+none
+
+**Returns**
+
+- `String` - The current ethereum protocol version
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_protocolVersion",
+  "params": [],
+  "id": 67
+}
+```
+
+<h3 id="protocolversionrequest-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[protocolVersionRequest](#schemaprotocolversionrequest)|true|none|
+
+<h3 id="protocolversionrequest-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## syncingrequest
+
+<a id="opIdsyncingrequest"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/syncing \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_syncing",
+  "params": [],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/syncing',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/syncing", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/syncing',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/syncing', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/syncing");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /syncing`
+
+Returns an object with data about the sync status or false.
+
+**Parameters**
+
+none
+
+**Returns**
+
+- `Object|Boolean`, An object with sync status data or FALSE, when not syncing:
+
+  - `startingBlock`: `QUANTITY` - The block at which the import started (will only be reset, after the sync reached his head)
+
+  - `currentBlock`: `QUANTITY` - The current block, same as eth_blockNumber
+
+  - `highestBlock`: `QUANTITY` - The estimated highest block
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_syncing",
+  "params": [],
+  "id": 1
+}
+```
+
+<h3 id="syncingrequest-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[syncingrequest](#schemasyncingrequest)|true|none|
+
+<h3 id="syncingrequest-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## coinbase
+
+<a id="opIdcoinbase"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/coinbase \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_coinbase",
+  "params": [],
+  "id": 64
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/coinbase',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/coinbase", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/coinbase',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/coinbase', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/coinbase");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /coinbase`
+
+Returns the client coinbase address.
+**Parameters**
+none
+**Returns**
+- `DATA`, 20 bytes - the current coinbase address.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_coinbase",
+  "params": [],
+  "id": 64
+}
+```
+
+<h3 id="coinbase-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[coinbaserequest](#schemacoinbaserequest)|true|none|
+
+<h3 id="coinbase-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## gasPrice
+
+<a id="opIdgasPrice"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/gasPrice \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_gasPrice",
+  "params": [],
+  "id": 73
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/gasPrice',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/gasPrice", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/gasPrice',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/gasPrice', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/gasPrice");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /gasPrice`
+
+Returns the current price per gas in wei.
+**Parameters**
+none
+**Returns**
+- `QUANTITY` - integer of the current gas price in wei.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_gasPrice",
+  "params": [],
+  "id": 73
+}
+```
+
+<h3 id="gasprice-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[gasPriceRequest](#schemagaspricerequest)|true|none|
+
+<h3 id="gasprice-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## accounts
+
+<a id="opIdaccounts"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/accounts \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_accounts",
+  "params": [],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/accounts',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/accounts", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/accounts',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/accounts', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/accounts");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /accounts`
 
 Returns a list of addresses owned by client.
 
-> Code samples
+**Parameters**
 
-```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}'
-```
+none
 
-### RESPONSE
+**Returns**
 
-#### RESULT FIELDS
+- `Array of DATA`, 20 Bytes - addresses owned by the client
 
-- `ADDRESSES` - arrays of hex codes as strings representing the addresses owned by the client
-
-> Example responses
-
-> 200 Response
-
-```js
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "result": []
-}
-```
-
-## eth_blockNumber
-
-Returns the current "latest" block number.
-
-> Code samples
-
-```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params": [],"id":1}'
-```
-
-### RESPONSE
-
-- `BLOCK NUMBER` - a hex code of an integer representing the current block number the client is on.
-
-> Example responses
-
-> 200 Response
-
-```js
-
-  "jsonrpc": "2.0",
-  "id": 1,
-  "result": "0x65a8db"
-}
-```
-
-## eth_call
-
-Executes a new message call immediately without creating a transaction on the block chain.
-
-#### REQUEST PAYLOAD
-- `TRANSACTION CALL OBJECT` _[required]_
-- `from`:  _[optional]_ 20 Bytes - The address the transaction is sent from.
-- `to`: 20 Bytes - The address the transaction is directed to.
-- `gas`: _[optional]_ Integer of the gas provided for the transaction execution. eth_call consumes zero gas, but this parameter may be needed by some executions.
-- `gasPrice`: _[optional]_ Integer of the gasPrice used for each paid gas
-- `value`: _[optional]_ Integer of the value sent with this transaction
-- `data`: _[optional]_ Hash of the method signature and encoded parameters. For details see Ethereum Contract ABI
-- `BLOCK PARAMETER` _[required]_ - an integer block number, or the string "latest", "earliest" or "pending", see the [default block parameter](https://github.com/ethereum/wiki/wiki/JSON-RPC#the-default-block-parameter)
-
-> Code samples
-
-```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_call","params": [{"from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155","to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567","gas": "0x76c0","gasPrice": "0x9184e72a000","value": "0x9184e72a","data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"}, "latest"],"id":1}'
-    
-```
-
-### RESPONSE
-
-#### RESULT FIELDS
-- `RETURN VALUE` - the return value of the executed contract method.
-
-> Example responses
-
-> 200 Response
+> Body parameter
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": "0x"
+  "method": "eth_accounts",
+  "params": [],
+  "id": 1
 }
 ```
 
-## eth_estimateGas
+<h3 id="accounts-parameters">Parameters</h3>
 
-Generates and returns an estimate of how much gas is necessary to allow the transaction to complete. The transaction will not be added to the blockchain. Note that the estimate may be significantly more than the amount of gas actually used by the transaction, for a variety of reasons including EVM mechanics and node performance.
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[accountsrequest](#schemaaccountsrequest)|true|none|
 
-#### REQUEST PAYLOAD
-- `TRANSACTION CALL OBJECT` _[required]_
-- `from`:  _[optional]_ 20 Bytes - The address the transaction is sent from.
-- `to`: 20 Bytes - The address the transaction is directed to.
-- `gas`: _[optional]_ Integer of the gas provided for the transaction execution. eth_estimateGas consumes zero gas, but this parameter may be needed by some executions.
-- `gasPrice`: _[optional]_ Integer of the gasPrice used for each paid gas
-- `value`: _[optional]_ Integer of the value sent with this transaction
-- `data`: _[optional]_ Hash of the method signature and encoded parameters. For details see Ethereum Contract ABI
+<h3 id="accounts-responses">Responses</h3>
 
-If no gas limit is specified geth uses the block gas limit from the pending block as an upper bound. As a result the returned estimate might not be enough to executed the call/transaction when the amount of gas is higher than the pending block gas limit.
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## blockNumber
+
+<a id="opIdblockNumber"></a>
 
 > Code samples
 
 ```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_estimateGas","params": [{"from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155","to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567","gas": "0x76c0","gasPrice": "0x9184e72a000","value": "0x9184e72a","data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"}],"id":1}'
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/blockNumber \
+  -H 'Content-Type: application/json'
 
 ```
 
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_blockNumber",
+  "params": [],
+  "id": 83
+}';
+const headers = {
+  'Content-Type':'application/json'
 
-### RESPONSE
+};
 
-#### RESULT FIELDS
-- `GAS USED` - the amount of gas used.
+fetch('https://rpc.tomochain.com/blockNumber',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
-> Example response
+```
 
-> 200 Response
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/blockNumber", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/blockNumber',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/blockNumber', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/blockNumber");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /blockNumber`
+
+Returns the number of most recent block.
+**Parameters**
+none
+**Returns**
+- `QUANTITY` - integer of the current block number the client is on.
+
+> Body parameter
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": "0x5cec"
+  "method": "eth_blockNumber",
+  "params": [],
+  "id": 83
 }
 ```
 
-## eth_gasPrice
+<h3 id="blocknumber-parameters">Parameters</h3>
 
-Returns the current gas price in wei.
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[blockNumberRequest](#schemablocknumberrequest)|true|none|
+
+<h3 id="blocknumber-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getBalance
+
+<a id="opIdgetBalance"></a>
 
 > Code samples
 
 ```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_gasPrice","params": [],"id":1}'
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getBalance \
+  -H 'Content-Type: application/json'
 
 ```
 
-### RESPONSE
-
-#### RESULT FIELDS
-- `GAS PRICE` - a hex code of an integer representing the current gas price in wei.
-
-> Example response
-
-> 200 Response
-
-```js
-{
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": "0x12a05f200"
-}
+  "method": "eth_getBalance",
+  "params": [
+    "0x2b5634c42055806a59e9107ed44d43c426e58258",
+    "latest"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getBalance',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
 ```
 
-## eth_getBalance
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBalance", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getBalance',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getBalance', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getBalance");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getBalance`
 
 Returns the balance of the account of given address.
 
-#### REQUEST PARAMS
-- `ADDRESS` _[required]_ - a string representing the address (20 bytes) to check for balance
+**Parameters**
 
-- `BLOCK PARAMETER` _[required]_ - an integer block number, or the string "latest", "earliest" or "pending", see the [default block parameter](https://github.com/ethereum/wiki/wiki/JSON-RPC#the-default-block-parameter)
+- `DATA`, 20 Bytes - address to check for balance.
+- `QUANTITY|TAG` - integer block number, or the string "latest", "earliest" or "pending", see the default block parameter
 
-> Code samples 
+``` params: [
+   ' 0x2b5634c42055806a59e9107ed44d43c426e58258',
+   'latest'
+] ```
 
-```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_getBalance","params": ["0xc94770007dda54cF92009BFF0dE90c06F603a09f", "latest"],"id":1}'
+**Returns**
+- `QUANTITY` - integer of the current balance in wei.
 
-```
-
-### RESPONSE
-
-#### RESULT FIELDS
-- `BALANCE` - integer of the current balance in wei.
-
-> Example response
-
-> 200 Response
+> Body parameter
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": "0x2fe84e3113d7b"
+  "method": "eth_getBalance",
+  "params": [
+    "0x2b5634c42055806a59e9107ed44d43c426e58258",
+    "latest"
+  ],
+  "id": 1
 }
 ```
 
-## eth_getBlockByNumber
+<h3 id="getbalance-parameters">Parameters</h3>
 
-Returns the block data of the given BLOCKNUMBER.
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getBalanceRequest](#schemagetbalancerequest)|true|none|
 
-#### REQUEST PARAMS
-- `BLOCKNUMBER` _[required]_ - a hex code of an integer representing the `BLOCKNUMBER` or one of the following special params:
-    - `latest`: get block data of the latest block
-    - `pending`:  get block data of pending block
-    - `earliest`: get the genesis block
+<h3 id="getbalance-responses">Responses</h3>
 
-- `FULLTX` _[required]_ - a boolean value specified whether you want to get transactions list or not
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
 
-> Code samples 
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getStorageAt
+
+<a id="opIdgetStorageAt"></a>
+
+> Code samples
 
 ```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params": ["0x0" , true],"id":1}'
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getStorageAt \
+  -H 'Content-Type: application/json'
 
 ```
 
-### RESPONSE
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getStorageAt",
+  "params": [
+    "0x295a70b2de5e3953354a6a8344e616ed314d7251",
+    "0x0",
+    "latest"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
 
-#### RESULT FIELDS
-- `RETURN VALUE` - block data of the given `BLOCKNUMBER`
+};
 
-> Example response
+fetch('https://rpc.tomochain.com/getStorageAt',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
-> 200 Response
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getStorageAt", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getStorageAt',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getStorageAt', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getStorageAt");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getStorageAt`
+
+Returns the balance of the account of given address.
+
+**Parameters**
+
+- `DATA`, 20 Bytes - address to check for balance.
+
+- `QUANTITY|TAG` - integer block number, or the string "latest", "earliest" or "pending", see the default block parameter
+
+```
+
+params: [
+      '0x2b5634c42055806a59e9107ed44d43c426e58258',
+      'latest'
+      ]
+
+```
+**Returns**
+
+- `QUANTITY` - integer of the current balance in wei.
+
+> Body parameter
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": {
-    "difficulty": "0x1",
-    "extraData": "0x00000000000000000000000000000000000000000000000000000000000000001b82c4bf317fcafe3d77e8b444c82715d216afe845b7bd987fa22c9bac89b71f0ded03f6e150ba31ad670b2b166684657ffff95f4810380ae7381e9bce41231d5dd8cdd7499e418b648c00af75d184a2f9aba09a6fa4a46fb1a6a3919b027d9cac5aa6890000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "gasLimit": "0x47b760",
-    "gasUsed": "0x0",
-    "hash": "0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624",
-    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "miner": "0x0000000000000000000000000000000000000000",
-    "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "nonce": "0x0000000000000000",
-    "number": "0x0",
-    "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "penalties": "0x",
-    "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-    "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
-    "size": "0x2c5",
-    "stateRoot": "0x1394d6e0a3d48b3d25da2206de068a1444108280c60d360bd9d5a870004529ee",
-    "timestamp": "0x5c1358f5",
-    "totalDifficulty": "0x1",
-    "transactions": [],
-    "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-    "uncles": [],
-    "validator": "0x",
-    "validators": "0x"
-  }
+  "method": "eth_getStorageAt",
+  "params": [
+    "0x295a70b2de5e3953354a6a8344e616ed314d7251",
+    "0x0",
+    "latest"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="getstorageat-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getStorageAtRequest](#schemagetstorageatrequest)|true|none|
+
+<h3 id="getstorageat-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getTransactionCount
+
+<a id="opIdgetTransactionCount"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getTransactionCount \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionCount",
+  "params": [
+    "0xbf1dcb735e512b731abd3404c15df6431bd03d42",
+    "latest"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getTransactionCount',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getTransactionCount", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
 }
 
 ```
 
+```ruby
+require 'rest-client'
+require 'json'
 
-## eth_getBlockByHash
+headers = {
+  'Content-Type' => 'application/json'
+}
 
-Returns the block data of the given `BLOCKHASH`.
+result = RestClient.post 'https://rpc.tomochain.com/getTransactionCount',
+  params: {
+  }, headers: headers
 
-#### REQUEST PARAMS
-- `BLOCKHASH` _[required]_ - a string representing a `BLOCKHASH` 
-- `FULLTX` _[required]_ - a boolean value specified whether you want to get transactions list or not
-
-> Code samples 
-
-```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_getBlockByHash","params": ["0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624" , true],"id":1}'
+p JSON.parse(result)
 
 ```
 
-### RESPONSE
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
 
-#### RESULT FIELDS
-- `RETURN VALUE` - block data of the given `BLOCKHASH`
+r = requests.post('https://rpc.tomochain.com/getTransactionCount', headers = headers)
 
-> Example response
+print r.json()
 
-> 200 Response
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getTransactionCount");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getTransactionCount`
+
+Returns the number of transactions sent from an address.
+
+**Parameters**
+
+- `DATA`, 20 Bytes - address.
+- `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the default block parameter
+
+```
+
+params: [
+  '0x407d73d8a49eeb85d32cf465507dd71d507100c1',
+  'latest' // state at the latest block
+]
+
+```
+
+**Returns**
+
+- `QUANTITY` - integer of the number of transactions send from this address.
+
+> Body parameter
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": {
-    "difficulty": "0x1",
-    "extraData": "0x00000000000000000000000000000000000000000000000000000000000000001b82c4bf317fcafe3d77e8b444c82715d216afe845b7bd987fa22c9bac89b71f0ded03f6e150ba31ad670b2b166684657ffff95f4810380ae7381e9bce41231d5dd8cdd7499e418b648c00af75d184a2f9aba09a6fa4a46fb1a6a3919b027d9cac5aa6890000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "gasLimit": "0x47b760",
-    "gasUsed": "0x0",
-    "hash": "0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624",
-    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "miner": "0x0000000000000000000000000000000000000000",
-    "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "nonce": "0x0000000000000000",
-    "number": "0x0",
-    "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "penalties": "0x",
-    "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-    "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
-    "size": "0x2c5",
-    "stateRoot": "0x1394d6e0a3d48b3d25da2206de068a1444108280c60d360bd9d5a870004529ee",
-    "timestamp": "0x5c1358f5",
-    "totalDifficulty": "0x1",
-    "transactions": [],
-    "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-    "uncles": [],
-    "validator": "0x",
-    "validators": "0x"
-  }
+  "method": "eth_getTransactionCount",
+  "params": [
+    "0xbf1dcb735e512b731abd3404c15df6431bd03d42",
+    "latest"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="gettransactioncount-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getTransactionCountRequest](#schemagettransactioncountrequest)|true|none|
+
+<h3 id="gettransactioncount-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getBlockTransactionCountByHash
+
+<a id="opIdgetBlockTransactionCountByHash"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getBlockTransactionCountByHash \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockTransactionCountByHash",
+  "params": [
+    "0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getBlockTransactionCountByHash',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockTransactionCountByHash", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
 }
 
 ```
 
-## eth_getBlockByNumber
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getBlockTransactionCountByHash',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getBlockTransactionCountByHash', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getBlockTransactionCountByHash");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getBlockTransactionCountByHash`
+
+Returns the number of transactions in a block from a block matching the given block hash.
+
+**Parameters**
+
+- `DATA`, 32 Bytes - hash of a block
+
+```
+
+params: [
+  '0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34'
+]
+
+```
+
+**Returns**
+
+- `QUANTITY` - integer of the number of transactions in this block.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockTransactionCountByHash",
+  "params": [
+    "0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="getblocktransactioncountbyhash-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getBlockTransactionCountByHashRequest](#schemagetblocktransactioncountbyhashrequest)|true|none|
+
+<h3 id="getblocktransactioncountbyhash-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getBlockTransactionCountByNumber
+
+<a id="opIdgetBlockTransactionCountByNumber"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getBlockTransactionCountByNumber \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockTransactionCountByNumber",
+  "params": [
+    "0x52A8CA"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getBlockTransactionCountByNumber',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockTransactionCountByNumber", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getBlockTransactionCountByNumber',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getBlockTransactionCountByNumber', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getBlockTransactionCountByNumber");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getBlockTransactionCountByNumber`
+
+Returns the number of transactions in a block matching the given block number.
+
+**Parameters**
+
+- `QUANTITY|TAG` - integer of a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the default block parameter.
+
+```
+params: [
+  '0x85', // 232
+]
+```
+**Returns**
+
+- `QUANTITY` - integer of the number of transactions in this block.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockTransactionCountByNumber",
+  "params": [
+    "0x52A8CA"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="getblocktransactioncountbynumber-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getBlockTransactionCountByNumberRequest](#schemagetblocktransactioncountbynumberrequest)|true|none|
+
+<h3 id="getblocktransactioncountbynumber-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getCode
+
+<a id="opIdgetCode"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getCode \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getCode",
+  "params": [
+    "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
+    "0x2"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getCode',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getCode", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getCode',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getCode', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getCode");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getCode`
+
+Returns code at a given address.
+
+**Parameters**
+
+- `DATA`, 20 Bytes - address
+
+- `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the default block parameter
+
+```
+params: [
+  '0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b',
+  '0x2'  // 2
+]
+```
+
+**Returns**
+
+- `DATA` - the code from the given address.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getCode",
+  "params": [
+    "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
+    "0x2"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="getcode-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getCodeRequest](#schemagetcoderequest)|true|none|
+
+<h3 id="getcode-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## sign
+
+<a id="opIdsign"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/sign \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_sign",
+  "params": [
+    "0x9b2055d370f73ec7d8a03e965129118dc8f5bf83",
+    "0xdeadbeaf"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/sign',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/sign", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/sign',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/sign', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/sign");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /sign`
+
+The sign method calculates an Ethereum specific signature with: `sign(keccak256("\x19Ethereum Signed Message:\n" + len(message) + message)))`.
+
+By adding a prefix to the message makes the calculated signature recognisable as an Ethereum specific signature.  This prevents misuse where a malicious DApp can sign arbitrary data (e.g. transaction) and use the signature to impersonate the victim.
+
+**Note:** the address to sign with must be unlocked.
+
+**Parameters**
+
+  - `DATA`, 20 Bytes - address
+
+  - `DATA`, N Bytes - message to sign
+
+**Returns**
+
+- `DATA`: Signature
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_sign",
+  "params": [
+    "0x9b2055d370f73ec7d8a03e965129118dc8f5bf83",
+    "0xdeadbeaf"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="sign-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[signrequest](#schemasignrequest)|true|none|
+
+<h3 id="sign-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## sendTransaction
+
+<a id="opIdsendTransaction"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/sendTransaction \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_sendTransaction",
+  "params": [
+    {
+      "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+      "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+      "gas": "0x76c0",
+      "gasPrice": "0x9184e72a000",
+      "value": "0x9184e72a",
+      "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+    }
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/sendTransaction',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/sendTransaction", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/sendTransaction',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/sendTransaction', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/sendTransaction");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /sendTransaction`
+
+Creates new message call transaction or a contract creation, if the data field contains code.
+
+**Parameters**
+
+`Object` - The transaction object
+
+  - `from`: `DATA`, 20 Bytes - The address the transaction is send from.
+
+  - `to`: `DATA`, 20 Bytes - (optional when creating new contract) The address the transaction is directed to.
+
+  - `gas`: `QUANTITY` - (optional, default: 90000) Integer of the gas provided for the transaction execution. It will return unused gas.
+
+  - `gasPrice`: `QUANTITY` - (optional, default: To-Be-Determined) Integer of the gasPrice used for each paid gas
+
+  - `value`: `QUANTITY` - (optional) Integer of the value sent with this transaction
+
+  - `data`: `DATA` - The compiled code of a contract OR the hash of the invoked method signature and encoded parameters. For details see Ethereum Contract ABI
+
+  - `nonce`: `QUANTITY` - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
+
+```
+params: [{
+  "from": " 0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+  "to": " 0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+  "gas": "0x76c0", // 30400
+  "gasPrice": "0x9184e72a000", // 10000000000000
+  "value": "0x9184e72a", // 2441406250
+  "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+}]
+
+```
+**Returns**
+- `DATA`, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.
+
+ Use `eth_getTransactionReceipt` to get the contract address, after the transaction was mined, when you created a contract.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_sendTransaction",
+  "params": [
+    {
+      "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+      "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+      "gas": "0x76c0",
+      "gasPrice": "0x9184e72a000",
+      "value": "0x9184e72a",
+      "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+    }
+  ],
+  "id": 1
+}
+```
+
+<h3 id="sendtransaction-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[sendTransactionRequest](#schemasendtransactionrequest)|true|none|
+
+<h3 id="sendtransaction-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## sendRawTransaction
+
+<a id="opIdsendRawTransaction"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/sendRawTransaction \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_sendRawTransaction",
+  "params": [
+    "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/sendRawTransaction',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/sendRawTransaction", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/sendRawTransaction',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/sendRawTransaction', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/sendRawTransaction");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /sendRawTransaction`
+
+Creates new message call transaction or a contract creation for signed transactions.
+
+**Parameters**
+
+- `DATA`, The signed transaction data.
+
+```
+params: ["0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"]
+```
+**Returns**
+
+- `DATA`, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.
+
+Use `eth_getTransactionReceipt` to get the contract address, after the transaction was mined, when you created a contract.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_sendRawTransaction",
+  "params": [
+    "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="sendrawtransaction-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[sendRawTransactionRequest](#schemasendrawtransactionrequest)|true|none|
+
+<h3 id="sendrawtransaction-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## call
+
+<a id="opIdcall"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/call \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_call",
+  "params": [
+    {
+      "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+      "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+      "gas": "0x76c0",
+      "gasPrice": "0x9184e72a000",
+      "value": "0x9184e72a",
+      "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+    },
+    "latest"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/call',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/call", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/call',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/call', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/call");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /call`
+
+Executes a new message call immediately without creating a transaction on the block chain.
+
+**Parameters**
+
+`Object` [required]- The transaction call object
+
+  - `from`: `DATA`, 20 Bytes - (optional) The address the transaction is sent from.
+
+  - `to`: `DATA`, 20 Bytes - The address the transaction is directed to.
+
+  - `gas`: `QUANTITY` - (optional) Integer of the gas provided for the transaction execution. eth_call consumes zero gas, but this parameter may be needed by some executions.
+
+  - `gasPrice`: `QUANTITY` - (optional) Integer of the gasPrice used for each paid gas
+
+  - `value`: `QUANTITY` - (optional) Integer of the value sent with this transaction
+
+  - `data`: `DATA` - (optional) Hash of the method signature and encoded parameters. For details see Ethereum Contract ABI
+
+  - `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the default block parameter
+
+**Returns**
+- `DATA` - the return value of executed contract.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_call",
+  "params": [
+    {
+      "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+      "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+      "gas": "0x76c0",
+      "gasPrice": "0x9184e72a000",
+      "value": "0x9184e72a",
+      "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+    },
+    "latest"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="call-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[callrequest](#schemacallrequest)|true|none|
+
+<h3 id="call-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## estimateGas
+
+<a id="opIdestimateGas"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/estimateGas \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_estimateGas",
+  "params": [
+    {
+      "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+      "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+      "gas": "0x76c0",
+      "gasPrice": "0x9184e72a000",
+      "value": "0x9184e72a",
+      "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+    }
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/estimateGas',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/estimateGas", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/estimateGas',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/estimateGas', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/estimateGas");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /estimateGas`
+
+Generates and returns an estimate of how much gas is necessary to allow the transaction to complete.  The transaction will not be added to the blockchain. Note that the estimate may be significantly more  than the amount of gas actually used by the transaction, for a variety of reasons including EVM mechanics and node performance.
+
+**Parameters**
+
+See `eth_call` parameters, expect that all properties are optional. If no gas limit is specified geth uses  the block gas limit from the pending block as an upper bound. As a result the returned estimate might not be  enough to executed the call/transaction when the amount of gas is higher than the pending block gas limit.
+
+**Returns**
+- `QUANTITY` - the amount of gas used.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_estimateGas",
+  "params": [
+    {
+      "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+      "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+      "gas": "0x76c0",
+      "gasPrice": "0x9184e72a000",
+      "value": "0x9184e72a",
+      "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+    }
+  ],
+  "id": 1
+}
+```
+
+<h3 id="estimategas-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[estimateGasRequest](#schemaestimategasrequest)|true|none|
+
+<h3 id="estimategas-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getBlockByHash
+
+<a id="opIdgetBlockByHash"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getBlockByHash \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockByHash",
+  "params": [
+    "0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624",
+    true
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getBlockByHash',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockByHash", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getBlockByHash',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getBlockByHash', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getBlockByHash");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getBlockByHash`
 
 Returns information about a block by hash.
 
-### REQUEST
+**Parameters**
 
-`POST https://rpc.tomochain.com`
-
-#### HEADERS
-
-`Content-Type: application/json`
-
-#### REQUEST PARAMS
-- `BLOCK PARAMETER` _[required]_ - an integer block number, or the string "latest", "earliest" or "pending", see the [default block parameter](https://github.com/ethereum/wiki/wiki/JSON-RPC#the-default-block-parameter)
-- `SHOW TRANSACTION DETAILS FLAG` _[required]_ - if set to true, it returns the full transaction objects, if false only the hashes of the transactions.
-
-> Code samples
-```shell
-
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params": ["0x5BAD55",false],"id":1}'
+- `BLOCKHASH` [required] - a string representing a BLOCKHASH
+- `Boolean` [required] - If true it returns the full transaction objects, if false only the hashes of the transactions.
+```
+params: [
+  '0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624',
+  true
+]
 ```
 
-### RESPONSE
+**Returns**
+`Object` - A block object, or null when no block was found:
 
-#### RESULT FIELDS
-- `BLOCK` - A block object, or null when no block was found
-- `number`: the block number. Null when the returned block is the pending block.
-- `hash`: 32 Bytes - hash of the block. Null when the returned block is the pending block.
-- `parentHash`: 32 Bytes - hash of the parent block.
-- `nonce`: 8 Bytes - hash of the generated proof-of-work. Null when the returned block is the pending block.
-- `sha3Uncles`: 32 Bytes - SHA3 of the uncles data in the block.
-- `logsBloom`: 256 Bytes - the bloom filter for the logs of the block. Null when the returned block is the pending block.
-- `transactionsRoot`: 32 Bytes - the root of the transaction trie of the block.
-- `stateRoot`: 32 Bytes - the root of the final state trie of the block.
-- `receiptsRoot`: 32 Bytes - the root of the receipts trie of the block.
-- `miner`: 20 Bytes - the address of the beneficiary to whom the mining rewards were given.
-- `difficulty`: integer of the difficulty for this block.
-- `totalDifficulty`: integer of the total difficulty of the chain until this block.
-- `extraData`: the "extra data" field of this block.
-- `size`: integer the size of this block in bytes.
-- `gasLimit`: the maximum gas allowed in this block.
-- `gasUsed`: the total used gas by all transactions in this block.
-- `timestamp`: the unix timestamp for when the block was collated.
-- `transactions`: Array - Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.
-- `uncles`: an Array of uncle hashes.
+  - `number`: `QUANTITY` - the block number. null when its pending block.
 
-> Example response
+  - `hash`: `DATA`, 32 Bytes - hash of the block. `null` when its pending block.
 
-> 200 Response
+  - `parentHash`: `DATA`, 32 Bytes - hash of the parent block.
+
+  - `nonce`: `DATA`, 8 Bytes - hash of the generated proof-of-work. `null` when its pending block.
+
+  - `sha3Uncles`: `DATA`, 32 Bytes - SHA3 of the uncles data in the block.
+
+  - `logsBloom`: `DATA`, 256 Bytes - the bloom filter for the logs of the block. `null` when its pending block.
+
+  - `transactionsRoot`: `DATA`, 32 Bytes - the root of the transaction trie of the block.
+
+  - `stateRoot`: `DATA`, 32 Bytes - the root of the final state trie of the block.
+
+  - `receiptsRoot`: `DATA`, 32 Bytes - the root of the receipts trie of the block.
+
+  - `miner`: `DATA`, 20 Bytes - the address of the beneficiary to whom the mining rewards were given.
+
+  - `difficulty`: `QUANTITY` - integer of the difficulty for this block.
+
+  - `totalDifficulty`: `QUANTITY` - integer of the total difficulty of the chain until this block.
+
+  - `extraData`: `DATA` - the "extra data" field of this block.
+
+  - `size`: `QUANTITY` - integer the size of this block in bytes.
+
+  - `gasLimit`: `QUANTITY` - the maximum gas allowed in this block.
+
+  - `gasUsed`: `QUANTITY` - the total used gas by all transactions in this block.
+
+  - `timestamp`: `QUANTITY` - the unix timestamp for when the block was collated.
+
+  - `transactions`: `Array` - Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.
+
+  - `uncles`: `Array` - Array of uncle hashes.
+
+> Body parameter
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": {
-    "difficulty": "0xbfabcdbd93dda",
-    "extraData": "0x737061726b706f6f6c2d636e2d6e6f64652d3132",
-    "gasLimit": "0x79f39e",
-    "gasUsed": "0x79ccd3",
-    "hash": "0xb3b20624f8f0f86eb50dd04688409e5cea4bd02d700bf6e79e9384d47d6a5a35",
-    "logsBloom": "0x4848112002a2020aaa0812180045840210020005281600c80104264300080008000491220144461026015300100000128005018401002090a824a4150015410020140400d808440106689b29d0280b1005200007480ca950b15b010908814e01911000054202a020b05880b914642a0000300003010044044082075290283516be82504082003008c4d8d14462a8800c2990c88002a030140180036c220205201860402001014040180002006860810ec0a1100a14144148408118608200060461821802c081000042d0810104a8004510020211c088200420822a082040e10104c00d010064004c122692020c408a1aa2348020445403814002c800888208b1",
-    "miner": "0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c",
-    "mixHash": "0x3d1fdd16f15aeab72e7db1013b9f034ee33641d92f71c0736beab4e67d34c7a7",
-    "nonce": "0x4db7a1c01d8a8072",
-    "number": "0x5bad55",
-    "parentHash": "0x61a8ad530a8a43e3583f8ec163f773ad370329b2375d66433eb82f005e1d6202",
-    "receiptsRoot": "0x5eced534b3d84d3d732ddbc714f5fd51d98a941b28182b6efe6df3a0fe90004b",
-    "sha3Uncles": "0x8a562e7634774d3e3a36698ac4915e37fc84a2cd0044cb84fa5d80263d2af4f6",
-    "size": "0x41c7",
-    "stateRoot": "0xf5208fffa2ba5a3f3a2f64ebd5ca3d098978bedd75f335f56b705d8715ee2305",
-    "timestamp": "0x5b541449",
-    "totalDifficulty": "0x12ac11391a2f3872fcd",
-    "transactions": [
-      "0x8784d99762bccd03b2086eabccee0d77f14d05463281e121a62abfebcf0d2d5f",
-      "0x311be6a9b58748717ac0f70eb801d29973661aaf1365960d159e4ec4f4aa2d7f",
-      "0xe42b0256058b7cad8a14b136a0364acda0b4c36f5b02dea7e69bfd82cef252a2",
-      "0x4eb05376055c6456ed883fc843bc43df1dcf739c321ba431d518aecd7f98ca11",
-      "0x994dd9e72b212b7dc5fd0466ab75adf7d391cf4f206a65b7ad2a1fd032bb06d7",
-      "0xf6feecbb9ab0ac58591a4bc287059b1133089c499517e91a274e6a1f5e7dce53",
-      "0x7e537d687a5525259480440c6ea2e1a8469cd98906eaff8597f3d2a44422ff97",
-      "0xa762220e92bed6d77a2c19ffc60dad77d71bd5028c5230c896ab4b9552a39b50",
-      "0xf1fa677edda7e5add8e794732c7554cd5459a5c12781dc71de73c7937dfb2775",
-      "0x3220af8e317fde6dac80b1199f9ceeafe60ada4974a7e04a75fbce1ac4cb46c3",
-      "0x5566528978250828168f0d30bcc8a3689d129c75d820d604f7eb84c25b34ec81",
-      "0x646c98e323a05862778f0c9063a989b6aefd94f28842a3a09d2edb37a050717d",
-      "0xe951ea55764f7e8e0720f7042dd1db67525965302ed974a0c8e3b769bc1818e3",
-      "0x7ecf2528b7df3831712501f5c60ef156bf5fcac9912199e0a64afcb963ea91ca",
-      "0xc43b89783f68b2844918ea515cc146c006e5f162c9be9aedf5e7a6ae1f32e164",
-      "0xd74503ede63d6fd41367796433aa14439902e8f57293a0583e19aa6ebf3f128e",
-      "0x021e5b7d3ddac97b4c6cb9c3f333766a533c1ed9fbcfb8b2515c38ecd0c53f89",
-      "0xbb3a336e3f823ec18197f1e13ee875700f08f03e2cab75f0d0b118dabb44cba0",
-      "0x25f65866dba34783200c25fb1c120b36326c9ad3a47e8bc34c3edbc9208f1378",
-      "0x5336f5c4132ef00e8b469ecfd4ee0d6800f6bd60aefb1c62232cbce81c085ae2",
-      "0xb87410cfe0a75c004f7637736b3de1e8f4e08e9e2b05ab963622a40a5505664d",
-      "0x990857a27ec7cfd6dfd88015173adf81959b5abaff6eefbe8e9df6b0f40f2711",
-      "0x3563ccb5734b7b5015122a20b558723afe992ff1109a04b57e02f26edd5a6a38",
-      "0xd7885d9412cc494fbe680b016bf7402b633c34c66833b35cad59af2a4aff4f0b",
-      "0x48e60927d6fb9ae76f69a6400490b5ffcb2f9da3105fad6c61f21256ef0c217c",
-      "0x9e30af26ff3836c4b55af62ba134bc55db662cf1d396cca437d12a8195bfcbe4",
-      "0x2476eeede4764c6871f50f3235ebeb9a56d33b41bc3bb1ce3c18c5d710a0609c",
-      "0x1cd3520fbb1eb6f2f6f257ab7c3cba957806b0b87182baedb4f81c62868064c1",
-      "0x78ae3aee0ff16d8ea4f394b7b80021804e1d9f35cdbb9c6189bb6cbf58bc52c4",
-      "0xfcc75bad728b8d302ba0674ebe3122fc50e3b78fe4948ddfc0d37ee987e666ca",
-      "0xd2175464d72bcc61b2e07aa3aac742b4184480d7a9f6ae5c2ba24d9c9bb9f304",
-      "0x42b56b504e59e42a3dc94e740bb4231e6326daaac7a73ef93ee8db7b96ac5d71",
-      "0xd42681091641cd2a71f18299e8e206d5659c3076b1c63adc26f5b7740e230d2b",
-      "0x1202c354f0a00b31adf9e3d895e0c8f3896182bb3ab9fc69d6c21d31a1bf279c",
-      "0xa5cea1f6957431caf589a8dbb58c102fb191b39967fbe8d26cecf6f28bb835da",
-      "0x2045efeb2f5ea9176690ece680d3fd7ca9e945d0d572d17786810d323628f98c",
-      "0xbf55d13976616a23114b724b14049eaaf91db3f1950320b5306006a6b648b24f",
-      "0x9e5c5ea885eb1d6b1b3ffcf703e3381b7681f7420f35408d30ba93ec0cdf0792",
-      "0x6f1a61dc4306ca5e976a1706afe1f32279548df98e0373c5fee0ea189ddb77a0",
-      "0xc5c16b30c22ee4f90c3a2de70554f7975eb476592ff13c61986d760da6cf7f9d",
-      "0xb09de28497227c0537df0a78797fa00407dcd04a4f90d9de602484b61f7bf169",
-      "0x1bfea966fa7772a26b4b2c8add15ceedcb70a903618f5d4603d69f52b9954025",
-      "0xe58be9c0e3cedd4444c76d1adc098ba40cbe21ef886b2bfc2edb6ed96ba8d966",
-      "0x3a29096f712ccdafd56e9a3c635d4fe2e6224ac3666d466c21da66c8829bbfd6",
-      "0x31feab77d7c1c87eb79af54193400c8edad16645e1ea5fcc10f2eaec51fe3992",
-      "0x4e0278fce62dca8e23cfae6a020fcd3b2facc03244d54b964bbde424f902ffe1",
-      "0x300239a64a50ad0e646c232f85cfa4f3d3ed30090cd574329c782d95c2b42532",
-      "0x41755f354b06b4b8a452db1cc9b5c810c75b1bbe236603cbc0950c3c81b80c51",
-      "0x1e3fbeffc326f1ffd8559c6024c12557e6014bc02c12d65dbc1baa4e1aed94b7",
-      "0x4a459a32cf68e9b7697a3a656432b340d6d27c3d4a513e6cce770d63df99839a",
-      "0x3ef484913d185de728c787a1053ec1444ec1c7a5827eecba521d3b406b088a89",
-      "0x43afa584c21f27a2747a8397b00d3ec4b460d929b61b510d017f01037a3ded3f",
-      "0x44e6a37a6c1d8696fa0537385b9d1bb535b2b3309b5482209e95b5b6c58fc8da",
-      "0x2a8bca48147955efcfd697f1a97304ae4cc467a7778741c2c47e516610f0a876",
-      "0x4c6bd64c8974f8b949cfe265da1c1bb997e3c886f024b38c99d170acc70b83df",
-      "0x103f0cca1ae13600c5be5b217e92430a72b0471d05e283c105f5d0df36438b2a",
-      "0x00a06bf6fbd07b3a89ef9031a2108c8fa31b467b33a6edcd6eb3687c158743cf",
-      "0x0175496d8265dedd693cf88884626c33b699ebcf4f2110e4c7fb7603c53215b2",
-      "0x11fb433ab551b33f30d00a34396835fab72e316e81d1e0afcbc92e79801f30c4",
-      "0x060dc4541fd534d107f6e49b96d84f5ec6dbe4eb714890e800bd02399a6bfb7f",
-      "0x01956de9f96f9a268c6524fffb9919d7fa3de7a4c25d53c2ccc43d0cb022a7ff",
-      "0x15057378f2d223829269ec0f31ba4bb03146134220d34eb8eb7c403aa4a2e569",
-      "0x16ea0218d72b5e3f69d0ae4daa8085150f5f7e69ee22a3b054744e35e2082879",
-      "0x0baf4e8ff92058c1cac3b95c237edb4d2c12ad41d210356c209f1e0bf0d2d12a",
-      "0x1a8ac77aff614caeca16a5a3a0931375a5a4fbe0ef1e15d6d15bf6f8e3c60f4f",
-      "0xdb899136f41a3d4710907345b09d241490776383271e6b9887499fd05b80fcd4",
-      "0x1007e17b1120d37fb930f953d8a3440ca11b8fd84470eb107c8b4a402a9813fd",
-      "0x0910324706ffeebf8aa25ca0784636518bf67e5d173c22438a64dd43d5f4aa2a",
-      "0x028f2bee56aee7005abcb2258d6d9f0f078a85a65c3d669aca40564ef4bd7f94",
-      "0x14adac9bc94cde3166f4b7d42e8862a745483c708e51afbe89ecd6532acc532e",
-      "0x54bed12ccad43523ba8527d1b99f5fa04a55b3a7724cfff2e0a21ec90b08590e",
-      "0xcdf05df923f6e418505750069d6486276b15fcc3cd2f42a7044c642d19a86d51",
-      "0x0c66977ed87db75074cb2bea66b254af3b20bb3315e8095290ceb1260b1b7449",
-      "0x22626e2678da34b505b233ef08fc91ea79c5006dff00e33a442fa51a11e34c25",
-      "0xe2989560000a1fc7c434c5e9c4bba82e1501bf435292ac25acc3cb182c1c2cd0",
-      "0x348cfc85c58b7f3b2e8bdaa517dc8e3c5f8fb41e3ba235f28892b46bc3484756",
-      "0x4ac009cebc1f2416b9e39bcc5b41cd53b1a9239e8f6c0ab043b8830ef1ffc563",
-      "0xf2a96682362b9ffe9a77190bcbc47937743b6e1da2c56257f9b562f15bbd3cfa",
-      "0xf1cd627c97746bc75727c2f0efa2d0dc66cca1b36d8e45d897e18a9b19af2f60",
-      "0x241d89f7888fbcfadfd415ee967882fec6fdd67c07ca8a00f2ca4c910a84c7dd"
-    ],
-    "transactionsRoot": "0xf98631e290e88f58a46b7032f025969039aa9b5696498efc76baf436fa69b262",
-    "uncles": [
-      "0x824cce7c7c2ec6874b9fa9a9a898eb5f27cbaf3991dfa81084c3af60d1db618c"
-    ]
-  }
+  "method": "eth_getBlockByHash",
+  "params": [
+    "0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624",
+    true
+  ],
+  "id": 1
 }
 ```
 
+<h3 id="getblockbyhash-parameters">Parameters</h3>
 
-## eth_getBlockSignersByNumber
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getBlockByHashRequest](#schemagetblockbyhashrequest)|true|none|
+
+<h3 id="getblockbyhash-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getBlockByNumber
+
+<a id="opIdgetBlockByNumber"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getBlockByNumber \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockByNumber",
+  "params": [
+    "0x0",
+    true
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getBlockByNumber',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockByNumber", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getBlockByNumber',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getBlockByNumber', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getBlockByNumber");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getBlockByNumber`
+
+Returns information about a block by block number.
+
+**Parameters**
+
+`BLOCKNUMBER` [required] - a hex code of an integer representing the BLOCKNUMBER or one of the following special params:
+  
+  - `latest`: get block data of the latest block
+
+  - `pending`: get block data of pending block
+
+  - `earliest`: get the genesis block
+
+`FULLTX` [required] - a boolean value specified whether you want to get transactions list or not
+
+```
+params: [
+  '0x0',
+  true
+]
+```
+
+**Returns**
+
+- `RETURN VALUE` - block data of the given `BLOCKNUMBER`
+
+See `eth_getBlockByHash`
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockByNumber",
+  "params": [
+    "0x0",
+    true
+  ],
+  "id": 1
+}
+```
+
+<h3 id="getblockbynumber-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getBlockByNumberRequest](#schemagetblockbynumberrequest)|true|none|
+
+<h3 id="getblockbynumber-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getBlockSignersByNumber
+
+<a id="opIdgetBlockSignersByNumber"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getBlockSignersByNumber \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockSignersByNumber",
+  "params": [
+    "0xA61F98"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getBlockSignersByNumber',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockSignersByNumber", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getBlockSignersByNumber',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getBlockSignersByNumber', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getBlockSignersByNumber");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getBlockSignersByNumber`
 
 Returns the signers set of the block of given `BLOCKNUMBER`.
 
-#### REQUEST PARAMS
-- `BLOCKNUMBER` _[required]_ - a hex code of an integer representing the `BLOCKNUMBER` or one of the following special params:
-    - `latest`: get block data of the latest block
-    - `pending`:  get block data of pending block
-    - `earliest`: get the genesis block
+**Parameters**
 
-> Code samples 
+`BLOCKNUMBER` [required] - a hex code of an integer representing the `BLOCKNUMBER` or one of the following special params:
+  
+  - `latest`: get block data of the latest block
 
-```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_getBlockSignersByNumber","params": ["0x1"],"id":1}'
+  - `pending`: get block data of pending block
+
+  - `earliest`: get the genesis block
 
 ```
+params: [
+  '0xA61F98'
+]
+```
 
-### RESPONSE
+**Returns**
 
-#### RESULT FIELDS
 - `SIGNERS` - signers set of the block of given `BLOCKNUMBER`
 
-> Example response
-
-> 200 Response
+> Body parameter
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": [
-    "0xffc679dcdf444d2eeb0491a998e7902b411ccf20"
-  ]
+  "method": "eth_getBlockSignersByNumber",
+  "params": [
+    "0xA61F98"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="getblocksignersbynumber-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getBlockSignersByNumberRequest](#schemagetblocksignersbynumberrequest)|true|none|
+
+<h3 id="getblocksignersbynumber-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getBlockSignersByHash
+
+<a id="opIdgetBlockSignersByHash"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getBlockSignersByHash \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockSignersByHash",
+  "params": [
+    "0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getBlockSignersByHash',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockSignersByHash", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
 }
 
 ```
 
+```ruby
+require 'rest-client'
+require 'json'
 
-## eth_getBlockSignersByHash
+headers = {
+  'Content-Type' => 'application/json'
+}
 
-Returns the signers set of the block of given `BLOCKHASH`.
+result = RestClient.post 'https://rpc.tomochain.com/getBlockSignersByHash',
+  params: {
+  }, headers: headers
 
-#### REQUEST PARAMS
-- `BLOCKHASH` _[required]_ - a string representing a `BLOCKHASH` 
-
-> Code samples 
-
-```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_getBlockSignersByHash","params": ["0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624"],"id":1}'
+p JSON.parse(result)
 
 ```
 
-### RESPONSE
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
 
-#### RESULT FIELDS
+r = requests.post('https://rpc.tomochain.com/getBlockSignersByHash', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getBlockSignersByHash");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getBlockSignersByHash`
+
+Returns the signers set of the block of given `BLOCKHASH`.
+
+**Parameters**
+
+- `BLOCKHASH` [required] - a string representing a `BLOCKHASH`
+
+```
+params: [
+  '0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f'
+]
+```
+
+**Returns**
+
 - `SIGNERS` - signers set of the block of given `BLOCKHASH`
 
-> Example response
-
-> 200 Response
+> Body parameter
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": [
-    "0xffc679dcdf444d2eeb0491a998e7902b411ccf20"
-  ]
+  "method": "eth_getBlockSignersByHash",
+  "params": [
+    "0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"
+  ],
+  "id": 1
 }
-
 ```
 
+<h3 id="getblocksignersbyhash-parameters">Parameters</h3>
 
-## eth_getBlockFinalityByNumber
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getBlockSignersByHashRequest](#schemagetblocksignersbyhashrequest)|true|none|
 
-Returns the the finality of the block of given `BLOCKNUMBER`.
+<h3 id="getblocksignersbyhash-responses">Responses</h3>
 
-#### REQUEST PARAMS
-- `BLOCKNUMBER` _[required]_ - a hex code of an integer representing the `BLOCKNUMBER` or one of the following special params:
-    - `latest`: get block data of the latest block
-    - `pending`:  get block data of pending block
-    - `earliest`: get the genesis block
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
 
-> Code samples 
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getBlockFinalityByNumber
+
+<a id="opIdgetBlockFinalityByNumber"></a>
+
+> Code samples
 
 ```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_getBlockFinalityByNumber","params": ["0x1"],"id":1}'
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getBlockFinalityByNumber \
+  -H 'Content-Type: application/json'
 
 ```
 
-### RESPONSE
-
-#### RESULT FIELDS
-- `BLOCK_FINALITY` - integer of the the finality of the block of given `BLOCKNUMBER`
-
-> Example response
-
-> 200 Response
-
-```json
-{
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": 33
+  "method": "eth_getBlockFinalityByNumber",
+  "params": [
+    "0xA61F98"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getBlockFinalityByNumber',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockFinalityByNumber", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
 }
 
 ```
 
+```ruby
+require 'rest-client'
+require 'json'
 
-## eth_getBlockFinalityByHash
+headers = {
+  'Content-Type' => 'application/json'
+}
 
-Returns the signers set of the block of given `BLOCKHASH`.
+result = RestClient.post 'https://rpc.tomochain.com/getBlockFinalityByNumber',
+  params: {
+  }, headers: headers
 
-#### REQUEST PARAMS
-- `BLOCKHASH` _[required]_ - a string representing a `BLOCKHASH` 
+p JSON.parse(result)
 
-> Code samples 
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getBlockFinalityByNumber', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getBlockFinalityByNumber");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getBlockFinalityByNumber`
+
+Returns the the finality of the block of given BLOCKNUMBER.
+
+**Parameters**
+
+- `BLOCKNUMBER` [required] - a hex code of an integer representing the `BLOCKNUMBER` or one of the following special params:
+
+  - `latest`: get block data of the latest block
+
+  - `pending`: get block data of pending block
+
+  - `earliest`: get the genesis block
+
+```
+params: [
+  '0xA61F98'
+]
+```
+
+**Returns**
+
+- `BLOCK_FINALITY` - integer of the the finality of the block of given `BLOCKNUMBER`.
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockFinalityByNumber",
+  "params": [
+    "0xA61F98"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="getblockfinalitybynumber-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getBlockFinalityByNumberRequest](#schemagetblockfinalitybynumberrequest)|true|none|
+
+<h3 id="getblockfinalitybynumber-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getBlockFinalityByHash
+
+<a id="opIdgetBlockFinalityByHash"></a>
+
+> Code samples
 
 ```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_getBlockFinalityByHash","params": ["0xc186660e3cdd390cf4c7861ebc7ec358f0a5c258f0dec324c44581a3abdef90f"],"id":1}'
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getBlockFinalityByHash \
+  -H 'Content-Type: application/json'
 
 ```
 
-### RESPONSE
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockFinalityByHash",
+  "params": [
+    "0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
 
-#### RESULT FIELDS
-- `BLOCK_FINALITY` - integer of the the finality of the block of given `BLOCKHASH`
+};
 
-> Example response
+fetch('https://rpc.tomochain.com/getBlockFinalityByHash',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
-> 200 Response
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockFinalityByHash", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getBlockFinalityByHash',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getBlockFinalityByHash', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getBlockFinalityByHash");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getBlockFinalityByHash`
+
+Returns the the finality of the block of given `BLOCKHASH`.
+
+**Parameters**
+
+`BLOCKHASH` [required] - a string representing a `BLOCKHASH`
+
+```
+params: [
+  '0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f'
+]
+```
+
+**Returns**
+
+- `BLOCK_FINALITY` - integer of the the finality of the block of given `BLOCKHASH`.
+
+> Body parameter
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": 33
+  "method": "eth_getBlockFinalityByHash",
+  "params": [
+    "0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"
+  ],
+  "id": 1
 }
 ```
 
+<h3 id="getblockfinalitybyhash-parameters">Parameters</h3>
 
-## eth_getCandidates
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getBlockFinalityByHashRequest](#schemagetblockfinalitybyhashrequest)|true|none|
+
+<h3 id="getblockfinalitybyhash-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getCandidates
+
+<a id="opIdgetCandidates"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getCandidates \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getCandidates",
+  "params": [
+    "latest"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getCandidates',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getCandidates", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getCandidates',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getCandidates', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getCandidates");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getCandidates`
 
 Returns the statuses of all candidates at a specific epoch
 
-#### REQUEST PARAMS
-- `EPOCH_NUMBER` _[required]_ - a hex code of an integer representing the `EPOCH_NUMBER` or the following special param:
-    - `latest`: get the status of candidate at the current time
+**Parameters**
 
+  - `EPOCH_NUMBER` [required] - a hex code of an integer representing the `EPOCH_NUMBER` or the following special param:
 
-> Code samples 
+      - `latest`: get the status of candidate at the current time
 
-```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_getCandidates","params": ["latest"],"id":1}'
+  ```
 
-```
+  params: [
+    'latest'
+  ]
 
-### RESPONSE
+  ```
 
-#### RESULT FIELDS
+**Returns**
 
-- `EPOCH` - the epoch number of the query of this request
-- `CANDIDATES` - list of candidates along with their statuses and capacities
-  - `STATUS` - a string representing status of the corresponding candidate
-    - `MASTERNODE` - if the candidate is a masternode
-    - `SLASHED` - if the candidate is slashed
-    - `PROPOSED` - if the candidate is proposed, have not been a masternode yet
-    - empty string - if it's not a candidate
+  - `EPOCH` - the epoch number of the query of this request
+
+  - `CANDIDATES` - list of candidates along with their statuses and capacities
+
+      - `STATUS` - a string representing status of the corresponding candidate
+
+      - `MASTERNODE` - if the candidate is a masternode
+      
+      - `SLASHED` - if the candidate is slashed
+
+      - `PROPOSED` - if the candidate is proposed, have not been a masternode yet
+
+      - `empty string` - if it's not a candidate
+
   - `CAPACITY` - capacity of the corresponding candidate
-- `SUCCESS` - true if the request is successful, otherwise it's false
-> Example response
 
-> 200 Response
+  - `SUCCESS` - true if the request is successful, otherwise it's false
+
+> Body parameter
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": {
-    "candidates": {
-      "0x059F8114D61AEb2043FA59D39e3872792F653360": {
-        "capacity": 52000,
-        "status": "MASTERNODE"
-      },
-      "0x4130393462664146336537643436314131453641": {
-        "capacity": 51000,
-        "status": "PROPOSED"
-      },
-      "0x66414BC8D36eCEa132F969B7596cAb2Ba1818b7d": {
-        "capacity": 52000,
-        "status": "SLASHED"
-      },
-      "0xB7e038b0229A97c9CB7AD798aA51757E1017A7D4": {
-        "capacity": 52000,
-        "status": "MASTERNODE"
-      },
-      "0xDD1BE874E267E5661faEA094bfAF3e7d461A1E6A": {
-        "capacity": 52000,
-        "status": "MASTERNODE"
-      },
-      "0xa8D38FB29CDA4Ca011b430a680886fB4CA7F3043": {
-        "capacity": 52000,
-        "status": "MASTERNODE"
-      }
-    },
-    "epoch": 1786,
-    "success": true
-  }
+  "method": "eth_getCandidates",
+  "params": [
+    "latest"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="getcandidates-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getCandidatesRequest](#schemagetcandidatesrequest)|true|none|
+
+<h3 id="getcandidates-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getCandidateStatus
+
+<a id="opIdgetCandidateStatus"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getCandidateStatus \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getCandidateStatus",
+  "params": [
+    "0x1d50df657b6dce50bac634bf18e2d986d807e940",
+    "latest"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getCandidateStatus',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getCandidateStatus", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
 }
 
 ```
 
+```ruby
+require 'rest-client'
+require 'json'
 
-## eth_getCandidateStatus
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getCandidateStatus',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getCandidateStatus', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getCandidateStatus");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getCandidateStatus`
 
 Returns the status of the candidate of given `COINBASE_ADDRESS` at a specific epoch
 
-#### REQUEST PARAMS
-- `COINBASE_ADDRESS` _[required]_ - a string representing a `COINBASE_ADDRESS` (length: 40, start with `0x` )
-- `EPOCH_NUMBER` _[required]_ - a hex code of an integer representing the `EPOCH_NUMBER` or the following special param:
-    - `latest`: get the status of candidate at the current time
+**Parameters**
 
+  - `COINBASE_ADDRESS` [required] - a string representing a `COINBASE_ADDRESS` (length: 40, start with 0x )
 
-> Code samples 
+  - `EPOCH_NUMBER` [required] - a hex code of an integer representing the `EPOCH_NUMBER` or the following special param:
 
-```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_getCandidateStatus","params": ["0x1d50df657b6dce50bac634bf18e2d986d807e940", "latest"],"id":1}'
+      - `latest`: get the status of candidate at the current time
 
-```
+  ```
 
-### RESPONSE
+  params: [
+    '0x1d50df657b6dce50bac634bf18e2d986d807e940',
+    'latest'
+  ]
 
-#### RESULT FIELDS
-- `STATUS` - a string representing status of the candicate of given `COINBASE_ADDRESS`
-  - `MASTERNODE` - if the candidate is a masternode
-  - `SLASHED` - if the candidate is slashed
-  - `PROPOSED` - if the candidate is proposed, have not been a masternode yet
-  - empty string - if it's not a candidate
-- `CAPACITY` - capacity of the candidate
-- `EPOCH` - the epoch number of the query of this request
-- `SUCCESS` - true if the request is successful, otherwise it's false
-> Example response
+  ```
 
-> 200 Response
+**Returns**
+
+  - `STATUS` - a string representing status of the candicate of given `COINBASE_ADDRESS`
+
+      - `MASTERNODE` - if the candidate is a masternode
+
+      - `SLASHED` - if the candidate is slashed
+
+      - `PROPOSED` - if the candidate is proposed, have not been a masternode yet
+
+      - `empty string` - if it's not a candidate
+
+  - `CAPACITY` - capacity of the candidate
+
+  - `EPOCH` - the epoch number of the query of this request
+
+  - `SUCCESS` - true if the request is successful, otherwise it's false
+
+> Body parameter
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": {
-    "capacity": 51000,
-    "epoch": 1727,
-    "status": "PROPOSED",
-    "success": true
-  }
+  "method": "eth_getCandidateStatus",
+  "params": [
+    "0x1d50df657b6dce50bac634bf18e2d986d807e940",
+    "latest"
+  ],
+  "id": 1
 }
 ```
 
+<h3 id="getcandidatestatus-parameters">Parameters</h3>
 
-## eth_getTransactionByHash
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getCandidateStatusRequest](#schemagetcandidatestatusrequest)|true|none|
 
-Returns information about a transaction for a given hash.
+<h3 id="getcandidatestatus-responses">Responses</h3>
 
-### REQUEST
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
 
-`POST https://rpc.tomochain.com`
+<aside class="success">
+This operation does not require authentication
+</aside>
 
-#### HEADERS
+## getTransactionByHash
 
-`Content-Type: application/json`
+<a id="opIdgetTransactionByHash"></a>
 
-#### REQUEST PARAMS
-- `TRANSACTION HASH` _[required]_ - a string representing the hash (32 bytes) of a transaction
-
-> Code samples 
+> Code samples
 
 ```shell
-curl https://rpc.tomochain.com \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d '{"jsonrpc":"2.0","method":"eth_getTransactionByHash","params": ["0xbb3a336e3f823ec18197f1e13ee875700f08f03e2cab75f0d0b118dabb44cba0"],"id":1}'
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getTransactionByHash \
+  -H 'Content-Type: application/json'
+
 ```
 
-### RESPONSE
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionByHash",
+  "params": [
+    "0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
 
-#### RESULT FIELDS
-- `TRANSACTION` - A transaction object, or null when no transaction was found
-- `hash`: 32 Bytes - hash of the transaction.
-- `nonce`: the number of transactions made by the sender prior to this one.
-- `blockHash`: 32 Bytes - hash of the block where this transaction was in. null when its pending.
-- `blockNumber`: block number where this transaction was in. null when its pending.
-- `transactionIndex`: integer of the transactions index position in the block. null when its pending.
-- `from`: 20 Bytes - address of the sender.
-- `to`: 20 Bytes - address of the receiver. null when its a contract creation transaction.
-- `value`: value transferred in Wei.
-- `gasPrice`: gas price provided by the sender in Wei.
-- `gas`: gas provided by the sender.
-- `input`: the data send along with the transaction.
+};
 
-> Example response
+fetch('https://rpc.tomochain.com/getTransactionByHash',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
-> 200 Response
+```
 
-```js
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getTransactionByHash", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getTransactionByHash',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getTransactionByHash', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getTransactionByHash");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getTransactionByHash`
+
+Returns the information about a transaction requested by transaction hash.
+
+**Parameters**
+
+- `DATA`, 32 Bytes - hash of a transaction
+
+```
+params: [
+  "0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1"
+]
+```
+**Returns**
+
+`Object` - A transaction object, or null when no transaction was found:
+
+  - `hash`: `DATA`, 32 Bytes - hash of the transaction.
+
+  - `nonce`: `QUANTITY` - the number of transactions made by the sender prior to this one.
+
+  - `blockHash`: `DATA`, 32 Bytes - hash of the block where this transaction was in. `null` when its pending.
+
+  - `blockNumber`: `QUANTITY` - block number where this transaction was in. `null` when its pending.
+
+  - `transactionIndex`: `QUANTITY` - integer of the transactions index position in the block. `null` when its pending.
+
+  - `from`: `DATA`, 20 Bytes - address of the sender.
+
+  - `to`: `DATA`, 20 Bytes - address of the receiver. `null` when its a contract creation transaction.
+
+  - `value`: `QUANTITY` - value transferred in Wei.
+
+  - `gasPrice`: `QUANTITY` - gas price provided by the sender in Wei.
+
+  - `gas`: `QUANTITY` - gas provided by the sender.
+
+  - `input`: `DATA` - the data send along with the transaction.
+
+> Body parameter
+
+```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
-  "result": {
-    "blockHash": "0xb3b20624f8f0f86eb50dd04688409e5cea4bd02d700bf6e79e9384d47d6a5a35",
-    "blockNumber": "0x5bad55",
-    "from": "0x398137383b3d25c92898c656696e41950e47316b",
-    "gas": "0x1d45e",
-    "gasPrice": "0xfa56ea00",
-    "hash": "0xbb3a336e3f823ec18197f1e13ee875700f08f03e2cab75f0d0b118dabb44cba0",
-    "input": "0xf7d8c88300000000000000000000000000000000000000000000000000000000000cee6100000000000000000000000000000000000000000000000000000000000ac3e1",
-    "nonce": "0x18",
-    "r": "0x2a378831cf81d99a3f06a18ae1b6ca366817ab4d88a70053c41d7a8f0368e031",
-    "s": "0x450d831a05b6e418724436c05c155e0a1b7b921015d0fbc2f667aed709ac4fb5",
-    "to": "0x06012c8cf97bead5deae237070f9587f8e7a266d",
-    "transactionIndex": "0x11",
-    "v": "0x25",
-    "value": "0x1c6bf526340000"
-  }
+  "method": "eth_getTransactionByHash",
+  "params": [
+    "0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1"
+  ],
+  "id": 1
 }
 ```
+
+<h3 id="gettransactionbyhash-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getTransactionByHashRequest](#schemagettransactionbyhashrequest)|true|none|
+
+<h3 id="gettransactionbyhash-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getTransactionByBlockHashAndIndex
+
+<a id="opIdgetTransactionByBlockHashAndIndex"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getTransactionByBlockHashAndIndex \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionByBlockHashAndIndex",
+  "params": [
+    "0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7",
+    "0x0"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getTransactionByBlockHashAndIndex',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getTransactionByBlockHashAndIndex", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getTransactionByBlockHashAndIndex',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getTransactionByBlockHashAndIndex', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getTransactionByBlockHashAndIndex");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getTransactionByBlockHashAndIndex`
+
+Returns information about a transaction by block hash and transaction index position.
+**Parameters**
+
+- `DATA`, 32 Bytes - hash of a block.
+- `QUANTITY` - integer of the transaction index position.
+```
+params: [
+  '0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7',
+  '0x0' // 0
+]
+```
+**Returns**
+See `eth_getTransactionByHash`
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionByBlockHashAndIndex",
+  "params": [
+    "0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7",
+    "0x0"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="gettransactionbyblockhashandindex-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getTransactionByBlockHashAndIndexRequest](#schemagettransactionbyblockhashandindexrequest)|true|none|
+
+<h3 id="gettransactionbyblockhashandindex-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getTransactionByBlockNumberAndIndex
+
+<a id="opIdgetTransactionByBlockNumberAndIndex"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionByBlockNumberAndIndex",
+  "params": [
+    "0x52A96E",
+    "0x1"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getTransactionByBlockNumberAndIndex`
+
+Returns information about a transaction by block number and transaction index position.
+
+**Parameters**
+
+- `QUANTITY|TAG` - a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the default block parameter.
+- `QUANTITY` - the transaction index position.
+```
+params: [
+  '0x29c', // 668
+  '0x0' // 0
+]
+```
+
+**Returns**
+
+See `eth_getTransactionByHash`
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionByBlockNumberAndIndex",
+  "params": [
+    "0x52A96E",
+    "0x1"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="gettransactionbyblocknumberandindex-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getTransactionByBlockNumberAndIndexRequest](#schemagettransactionbyblocknumberandindexrequest)|true|none|
+
+<h3 id="gettransactionbyblocknumberandindex-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getTransactionReceipt
+
+<a id="opIdgetTransactionReceipt"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST https://rpc.tomochain.com/getTransactionReceipt \
+  -H 'Content-Type: application/json'
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionReceipt",
+  "params": [
+    "0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f"
+  ],
+  "id": 1
+}';
+const headers = {
+  'Content-Type':'application/json'
+
+};
+
+fetch('https://rpc.tomochain.com/getTransactionReceipt',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getTransactionReceipt", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json'
+}
+
+result = RestClient.post 'https://rpc.tomochain.com/getTransactionReceipt',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('https://rpc.tomochain.com/getTransactionReceipt', headers = headers)
+
+print r.json()
+
+```
+
+```java
+URL obj = new URL("https://rpc.tomochain.com/getTransactionReceipt");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+`POST /getTransactionReceipt`
+
+Returns the receipt of a transaction by transaction hash.
+
+**Note:** That the receipt is not available for pending transactions.
+
+**Parameters**
+
+- `DATA`, 32 Bytes - hash of a transaction
+
+  ```
+
+  params: [
+    '0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238'
+  ]
+
+  ```
+
+**Returns**
+
+`Object` - A transaction receipt object, or `null` when no receipt was found:
+
+  - `transactionHash`: `DATA`, 32 Bytes - hash of the transaction.
+
+  - `transactionIndex`: `QUANTITY` - integer of the transactions index position in the block.
+
+  - `blockHash`: `DATA`, 32 Bytes - hash of the block where this transaction was in.
+
+  - `blockNumber`: `QUANTITY` - block number where this transaction was in.
+
+  - `cumulativeGasUsed`: `QUANTITY` - The total amount of gas used when this transaction was executed in the block.
+
+  - `gasUsed`: `QUANTITY` - The amount of gas used by this specific transaction alone.
+
+  - `contractAddress`: `DATA`, 20 Bytes - The contract address created, if the transaction was a contract creation, otherwise `null`.
+
+  - `logs`: `Array` - Array of log objects, which this transaction generated.
+
+  - `logsBloom`: `DATA`, 256 Bytes - Bloom filter for light clients to quickly retrieve related logs.
+
+It also returns either :
+
+  - `root` : `DATA` 32 bytes of post-transaction stateroot (pre Byzantium)
+
+  - `status`: `QUANTITY` either `1` (success) or `0` (failure)
+
+> Body parameter
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionReceipt",
+  "params": [
+    "0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f"
+  ],
+  "id": 1
+}
+```
+
+<h3 id="gettransactionreceipt-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[getTransactionReceiptRequest](#schemagettransactionreceiptrequest)|true|none|
+
+<h3 id="gettransactionreceipt-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful Operation|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+# Schemas JSON-RPC
+
+<h2 id="tocS_clientVersionRequest">clientVersionRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemaclientversionrequest"></a>
+<a id="schema_clientVersionRequest"></a>
+<a id="tocSclientversionrequest"></a>
+<a id="tocsclientversionrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "web3_clientVersion",
+  "params": [],
+  "id": 1
+}
+
+```
+
+clientVersionRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_sha3request">sha3request</h2>
+<!-- backwards compatibility -->
+<a id="schemasha3request"></a>
+<a id="schema_sha3request"></a>
+<a id="tocSsha3request"></a>
+<a id="tocssha3request"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "web3_sha3",
+  "params": [
+    "0x68656c6c6f20776f726c64"
+  ],
+  "id": 64
+}
+
+```
+
+sha3request
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_versionrequest">versionrequest</h2>
+<!-- backwards compatibility -->
+<a id="schemaversionrequest"></a>
+<a id="schema_versionrequest"></a>
+<a id="tocSversionrequest"></a>
+<a id="tocsversionrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "net_version",
+  "params": [],
+  "id": 67
+}
+
+```
+
+versionrequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_listeningrequest">listeningrequest</h2>
+<!-- backwards compatibility -->
+<a id="schemalisteningrequest"></a>
+<a id="schema_listeningrequest"></a>
+<a id="tocSlisteningrequest"></a>
+<a id="tocslisteningrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "net_listening",
+  "params": [],
+  "id": 67
+}
+
+```
+
+listeningrequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_peerCountRequest">peerCountRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemapeercountrequest"></a>
+<a id="schema_peerCountRequest"></a>
+<a id="tocSpeercountrequest"></a>
+<a id="tocspeercountrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "net_peerCount",
+  "params": [],
+  "id": 74
+}
+
+```
+
+peerCountRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_protocolVersionRequest">protocolVersionRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemaprotocolversionrequest"></a>
+<a id="schema_protocolVersionRequest"></a>
+<a id="tocSprotocolversionrequest"></a>
+<a id="tocsprotocolversionrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_protocolVersion",
+  "params": [],
+  "id": 67
+}
+
+```
+
+protocolVersionRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_syncingrequest">syncingrequest</h2>
+<!-- backwards compatibility -->
+<a id="schemasyncingrequest"></a>
+<a id="schema_syncingrequest"></a>
+<a id="tocSsyncingrequest"></a>
+<a id="tocssyncingrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_syncing",
+  "params": [],
+  "id": 1
+}
+
+```
+
+syncingrequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_coinbaserequest">coinbaserequest</h2>
+<!-- backwards compatibility -->
+<a id="schemacoinbaserequest"></a>
+<a id="schema_coinbaserequest"></a>
+<a id="tocScoinbaserequest"></a>
+<a id="tocscoinbaserequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_coinbase",
+  "params": [],
+  "id": 64
+}
+
+```
+
+coinbaserequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_gasPriceRequest">gasPriceRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagaspricerequest"></a>
+<a id="schema_gasPriceRequest"></a>
+<a id="tocSgaspricerequest"></a>
+<a id="tocsgaspricerequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_gasPrice",
+  "params": [],
+  "id": 73
+}
+
+```
+
+gasPriceRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_accountsrequest">accountsrequest</h2>
+<!-- backwards compatibility -->
+<a id="schemaaccountsrequest"></a>
+<a id="schema_accountsrequest"></a>
+<a id="tocSaccountsrequest"></a>
+<a id="tocsaccountsrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_accounts",
+  "params": [],
+  "id": 1
+}
+
+```
+
+accountsrequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_blockNumberRequest">blockNumberRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemablocknumberrequest"></a>
+<a id="schema_blockNumberRequest"></a>
+<a id="tocSblocknumberrequest"></a>
+<a id="tocsblocknumberrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_blockNumber",
+  "params": [],
+  "id": 83
+}
+
+```
+
+blockNumberRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getBalanceRequest">getBalanceRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetbalancerequest"></a>
+<a id="schema_getBalanceRequest"></a>
+<a id="tocSgetbalancerequest"></a>
+<a id="tocsgetbalancerequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBalance",
+  "params": [
+    "0x2b5634c42055806a59e9107ed44d43c426e58258",
+    "latest"
+  ],
+  "id": 1
+}
+
+```
+
+getBalanceRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getStorageAtRequest">getStorageAtRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetstorageatrequest"></a>
+<a id="schema_getStorageAtRequest"></a>
+<a id="tocSgetstorageatrequest"></a>
+<a id="tocsgetstorageatrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getStorageAt",
+  "params": [
+    "0x295a70b2de5e3953354a6a8344e616ed314d7251",
+    "0x0",
+    "latest"
+  ],
+  "id": 1
+}
+
+```
+
+getStorageAtRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getTransactionCountRequest">getTransactionCountRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagettransactioncountrequest"></a>
+<a id="schema_getTransactionCountRequest"></a>
+<a id="tocSgettransactioncountrequest"></a>
+<a id="tocsgettransactioncountrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionCount",
+  "params": [
+    "0xbf1dcb735e512b731abd3404c15df6431bd03d42",
+    "latest"
+  ],
+  "id": 1
+}
+
+```
+
+getTransactionCountRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getBlockTransactionCountByHashRequest">getBlockTransactionCountByHashRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetblocktransactioncountbyhashrequest"></a>
+<a id="schema_getBlockTransactionCountByHashRequest"></a>
+<a id="tocSgetblocktransactioncountbyhashrequest"></a>
+<a id="tocsgetblocktransactioncountbyhashrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockTransactionCountByHash",
+  "params": [
+    "0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34"
+  ],
+  "id": 1
+}
+
+```
+
+getBlockTransactionCountByHashRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getBlockTransactionCountByNumberRequest">getBlockTransactionCountByNumberRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetblocktransactioncountbynumberrequest"></a>
+<a id="schema_getBlockTransactionCountByNumberRequest"></a>
+<a id="tocSgetblocktransactioncountbynumberrequest"></a>
+<a id="tocsgetblocktransactioncountbynumberrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockTransactionCountByNumber",
+  "params": [
+    "0x52A8CA"
+  ],
+  "id": 1
+}
+
+```
+
+getBlockTransactionCountByNumberRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getCodeRequest">getCodeRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetcoderequest"></a>
+<a id="schema_getCodeRequest"></a>
+<a id="tocSgetcoderequest"></a>
+<a id="tocsgetcoderequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getCode",
+  "params": [
+    "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
+    "0x2"
+  ],
+  "id": 1
+}
+
+```
+
+getCodeRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_signrequest">signrequest</h2>
+<!-- backwards compatibility -->
+<a id="schemasignrequest"></a>
+<a id="schema_signrequest"></a>
+<a id="tocSsignrequest"></a>
+<a id="tocssignrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_sign",
+  "params": [
+    "0x9b2055d370f73ec7d8a03e965129118dc8f5bf83",
+    "0xdeadbeaf"
+  ],
+  "id": 1
+}
+
+```
+
+signrequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_sendTransactionRequest">sendTransactionRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemasendtransactionrequest"></a>
+<a id="schema_sendTransactionRequest"></a>
+<a id="tocSsendtransactionrequest"></a>
+<a id="tocssendtransactionrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_sendTransaction",
+  "params": [
+    {
+      "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+      "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+      "gas": "0x76c0",
+      "gasPrice": "0x9184e72a000",
+      "value": "0x9184e72a",
+      "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+    }
+  ],
+  "id": 1
+}
+
+```
+
+sendTransactionRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[[Param](#schemaparam)]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_Param">Param</h2>
+<!-- backwards compatibility -->
+<a id="schemaparam"></a>
+<a id="schema_Param"></a>
+<a id="tocSparam"></a>
+<a id="tocsparam"></a>
+
+```json
+{
+  "from": 1.0393608864131634e+48,
+  "to": 1.2127714812045434e+48,
+  "gas": 30400,
+  "gasPrice": 10000000000000,
+  "value": 2441406250,
+  "data": 4.537516814050981e+98
+}
+
+```
+
+Param
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|from|string|true|none|none|
+|to|string|true|none|none|
+|gas|string|true|none|none|
+|gasPrice|string|true|none|none|
+|value|string|true|none|none|
+|data|string|true|none|none|
+
+<h2 id="tocS_sendRawTransactionRequest">sendRawTransactionRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemasendrawtransactionrequest"></a>
+<a id="schema_sendRawTransactionRequest"></a>
+<a id="tocSsendrawtransactionrequest"></a>
+<a id="tocssendrawtransactionrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_sendRawTransaction",
+  "params": [
+    "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+  ],
+  "id": 1
+}
+
+```
+
+sendRawTransactionRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_callrequest">callrequest</h2>
+<!-- backwards compatibility -->
+<a id="schemacallrequest"></a>
+<a id="schema_callrequest"></a>
+<a id="tocScallrequest"></a>
+<a id="tocscallrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_call",
+  "params": [
+    {
+      "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+      "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+      "gas": "0x76c0",
+      "gasPrice": "0x9184e72a000",
+      "value": "0x9184e72a",
+      "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+    },
+    "latest"
+  ],
+  "id": 1
+}
+
+```
+
+callrequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[[Param1](#schemaparam1)]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_Param1">Param1</h2>
+<!-- backwards compatibility -->
+<a id="schemaparam1"></a>
+<a id="schema_Param1"></a>
+<a id="tocSparam1"></a>
+<a id="tocsparam1"></a>
+
+```json
+{
+  "from": "",
+  "to": "",
+  "gas": "",
+  "gasPrice": "",
+  "value": "",
+  "data": ""
+}
+
+```
+
+Param1
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|from|string|false|none|none|
+|to|string|false|none|none|
+|gas|string|false|none|none|
+|gasPrice|string|false|none|none|
+|value|string|false|none|none|
+|data|string|false|none|none|
+
+<h2 id="tocS_estimateGasRequest">estimateGasRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemaestimategasrequest"></a>
+<a id="schema_estimateGasRequest"></a>
+<a id="tocSestimategasrequest"></a>
+<a id="tocsestimategasrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_estimateGas",
+  "params": [
+    {
+      "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+      "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+      "gas": "0x76c0",
+      "gasPrice": "0x9184e72a000",
+      "value": "0x9184e72a",
+      "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+    }
+  ],
+  "id": 1
+}
+
+```
+
+estimateGasRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getBlockByHashRequest">getBlockByHashRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetblockbyhashrequest"></a>
+<a id="schema_getBlockByHashRequest"></a>
+<a id="tocSgetblockbyhashrequest"></a>
+<a id="tocsgetblockbyhashrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockByHash",
+  "params": [
+    "0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624",
+    true
+  ],
+  "id": 1
+}
+
+```
+
+getBlockByHashRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getBlockByNumberRequest">getBlockByNumberRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetblockbynumberrequest"></a>
+<a id="schema_getBlockByNumberRequest"></a>
+<a id="tocSgetblockbynumberrequest"></a>
+<a id="tocsgetblockbynumberrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockByNumber",
+  "params": [
+    "0x0",
+    true
+  ],
+  "id": 1
+}
+
+```
+
+getBlockByNumberRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getBlockSignersByNumberRequest">getBlockSignersByNumberRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetblocksignersbynumberrequest"></a>
+<a id="schema_getBlockSignersByNumberRequest"></a>
+<a id="tocSgetblocksignersbynumberrequest"></a>
+<a id="tocsgetblocksignersbynumberrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockSignersByNumber",
+  "params": [
+    "0xA61F98"
+  ],
+  "id": 1
+}
+
+```
+
+getBlockSignersByNumberRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getBlockSignersByHashRequest">getBlockSignersByHashRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetblocksignersbyhashrequest"></a>
+<a id="schema_getBlockSignersByHashRequest"></a>
+<a id="tocSgetblocksignersbyhashrequest"></a>
+<a id="tocsgetblocksignersbyhashrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockSignersByHash",
+  "params": [
+    "0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"
+  ],
+  "id": 1
+}
+
+```
+
+getBlockSignersByHashRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getBlockFinalityByNumberRequest">getBlockFinalityByNumberRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetblockfinalitybynumberrequest"></a>
+<a id="schema_getBlockFinalityByNumberRequest"></a>
+<a id="tocSgetblockfinalitybynumberrequest"></a>
+<a id="tocsgetblockfinalitybynumberrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockFinalityByNumber",
+  "params": [
+    "0xA61F98"
+  ],
+  "id": 1
+}
+
+```
+
+getBlockFinalityByNumberRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getBlockFinalityByHashRequest">getBlockFinalityByHashRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetblockfinalitybyhashrequest"></a>
+<a id="schema_getBlockFinalityByHashRequest"></a>
+<a id="tocSgetblockfinalitybyhashrequest"></a>
+<a id="tocsgetblockfinalitybyhashrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getBlockFinalityByHash",
+  "params": [
+    "0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"
+  ],
+  "id": 1
+}
+
+```
+
+getBlockFinalityByHashRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getTransactionByHashRequest">getTransactionByHashRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagettransactionbyhashrequest"></a>
+<a id="schema_getTransactionByHashRequest"></a>
+<a id="tocSgettransactionbyhashrequest"></a>
+<a id="tocsgettransactionbyhashrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionByHash",
+  "params": [
+    "0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1"
+  ],
+  "id": 1
+}
+
+```
+
+getTransactionByHashRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getTransactionByBlockHashAndIndexRequest">getTransactionByBlockHashAndIndexRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagettransactionbyblockhashandindexrequest"></a>
+<a id="schema_getTransactionByBlockHashAndIndexRequest"></a>
+<a id="tocSgettransactionbyblockhashandindexrequest"></a>
+<a id="tocsgettransactionbyblockhashandindexrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionByBlockHashAndIndex",
+  "params": [
+    "0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7",
+    "0x0"
+  ],
+  "id": 1
+}
+
+```
+
+getTransactionByBlockHashAndIndexRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getTransactionByBlockNumberAndIndexRequest">getTransactionByBlockNumberAndIndexRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagettransactionbyblocknumberandindexrequest"></a>
+<a id="schema_getTransactionByBlockNumberAndIndexRequest"></a>
+<a id="tocSgettransactionbyblocknumberandindexrequest"></a>
+<a id="tocsgettransactionbyblocknumberandindexrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionByBlockNumberAndIndex",
+  "params": [
+    "0x52A96E",
+    "0x1"
+  ],
+  "id": 1
+}
+
+```
+
+getTransactionByBlockNumberAndIndexRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getTransactionReceiptRequest">getTransactionReceiptRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagettransactionreceiptrequest"></a>
+<a id="schema_getTransactionReceiptRequest"></a>
+<a id="tocSgettransactionreceiptrequest"></a>
+<a id="tocsgettransactionreceiptrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getTransactionReceipt",
+  "params": [
+    "0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f"
+  ],
+  "id": 1
+}
+
+```
+
+getTransactionReceiptRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getCandidatesRequest">getCandidatesRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetcandidatesrequest"></a>
+<a id="schema_getCandidatesRequest"></a>
+<a id="tocSgetcandidatesrequest"></a>
+<a id="tocsgetcandidatesrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getCandidates",
+  "params": [
+    "latest"
+  ],
+  "id": 1
+}
+
+```
+
+getCandidateStatusRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
+
+<h2 id="tocS_getCandidateStatusRequest">getCandidateStatusRequest</h2>
+<!-- backwards compatibility -->
+<a id="schemagetcandidatestatusrequest"></a>
+<a id="schema_getCandidateStatusRequest"></a>
+<a id="tocSgetcandidatestatusrequest"></a>
+<a id="tocsgetcandidatestatusrequest"></a>
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "eth_getCandidateStatus",
+  "params": [
+    "0x1d50df657b6dce50bac634bf18e2d986d807e940",
+    "latest"
+  ],
+  "id": 1
+}
+
+```
+
+getCandidateStatusRequest
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|jsonrpc|string|true|none|none|
+|method|string|true|none|none|
+|params|[string]|true|none|none|
+|id|integer(int32)|true|none|none|
 
 
 <h1 id="tomoscan-apis">TomoScan APIs v1.0.0</h1>
