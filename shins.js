@@ -8,7 +8,9 @@ const shins = require('./index.js');
 
 if (options.customcss) options.customCss = options.customcss; // backwards compatibility
 
+//var inputName = './source/index.html.md';
 var inputName = './source/index.html.md';
+
 
 if (options._.length > 2) {
     inputName = options._[2];
