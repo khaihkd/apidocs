@@ -1,8 +1,8 @@
 ---
-title: TomoMaster APIs
+title: Tomochain APIs
 language_tabs:
   - shell: cURL
-  - javascript--nodejs: Node.JS
+  - javascript: JavaScript
   - go: GO
   - ruby: Ruby
   - python: Python
@@ -23,7 +23,6 @@ Happy to code TomoChain APIs
 
 License: <a href="https://github.com/tomochain/tomochain">Github</a>
 
-<!-- Generator: Widdershins v3.6.6 -->
 
 <h1 id="tomochain-json-rpc">Tomochain JSON-RPC v1.0.0</h1>
 
@@ -46,108 +45,106 @@ API for web3 request
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/clientVersion \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//clientVersion \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "web3_clientVersion",
   "params": [],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/clientVersion',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//clientVersion");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//clientVersion"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/clientVersion", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//clientVersion")
 
-result = RestClient.post 'https://rpc.tomochain.com/clientVersion',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/clientVersion', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//clientVersion", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/clientVersion");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//clientVersion")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":1}")
+  .asString();
 ```
 
 `POST /clientVersion`
@@ -197,110 +194,108 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/sha3 \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//sha3 \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"web3_sha3","params":["0x68656c6c6f20776f726c64"],"id":64}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "web3_sha3",
   "params": [
     "0x68656c6c6f20776f726c64"
   ],
   "id": 64
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/sha3',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//sha3");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//sha3"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/sha3", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"web3_sha3\",\"params\":[\"0x68656c6c6f20776f726c64\"],\"id\":64}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//sha3")
 
-result = RestClient.post 'https://rpc.tomochain.com/sha3',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"web3_sha3\",\"params\":[\"0x68656c6c6f20776f726c64\"],\"id\":64}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/sha3', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"web3_sha3\",\"params\":[\"0x68656c6c6f20776f726c64\"],\"id\":64}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//sha3", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/sha3");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//sha3")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"web3_sha3\",\"params\":[\"0x68656c6c6f20776f726c64\"],\"id\":64}")
+  .asString();
 ```
 
 `POST /sha3`
@@ -360,108 +355,106 @@ API for network request
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/version \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//version \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":67}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "net_version",
   "params": [],
   "id": 67
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/version',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//version");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//version"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/version", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"net_version\",\"params\":[],\"id\":67}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//version")
 
-result = RestClient.post 'https://rpc.tomochain.com/version',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"net_version\",\"params\":[],\"id\":67}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/version', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"net_version\",\"params\":[],\"id\":67}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//version", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/version");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//version")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"net_version\",\"params\":[],\"id\":67}")
+  .asString();
 ```
 
 `POST /version`
@@ -515,108 +508,106 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/listening \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//listening \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"net_listening","params":[],"id":67}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "net_listening",
   "params": [],
   "id": 67
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/listening',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//listening");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//listening"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/listening", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"net_listening\",\"params\":[],\"id\":67}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//listening")
 
-result = RestClient.post 'https://rpc.tomochain.com/listening',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"net_listening\",\"params\":[],\"id\":67}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/listening', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"net_listening\",\"params\":[],\"id\":67}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//listening", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/listening");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//listening")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"net_listening\",\"params\":[],\"id\":67}")
+  .asString();
 ```
 
 `POST /listening`
@@ -666,108 +657,106 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/peerCount \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//peerCount \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":74}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "net_peerCount",
   "params": [],
   "id": 74
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/peerCount',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//peerCount");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//peerCount"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/peerCount", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"net_peerCount\",\"params\":[],\"id\":74}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//peerCount")
 
-result = RestClient.post 'https://rpc.tomochain.com/peerCount',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"net_peerCount\",\"params\":[],\"id\":74}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/peerCount', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"net_peerCount\",\"params\":[],\"id\":74}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//peerCount", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/peerCount");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//peerCount")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"net_peerCount\",\"params\":[],\"id\":74}")
+  .asString();
 ```
 
 `POST /peerCount`
@@ -821,108 +810,106 @@ API for eth information
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/protocolVersion \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//protocolVersion \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_protocolVersion","params":[],"id":67}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_protocolVersion",
   "params": [],
   "id": 67
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/protocolVersion',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//protocolVersion");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//protocolVersion"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/protocolVersion", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_protocolVersion\",\"params\":[],\"id\":67}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//protocolVersion")
 
-result = RestClient.post 'https://rpc.tomochain.com/protocolVersion',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_protocolVersion\",\"params\":[],\"id\":67}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/protocolVersion', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_protocolVersion\",\"params\":[],\"id\":67}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//protocolVersion", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/protocolVersion");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//protocolVersion")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_protocolVersion\",\"params\":[],\"id\":67}")
+  .asString();
 ```
 
 `POST /protocolVersion`
@@ -972,108 +959,106 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/syncing \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//syncing \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_syncing",
   "params": [],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/syncing',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//syncing");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//syncing"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/syncing", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//syncing")
 
-result = RestClient.post 'https://rpc.tomochain.com/syncing',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/syncing', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//syncing", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/syncing");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//syncing")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":1}")
+  .asString();
 ```
 
 `POST /syncing`
@@ -1129,108 +1114,106 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/coinbase \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//coinbase \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_coinbase","params":[],"id":64}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_coinbase",
   "params": [],
   "id": 64
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/coinbase',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//coinbase");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//coinbase"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/coinbase", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_coinbase\",\"params\":[],\"id\":64}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//coinbase")
 
-result = RestClient.post 'https://rpc.tomochain.com/coinbase',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_coinbase\",\"params\":[],\"id\":64}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/coinbase', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_coinbase\",\"params\":[],\"id\":64}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//coinbase", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/coinbase");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//coinbase")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_coinbase\",\"params\":[],\"id\":64}")
+  .asString();
 ```
 
 `POST /coinbase`
@@ -1276,108 +1259,106 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/gasPrice \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//gasPrice \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":73}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_gasPrice",
   "params": [],
   "id": 73
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/gasPrice',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//gasPrice");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//gasPrice"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/gasPrice", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_gasPrice\",\"params\":[],\"id\":73}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//gasPrice")
 
-result = RestClient.post 'https://rpc.tomochain.com/gasPrice',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_gasPrice\",\"params\":[],\"id\":73}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/gasPrice', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_gasPrice\",\"params\":[],\"id\":73}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//gasPrice", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/gasPrice");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//gasPrice")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_gasPrice\",\"params\":[],\"id\":73}")
+  .asString();
 ```
 
 `POST /gasPrice`
@@ -1423,108 +1404,106 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/accounts \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//accounts \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_accounts",
   "params": [],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/accounts',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//accounts");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//accounts"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/accounts", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//accounts")
 
-result = RestClient.post 'https://rpc.tomochain.com/accounts',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/accounts', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//accounts", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/accounts");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//accounts")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}")
+  .asString();
 ```
 
 `POST /accounts`
@@ -1574,108 +1553,106 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/blockNumber \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//blockNumber \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":83}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_blockNumber",
   "params": [],
   "id": 83
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/blockNumber',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//blockNumber");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//blockNumber"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/blockNumber", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":83}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//blockNumber")
 
-result = RestClient.post 'https://rpc.tomochain.com/blockNumber',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":83}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/blockNumber', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":83}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//blockNumber", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/blockNumber");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//blockNumber")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":83}")
+  .asString();
 ```
 
 `POST /blockNumber`
@@ -1721,15 +1698,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getBalance \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getBalance \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x2b5634c42055806a59e9107ed44d43c426e58258","latest"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getBalance",
   "params": [
@@ -1737,95 +1713,94 @@ const inputBody = '{
     "latest"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getBalance',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getBalance");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getBalance"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBalance", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x2b5634c42055806a59e9107ed44d43c426e58258\",\"latest\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getBalance")
 
-result = RestClient.post 'https://rpc.tomochain.com/getBalance',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x2b5634c42055806a59e9107ed44d43c426e58258\",\"latest\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getBalance', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x2b5634c42055806a59e9107ed44d43c426e58258\",\"latest\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getBalance", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getBalance");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBalance")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x2b5634c42055806a59e9107ed44d43c426e58258\",\"latest\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getBalance`
@@ -1883,15 +1858,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getStorageAt \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getStorageAt \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getStorageAt","params":["0x295a70b2de5e3953354a6a8344e616ed314d7251","0x0","latest"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getStorageAt",
   "params": [
@@ -1900,95 +1874,94 @@ const inputBody = '{
     "latest"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getStorageAt',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getStorageAt");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getStorageAt"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getStorageAt", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getStorageAt\",\"params\":[\"0x295a70b2de5e3953354a6a8344e616ed314d7251\",\"0x0\",\"latest\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getStorageAt")
 
-result = RestClient.post 'https://rpc.tomochain.com/getStorageAt',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getStorageAt\",\"params\":[\"0x295a70b2de5e3953354a6a8344e616ed314d7251\",\"0x0\",\"latest\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getStorageAt', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getStorageAt\",\"params\":[\"0x295a70b2de5e3953354a6a8344e616ed314d7251\",\"0x0\",\"latest\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getStorageAt", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getStorageAt");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getStorageAt")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getStorageAt\",\"params\":[\"0x295a70b2de5e3953354a6a8344e616ed314d7251\",\"0x0\",\"latest\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getStorageAt`
@@ -2052,15 +2025,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getTransactionCount \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getTransactionCount \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getTransactionCount","params":["0xbf1dcb735e512b731abd3404c15df6431bd03d42","latest"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getTransactionCount",
   "params": [
@@ -2068,95 +2040,94 @@ const inputBody = '{
     "latest"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getTransactionCount',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getTransactionCount");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getTransactionCount"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getTransactionCount", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"0xbf1dcb735e512b731abd3404c15df6431bd03d42\",\"latest\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getTransactionCount")
 
-result = RestClient.post 'https://rpc.tomochain.com/getTransactionCount',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"0xbf1dcb735e512b731abd3404c15df6431bd03d42\",\"latest\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getTransactionCount', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"0xbf1dcb735e512b731abd3404c15df6431bd03d42\",\"latest\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getTransactionCount", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getTransactionCount");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getTransactionCount")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"0xbf1dcb735e512b731abd3404c15df6431bd03d42\",\"latest\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getTransactionCount`
@@ -2219,110 +2190,108 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getBlockTransactionCountByHash \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getBlockTransactionCountByHash \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByHash","params":["0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getBlockTransactionCountByHash",
   "params": [
     "0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getBlockTransactionCountByHash',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getBlockTransactionCountByHash");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getBlockTransactionCountByHash"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockTransactionCountByHash", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByHash\",\"params\":[\"0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getBlockTransactionCountByHash")
 
-result = RestClient.post 'https://rpc.tomochain.com/getBlockTransactionCountByHash',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByHash\",\"params\":[\"0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getBlockTransactionCountByHash', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByHash\",\"params\":[\"0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getBlockTransactionCountByHash", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getBlockTransactionCountByHash");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockTransactionCountByHash")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByHash\",\"params\":[\"0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getBlockTransactionCountByHash`
@@ -2382,110 +2351,108 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getBlockTransactionCountByNumber \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getBlockTransactionCountByNumber \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByNumber","params":["0x52A8CA"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getBlockTransactionCountByNumber",
   "params": [
     "0x52A8CA"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getBlockTransactionCountByNumber',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getBlockTransactionCountByNumber");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getBlockTransactionCountByNumber"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockTransactionCountByNumber", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByNumber\",\"params\":[\"0x52A8CA\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getBlockTransactionCountByNumber")
 
-result = RestClient.post 'https://rpc.tomochain.com/getBlockTransactionCountByNumber',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByNumber\",\"params\":[\"0x52A8CA\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getBlockTransactionCountByNumber', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByNumber\",\"params\":[\"0x52A8CA\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getBlockTransactionCountByNumber", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getBlockTransactionCountByNumber");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockTransactionCountByNumber")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByNumber\",\"params\":[\"0x52A8CA\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getBlockTransactionCountByNumber`
@@ -2542,15 +2509,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getCode \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getCode \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getCode","params":["0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b","0x2"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getCode",
   "params": [
@@ -2558,95 +2524,94 @@ const inputBody = '{
     "0x2"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getCode',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getCode");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getCode"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getCode", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCode\",\"params\":[\"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b\",\"0x2\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getCode")
 
-result = RestClient.post 'https://rpc.tomochain.com/getCode',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCode\",\"params\":[\"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b\",\"0x2\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getCode', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCode\",\"params\":[\"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b\",\"0x2\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getCode", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getCode");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getCode")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCode\",\"params\":[\"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b\",\"0x2\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getCode`
@@ -2708,15 +2673,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/sign \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//sign \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_sign","params":["0x9b2055d370f73ec7d8a03e965129118dc8f5bf83","0xdeadbeaf"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_sign",
   "params": [
@@ -2724,95 +2688,94 @@ const inputBody = '{
     "0xdeadbeaf"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/sign',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//sign");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//sign"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/sign", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sign\",\"params\":[\"0x9b2055d370f73ec7d8a03e965129118dc8f5bf83\",\"0xdeadbeaf\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//sign")
 
-result = RestClient.post 'https://rpc.tomochain.com/sign',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_sign\",\"params\":[\"0x9b2055d370f73ec7d8a03e965129118dc8f5bf83\",\"0xdeadbeaf\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/sign', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_sign\",\"params\":[\"0x9b2055d370f73ec7d8a03e965129118dc8f5bf83\",\"0xdeadbeaf\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//sign", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/sign");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//sign")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sign\",\"params\":[\"0x9b2055d370f73ec7d8a03e965129118dc8f5bf83\",\"0xdeadbeaf\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /sign`
@@ -2871,15 +2834,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/sendTransaction \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//sendTransaction \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"0xb60e8dd61c5d32be8058bb8eb970870f07233155","to":"0xd46e8dd67c5d32be8058bb8eb970870f07244567","gas":"0x76c0","gasPrice":"0x9184e72a000","value":"0x9184e72a","data":"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"}],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_sendTransaction",
   "params": [
@@ -2893,95 +2855,94 @@ const inputBody = '{
     }
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/sendTransaction',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//sendTransaction");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//sendTransaction"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/sendTransaction", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendTransaction\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//sendTransaction")
 
-result = RestClient.post 'https://rpc.tomochain.com/sendTransaction',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendTransaction\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/sendTransaction', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendTransaction\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//sendTransaction", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/sendTransaction");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//sendTransaction")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendTransaction\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}")
+  .asString();
 ```
 
 `POST /sendTransaction`
@@ -3066,110 +3027,108 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/sendRawTransaction \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//sendRawTransaction \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_sendRawTransaction","params":["0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_sendRawTransaction",
   "params": [
     "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/sendRawTransaction',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//sendRawTransaction");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//sendRawTransaction"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/sendRawTransaction", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendRawTransaction\",\"params\":[\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//sendRawTransaction")
 
-result = RestClient.post 'https://rpc.tomochain.com/sendRawTransaction',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendRawTransaction\",\"params\":[\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/sendRawTransaction', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendRawTransaction\",\"params\":[\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//sendRawTransaction", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/sendRawTransaction");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//sendRawTransaction")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendRawTransaction\",\"params\":[\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /sendRawTransaction`
@@ -3226,15 +3185,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/call \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//call \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_call","params":[{"from":"0xb60e8dd61c5d32be8058bb8eb970870f07233155","to":"0xd46e8dd67c5d32be8058bb8eb970870f07244567","gas":"0x76c0","gasPrice":"0x9184e72a000","value":"0x9184e72a","data":"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"},"latest"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_call",
   "params": [
@@ -3249,95 +3207,94 @@ const inputBody = '{
     "latest"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/call',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//call");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//call"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/call", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"},\"latest\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//call")
 
-result = RestClient.post 'https://rpc.tomochain.com/call',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"},\"latest\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/call', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"},\"latest\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//call", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/call");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//call")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"},\"latest\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /call`
@@ -3410,15 +3367,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/estimateGas \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//estimateGas \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_estimateGas","params":[{"from":"0xb60e8dd61c5d32be8058bb8eb970870f07233155","to":"0xd46e8dd67c5d32be8058bb8eb970870f07244567","gas":"0x76c0","gasPrice":"0x9184e72a000","value":"0x9184e72a","data":"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"}],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_estimateGas",
   "params": [
@@ -3432,95 +3388,94 @@ const inputBody = '{
     }
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/estimateGas',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//estimateGas");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//estimateGas"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/estimateGas", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//estimateGas")
 
-result = RestClient.post 'https://rpc.tomochain.com/estimateGas',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/estimateGas', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//estimateGas", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/estimateGas");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//estimateGas")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}")
+  .asString();
 ```
 
 `POST /estimateGas`
@@ -3578,15 +3533,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getBlockByHash \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getBlockByHash \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getBlockByHash","params":["0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624",true],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getBlockByHash",
   "params": [
@@ -3594,95 +3548,94 @@ const inputBody = '{
     true
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getBlockByHash',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getBlockByHash");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getBlockByHash"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockByHash", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624\",true],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getBlockByHash")
 
-result = RestClient.post 'https://rpc.tomochain.com/getBlockByHash',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624\",true],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getBlockByHash', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624\",true],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getBlockByHash", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getBlockByHash");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockByHash")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624\",true],\"id\":1}")
+  .asString();
 ```
 
 `POST /getBlockByHash`
@@ -3779,15 +3732,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getBlockByNumber \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getBlockByNumber \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["0x0",true],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getBlockByNumber",
   "params": [
@@ -3795,95 +3747,94 @@ const inputBody = '{
     true
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getBlockByNumber',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getBlockByNumber");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getBlockByNumber"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockByNumber", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"0x0\",true],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getBlockByNumber")
 
-result = RestClient.post 'https://rpc.tomochain.com/getBlockByNumber',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"0x0\",true],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getBlockByNumber', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"0x0\",true],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getBlockByNumber", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getBlockByNumber");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockByNumber")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"0x0\",true],\"id\":1}")
+  .asString();
 ```
 
 `POST /getBlockByNumber`
@@ -3953,110 +3904,108 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getBlockSignersByNumber \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getBlockSignersByNumber \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getBlockSignersByNumber","params":["0xA61F98"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getBlockSignersByNumber",
   "params": [
     "0xA61F98"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getBlockSignersByNumber',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getBlockSignersByNumber");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getBlockSignersByNumber"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockSignersByNumber", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getBlockSignersByNumber")
 
-result = RestClient.post 'https://rpc.tomochain.com/getBlockSignersByNumber',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getBlockSignersByNumber', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getBlockSignersByNumber", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getBlockSignersByNumber");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockSignersByNumber")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getBlockSignersByNumber`
@@ -4120,110 +4069,108 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getBlockSignersByHash \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getBlockSignersByHash \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getBlockSignersByHash","params":["0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getBlockSignersByHash",
   "params": [
     "0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getBlockSignersByHash',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getBlockSignersByHash");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getBlockSignersByHash"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockSignersByHash", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getBlockSignersByHash")
 
-result = RestClient.post 'https://rpc.tomochain.com/getBlockSignersByHash',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getBlockSignersByHash', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getBlockSignersByHash", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getBlockSignersByHash");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockSignersByHash")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getBlockSignersByHash`
@@ -4281,110 +4228,108 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getBlockFinalityByNumber \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getBlockFinalityByNumber \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getBlockFinalityByNumber","params":["0xA61F98"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getBlockFinalityByNumber",
   "params": [
     "0xA61F98"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getBlockFinalityByNumber',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getBlockFinalityByNumber");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getBlockFinalityByNumber"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockFinalityByNumber", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getBlockFinalityByNumber")
 
-result = RestClient.post 'https://rpc.tomochain.com/getBlockFinalityByNumber',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getBlockFinalityByNumber', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getBlockFinalityByNumber", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getBlockFinalityByNumber");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockFinalityByNumber")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getBlockFinalityByNumber`
@@ -4448,110 +4393,108 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getBlockFinalityByHash \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getBlockFinalityByHash \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getBlockFinalityByHash","params":["0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getBlockFinalityByHash",
   "params": [
     "0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getBlockFinalityByHash',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getBlockFinalityByHash");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getBlockFinalityByHash"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getBlockFinalityByHash", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getBlockFinalityByHash")
 
-result = RestClient.post 'https://rpc.tomochain.com/getBlockFinalityByHash',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getBlockFinalityByHash', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getBlockFinalityByHash", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getBlockFinalityByHash");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockFinalityByHash")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getBlockFinalityByHash`
@@ -4609,110 +4552,108 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getCandidates \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getCandidates \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getCandidates","params":["latest"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getCandidates",
   "params": [
     "latest"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getCandidates',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getCandidates");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getCandidates"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getCandidates", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidates\",\"params\":[\"latest\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getCandidates")
 
-result = RestClient.post 'https://rpc.tomochain.com/getCandidates',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidates\",\"params\":[\"latest\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getCandidates', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidates\",\"params\":[\"latest\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getCandidates", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getCandidates");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getCandidates")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidates\",\"params\":[\"latest\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getCandidates`
@@ -4790,15 +4731,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getCandidateStatus \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getCandidateStatus \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getCandidateStatus","params":["0x1d50df657b6dce50bac634bf18e2d986d807e940","latest"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getCandidateStatus",
   "params": [
@@ -4806,95 +4746,94 @@ const inputBody = '{
     "latest"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getCandidateStatus',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getCandidateStatus");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getCandidateStatus"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getCandidateStatus", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidateStatus\",\"params\":[\"0x1d50df657b6dce50bac634bf18e2d986d807e940\",\"latest\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getCandidateStatus")
 
-result = RestClient.post 'https://rpc.tomochain.com/getCandidateStatus',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidateStatus\",\"params\":[\"0x1d50df657b6dce50bac634bf18e2d986d807e940\",\"latest\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getCandidateStatus', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidateStatus\",\"params\":[\"0x1d50df657b6dce50bac634bf18e2d986d807e940\",\"latest\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getCandidateStatus", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getCandidateStatus");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getCandidateStatus")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidateStatus\",\"params\":[\"0x1d50df657b6dce50bac634bf18e2d986d807e940\",\"latest\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getCandidateStatus`
@@ -4974,110 +4913,108 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getTransactionByHash \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getTransactionByHash \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getTransactionByHash","params":["0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getTransactionByHash",
   "params": [
     "0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getTransactionByHash',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getTransactionByHash");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getTransactionByHash"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getTransactionByHash", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\":[\"0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getTransactionByHash")
 
-result = RestClient.post 'https://rpc.tomochain.com/getTransactionByHash',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\":[\"0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getTransactionByHash', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\":[\"0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getTransactionByHash", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getTransactionByHash");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getTransactionByHash")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\":[\"0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getTransactionByHash`
@@ -5156,15 +5093,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getTransactionByBlockHashAndIndex \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getTransactionByBlockHashAndIndex \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockHashAndIndex","params":["0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7","0x0"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getTransactionByBlockHashAndIndex",
   "params": [
@@ -5172,95 +5108,94 @@ const inputBody = '{
     "0x0"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getTransactionByBlockHashAndIndex',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getTransactionByBlockHashAndIndex");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getTransactionByBlockHashAndIndex"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getTransactionByBlockHashAndIndex", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockHashAndIndex\",\"params\":[\"0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7\",\"0x0\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getTransactionByBlockHashAndIndex")
 
-result = RestClient.post 'https://rpc.tomochain.com/getTransactionByBlockHashAndIndex',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockHashAndIndex\",\"params\":[\"0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7\",\"0x0\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getTransactionByBlockHashAndIndex', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockHashAndIndex\",\"params\":[\"0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7\",\"0x0\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getTransactionByBlockHashAndIndex", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getTransactionByBlockHashAndIndex");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getTransactionByBlockHashAndIndex")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockHashAndIndex\",\"params\":[\"0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7\",\"0x0\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getTransactionByBlockHashAndIndex`
@@ -5317,15 +5252,14 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockNumberAndIndex","params":["0x52A96E","0x1"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getTransactionByBlockNumberAndIndex",
   "params": [
@@ -5333,95 +5267,94 @@ const inputBody = '{
     "0x1"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockNumberAndIndex\",\"params\":[\"0x52A96E\",\"0x1\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex")
 
-result = RestClient.post 'https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockNumberAndIndex\",\"params\":[\"0x52A96E\",\"0x1\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockNumberAndIndex\",\"params\":[\"0x52A96E\",\"0x1\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getTransactionByBlockNumberAndIndex", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockNumberAndIndex\",\"params\":[\"0x52A96E\",\"0x1\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getTransactionByBlockNumberAndIndex`
@@ -5481,110 +5414,108 @@ This operation does not require authentication
 > Code samples
 
 ```shell
-# You can also use wget
-curl -X POST https://rpc.tomochain.com/getTransactionReceipt \
-  -H 'Content-Type: application/json'
-
+curl --request POST \
+  --url https://rpc.tomochain.com//getTransactionReceipt \
+  --header 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_getTransactionReceipt","params":["0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f"],"id":1}'
 ```
 
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
+```javascript
+var data = JSON.stringify({
   "jsonrpc": "2.0",
   "method": "eth_getTransactionReceipt",
   "params": [
     "0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f"
   ],
   "id": 1
-}';
-const headers = {
-  'Content-Type':'application/json'
-
-};
-
-fetch('https://rpc.tomochain.com/getTransactionReceipt',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
 });
 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://rpc.tomochain.com//getTransactionReceipt");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
 ```
 
 ```go
 package main
 
 import (
-       "bytes"
-       "net/http"
+	"fmt"
+	"strings"
+	"net/http"
+	"io/ioutil"
 )
 
 func main() {
 
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        
-    }
+	url := "https://rpc.tomochain.com//getTransactionReceipt"
 
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://rpc.tomochain.com/getTransactionReceipt", data)
-    req.Header = headers
+	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f\"],\"id\":1}")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
 }
-
 ```
 
 ```ruby
-require 'rest-client'
-require 'json'
+require 'uri'
+require 'net/http'
 
-headers = {
-  'Content-Type' => 'application/json'
-}
+url = URI("https://rpc.tomochain.com//getTransactionReceipt")
 
-result = RestClient.post 'https://rpc.tomochain.com/getTransactionReceipt',
-  params: {
-  }, headers: headers
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-p JSON.parse(result)
+request = Net::HTTP::Post.new(url)
+request["content-type"] = 'application/json'
+request.body = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f\"],\"id\":1}"
 
+response = http.request(request)
+puts response.read_body
 ```
 
 ```python
-import requests
-headers = {
-  'Content-Type': 'application/json'
-}
+import http.client
 
-r = requests.post('https://rpc.tomochain.com/getTransactionReceipt', headers = headers)
+conn = http.client.HTTPSConnection("rpc.tomochain.com")
 
-print r.json()
+payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f\"],\"id\":1}"
 
+headers = { 'content-type': "application/json" }
+
+conn.request("POST", "//getTransactionReceipt", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
 ```
 
 ```java
-URL obj = new URL("https://rpc.tomochain.com/getTransactionReceipt");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getTransactionReceipt")
+  .header("content-type", "application/json")
+  .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f\"],\"id\":1}")
+  .asString();
 ```
 
 `POST /getTransactionReceipt`
@@ -5663,7 +5594,7 @@ It also returns either :
 This operation does not require authentication
 </aside>
 
-# Schemas JSON-RPC
+# Schemas
 
 <h2 id="tocS_clientVersionRequest">clientVersionRequest</h2>
 <!-- backwards compatibility -->
@@ -6789,7 +6720,7 @@ curl -X GET /api/accounts
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/accounts',
@@ -6880,7 +6811,7 @@ curl -X GET /api/accounts/{hash}
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/accounts/{hash}',
@@ -6971,7 +6902,7 @@ curl -X GET /api/accounts/{hash}/mined
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/accounts/{hash}/mined',
@@ -7063,7 +6994,7 @@ curl -X GET /api/token-txs
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/token-txs',
@@ -7156,7 +7087,7 @@ curl -X GET /api/token-holders
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/token-holders',
@@ -7253,7 +7184,7 @@ curl -X GET /api/blocks
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/blocks',
@@ -7344,7 +7275,7 @@ curl -X GET /api/blocks/{hash}
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/blocks/{hash}',
@@ -7435,7 +7366,7 @@ curl -X GET /api/blocks/signers/{blockNumber}
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/blocks/signers/{blockNumber}',
@@ -7529,7 +7460,7 @@ curl -X GET /api/txs
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/txs',
@@ -7624,7 +7555,7 @@ curl -X GET /api/txs/{hash}
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/txs/{hash}',
@@ -7718,7 +7649,7 @@ curl -X GET /api/tokens/{hash}
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/tokens/{hash}',
@@ -7811,7 +7742,7 @@ curl -X GET /api/tokens
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/tokens',
@@ -7904,7 +7835,7 @@ curl -X GET /api/rewards/{voter}
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/rewards/{voter}',
@@ -7996,7 +7927,7 @@ curl -X GET /api/rewards/epoch/{epochNumber}
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 fetch('/api/rewards/epoch/{epochNumber}',
@@ -8106,7 +8037,7 @@ curl -X GET /api/config \
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 const headers = {
@@ -8232,7 +8163,7 @@ curl -X GET /api/candidates \
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 const headers = {
@@ -8369,7 +8300,7 @@ curl -X GET /api/candidates/{candidate} \
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 const headers = {
@@ -8499,7 +8430,7 @@ curl -X GET /api/candidates/{candidate}/voters \
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 const headers = {
@@ -8632,7 +8563,7 @@ curl -X GET /api/candidates/{candidate}/isMasternode \
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 const headers = {
@@ -8748,7 +8679,7 @@ curl -X GET /api/candidates/{candidate}/isCandidate \
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 const headers = {
@@ -8864,7 +8795,7 @@ curl -X GET /api/candidates/{candidate}/{owner}/getRewards \
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 const headers = {
@@ -9007,7 +8938,7 @@ curl -X GET /api/voters/{voter}/candidates \
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 const headers = {
@@ -9135,7 +9066,7 @@ curl -X GET /api/voters/{voter}/rewards \
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 const headers = {
@@ -9278,7 +9209,7 @@ curl -X GET /api/transactions/candidate/{candidate} \
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 const headers = {
@@ -9412,7 +9343,7 @@ curl -X GET /api/transactions/voter/{voter} \
 
 ```
 
-```javascript--nodejs
+```javascript
 const fetch = require('node-fetch');
 
 const headers = {
