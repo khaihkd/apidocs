@@ -44,7 +44,6 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 .idea
-slate.md
-index1.html
+
 # Vim
 .*.sw*
