@@ -5792,13 +5792,6 @@ Returns the receipt of a transaction by transaction hash.
 
 - `DATA`, 32 Bytes - hash of a transaction
 
-  ```
-
-  params: [
-    '0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238'
-  ]
-
-  ```
 
 **Returns**
 
