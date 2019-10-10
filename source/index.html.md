@@ -24,6 +24,8 @@ Happy to code TomoChain APIs
 License: <a href="https://github.com/tomochain/tomochain">Github</a>
 
 
+<!-- Generator: Widdershins v3.6.6 -->
+
 <h1 id="tomochain-json-rpc">Tomochain JSON-RPC v1.0.0</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
@@ -32,7 +34,7 @@ A collection holding all the Tomochain JSON​ RPC API calls
 
 Base URLs:
 
-* <a href="https://rpc.tomochain.com/">https://rpc.tomochain.com/</a>
+* <a href="https://rpc.tomochain.com">https://rpc.tomochain.com</a>
 
 <h1 id="tomochain-json-rpc-web3">web3</h1>
 
@@ -46,7 +48,7 @@ API for web3 request
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//clientVersion \
+  --url https://rpc.tomochain.com/clientVersion \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}'
 ```
@@ -58,7 +60,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//clientVersion",
+  "path": "/clientVersion",
   "headers": {
     "content-type": "application/json"
   }
@@ -96,7 +98,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//clientVersion"
+	url := "https://rpc.tomochain.com/clientVersion"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":1}")
 
@@ -119,7 +121,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//clientVersion")
+url = URI("https://rpc.tomochain.com/clientVersion")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -142,7 +144,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//clientVersion", payload, headers)
+conn.request("POST", "/clientVersion", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -151,7 +153,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//clientVersion")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/clientVersion")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":1}")
   .asString();
@@ -205,7 +207,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//sha3 \
+  --url https://rpc.tomochain.com/sha3 \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"web3_sha3","params":["0x68656c6c6f20776f726c64"],"id":64}'
 ```
@@ -217,7 +219,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//sha3",
+  "path": "/sha3",
   "headers": {
     "content-type": "application/json"
   }
@@ -255,7 +257,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//sha3"
+	url := "https://rpc.tomochain.com/sha3"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"web3_sha3\",\"params\":[\"0x68656c6c6f20776f726c64\"],\"id\":64}")
 
@@ -278,7 +280,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//sha3")
+url = URI("https://rpc.tomochain.com/sha3")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -301,7 +303,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"web3_sha3\",\"params\":[\"0x68656c6
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//sha3", payload, headers)
+conn.request("POST", "/sha3", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -310,7 +312,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//sha3")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/sha3")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"web3_sha3\",\"params\":[\"0x68656c6c6f20776f726c64\"],\"id\":64}")
   .asString();
@@ -374,7 +376,7 @@ API for network request
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//version \
+  --url https://rpc.tomochain.com/version \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":67}'
 ```
@@ -386,7 +388,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//version",
+  "path": "/version",
   "headers": {
     "content-type": "application/json"
   }
@@ -421,7 +423,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//version"
+	url := "https://rpc.tomochain.com/version"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"net_version\",\"params\":[],\"id\":67}")
 
@@ -444,7 +446,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//version")
+url = URI("https://rpc.tomochain.com/version")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -467,7 +469,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"net_version\",\"params\":[],\"id\":
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//version", payload, headers)
+conn.request("POST", "/version", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -476,7 +478,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//version")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/version")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"net_version\",\"params\":[],\"id\":67}")
   .asString();
@@ -534,7 +536,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//listening \
+  --url https://rpc.tomochain.com/listening \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"net_listening","params":[],"id":67}'
 ```
@@ -546,7 +548,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//listening",
+  "path": "/listening",
   "headers": {
     "content-type": "application/json"
   }
@@ -581,7 +583,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//listening"
+	url := "https://rpc.tomochain.com/listening"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"net_listening\",\"params\":[],\"id\":67}")
 
@@ -604,7 +606,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//listening")
+url = URI("https://rpc.tomochain.com/listening")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -627,7 +629,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"net_listening\",\"params\":[],\"id\
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//listening", payload, headers)
+conn.request("POST", "/listening", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -636,7 +638,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//listening")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/listening")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"net_listening\",\"params\":[],\"id\":67}")
   .asString();
@@ -690,7 +692,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//peerCount \
+  --url https://rpc.tomochain.com/peerCount \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":74}'
 ```
@@ -702,7 +704,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//peerCount",
+  "path": "/peerCount",
   "headers": {
     "content-type": "application/json"
   }
@@ -737,7 +739,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//peerCount"
+	url := "https://rpc.tomochain.com/peerCount"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"net_peerCount\",\"params\":[],\"id\":74}")
 
@@ -760,7 +762,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//peerCount")
+url = URI("https://rpc.tomochain.com/peerCount")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -783,7 +785,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"net_peerCount\",\"params\":[],\"id\
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//peerCount", payload, headers)
+conn.request("POST", "/peerCount", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -792,7 +794,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//peerCount")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/peerCount")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"net_peerCount\",\"params\":[],\"id\":74}")
   .asString();
@@ -850,7 +852,7 @@ API for eth information
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//protocolVersion \
+  --url https://rpc.tomochain.com/protocolVersion \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_protocolVersion","params":[],"id":67}'
 ```
@@ -862,7 +864,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//protocolVersion",
+  "path": "/protocolVersion",
   "headers": {
     "content-type": "application/json"
   }
@@ -900,7 +902,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//protocolVersion"
+	url := "https://rpc.tomochain.com/protocolVersion"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_protocolVersion\",\"params\":[],\"id\":67}")
 
@@ -923,7 +925,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//protocolVersion")
+url = URI("https://rpc.tomochain.com/protocolVersion")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -946,7 +948,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_protocolVersion\",\"params\":[]
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//protocolVersion", payload, headers)
+conn.request("POST", "/protocolVersion", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -955,7 +957,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//protocolVersion")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/protocolVersion")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_protocolVersion\",\"params\":[],\"id\":67}")
   .asString();
@@ -1009,7 +1011,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//syncing \
+  --url https://rpc.tomochain.com/syncing \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'
 ```
@@ -1021,7 +1023,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//syncing",
+  "path": "/syncing",
   "headers": {
     "content-type": "application/json"
   }
@@ -1056,7 +1058,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//syncing"
+	url := "https://rpc.tomochain.com/syncing"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":1}")
 
@@ -1079,7 +1081,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//syncing")
+url = URI("https://rpc.tomochain.com/syncing")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -1102,7 +1104,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//syncing", payload, headers)
+conn.request("POST", "/syncing", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -1111,7 +1113,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//syncing")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/syncing")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":1}")
   .asString();
@@ -1171,7 +1173,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//coinbase \
+  --url https://rpc.tomochain.com/coinbase \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_coinbase","params":[],"id":64}'
 ```
@@ -1183,7 +1185,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//coinbase",
+  "path": "/coinbase",
   "headers": {
     "content-type": "application/json"
   }
@@ -1218,7 +1220,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//coinbase"
+	url := "https://rpc.tomochain.com/coinbase"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_coinbase\",\"params\":[],\"id\":64}")
 
@@ -1241,7 +1243,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//coinbase")
+url = URI("https://rpc.tomochain.com/coinbase")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -1264,7 +1266,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_coinbase\",\"params\":[],\"id\"
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//coinbase", payload, headers)
+conn.request("POST", "/coinbase", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -1273,7 +1275,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//coinbase")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/coinbase")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_coinbase\",\"params\":[],\"id\":64}")
   .asString();
@@ -1323,7 +1325,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//gasPrice \
+  --url https://rpc.tomochain.com/gasPrice \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":73}'
 ```
@@ -1335,7 +1337,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//gasPrice",
+  "path": "/gasPrice",
   "headers": {
     "content-type": "application/json"
   }
@@ -1370,7 +1372,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//gasPrice"
+	url := "https://rpc.tomochain.com/gasPrice"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_gasPrice\",\"params\":[],\"id\":73}")
 
@@ -1393,7 +1395,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//gasPrice")
+url = URI("https://rpc.tomochain.com/gasPrice")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -1416,7 +1418,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_gasPrice\",\"params\":[],\"id\"
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//gasPrice", payload, headers)
+conn.request("POST", "/gasPrice", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -1425,7 +1427,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//gasPrice")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/gasPrice")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_gasPrice\",\"params\":[],\"id\":73}")
   .asString();
@@ -1475,7 +1477,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//accounts \
+  --url https://rpc.tomochain.com/accounts \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}'
 ```
@@ -1487,7 +1489,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//accounts",
+  "path": "/accounts",
   "headers": {
     "content-type": "application/json"
   }
@@ -1522,7 +1524,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//accounts"
+	url := "https://rpc.tomochain.com/accounts"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}")
 
@@ -1545,7 +1547,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//accounts")
+url = URI("https://rpc.tomochain.com/accounts")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -1568,7 +1570,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\"
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//accounts", payload, headers)
+conn.request("POST", "/accounts", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -1577,7 +1579,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//accounts")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/accounts")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}")
   .asString();
@@ -1631,7 +1633,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//blockNumber \
+  --url https://rpc.tomochain.com/blockNumber \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":83}'
 ```
@@ -1643,7 +1645,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//blockNumber",
+  "path": "/blockNumber",
   "headers": {
     "content-type": "application/json"
   }
@@ -1678,7 +1680,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//blockNumber"
+	url := "https://rpc.tomochain.com/blockNumber"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":83}")
 
@@ -1701,7 +1703,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//blockNumber")
+url = URI("https://rpc.tomochain.com/blockNumber")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -1724,7 +1726,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"i
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//blockNumber", payload, headers)
+conn.request("POST", "/blockNumber", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -1733,7 +1735,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//blockNumber")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/blockNumber")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":83}")
   .asString();
@@ -1783,7 +1785,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getBalance \
+  --url https://rpc.tomochain.com/getBalance \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x2b5634c42055806a59e9107ed44d43c426e58258","latest"],"id":1}'
 ```
@@ -1795,7 +1797,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getBalance",
+  "path": "/getBalance",
   "headers": {
     "content-type": "application/json"
   }
@@ -1833,7 +1835,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getBalance"
+	url := "https://rpc.tomochain.com/getBalance"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x2b5634c42055806a59e9107ed44d43c426e58258\",\"latest\"],\"id\":1}")
 
@@ -1856,7 +1858,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getBalance")
+url = URI("https://rpc.tomochain.com/getBalance")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -1879,7 +1881,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x2b
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getBalance", payload, headers)
+conn.request("POST", "/getBalance", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -1888,7 +1890,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBalance")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getBalance")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x2b5634c42055806a59e9107ed44d43c426e58258\",\"latest\"],\"id\":1}")
   .asString();
@@ -1903,10 +1905,10 @@ Returns the balance of the account of given address.
 - `DATA`, 20 Bytes - address to check for balance.
 - `QUANTITY|TAG` - integer block number, or the string "latest", "earliest" or "pending", see the default block parameter
 
-``` params: [
-   ' 0x2b5634c42055806a59e9107ed44d43c426e58258',
-   'latest'
-] ```
+      params: [
+        ' 0x2b5634c42055806a59e9107ed44d43c426e58258',
+        'latest'
+      ]
 
 **Returns**
 - `QUANTITY` - integer of the current balance in wei.
@@ -1950,7 +1952,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getStorageAt \
+  --url https://rpc.tomochain.com/getStorageAt \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getStorageAt","params":["0x295a70b2de5e3953354a6a8344e616ed314d7251","0x0","latest"],"id":1}'
 ```
@@ -1962,7 +1964,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getStorageAt",
+  "path": "/getStorageAt",
   "headers": {
     "content-type": "application/json"
   }
@@ -2000,7 +2002,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getStorageAt"
+	url := "https://rpc.tomochain.com/getStorageAt"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getStorageAt\",\"params\":[\"0x295a70b2de5e3953354a6a8344e616ed314d7251\",\"0x0\",\"latest\"],\"id\":1}")
 
@@ -2023,7 +2025,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getStorageAt")
+url = URI("https://rpc.tomochain.com/getStorageAt")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -2046,7 +2048,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getStorageAt\",\"params\":[\"0x
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getStorageAt", payload, headers)
+conn.request("POST", "/getStorageAt", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -2055,7 +2057,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getStorageAt")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getStorageAt")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getStorageAt\",\"params\":[\"0x295a70b2de5e3953354a6a8344e616ed314d7251\",\"0x0\",\"latest\"],\"id\":1}")
   .asString();
@@ -2071,14 +2073,11 @@ Returns the balance of the account of given address.
 
 - `QUANTITY|TAG` - integer block number, or the string "latest", "earliest" or "pending", see the default block parameter
 
-```
+      params: [
+            '0x2b5634c42055806a59e9107ed44d43c426e58258',
+            'latest'
+            ]
 
-params: [
-      '0x2b5634c42055806a59e9107ed44d43c426e58258',
-      'latest'
-      ]
-
-```
 **Returns**
 
 - `QUANTITY` - integer of the current balance in wei.
@@ -2123,7 +2122,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getTransactionCount \
+  --url https://rpc.tomochain.com/getTransactionCount \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getTransactionCount","params":["0xbf1dcb735e512b731abd3404c15df6431bd03d42","latest"],"id":1}'
 ```
@@ -2135,7 +2134,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getTransactionCount",
+  "path": "/getTransactionCount",
   "headers": {
     "content-type": "application/json"
   }
@@ -2173,7 +2172,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getTransactionCount"
+	url := "https://rpc.tomochain.com/getTransactionCount"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"0xbf1dcb735e512b731abd3404c15df6431bd03d42\",\"latest\"],\"id\":1}")
 
@@ -2196,7 +2195,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getTransactionCount")
+url = URI("https://rpc.tomochain.com/getTransactionCount")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -2219,7 +2218,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getTransactionCount", payload, headers)
+conn.request("POST", "/getTransactionCount", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -2228,7 +2227,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getTransactionCount")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getTransactionCount")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"0xbf1dcb735e512b731abd3404c15df6431bd03d42\",\"latest\"],\"id\":1}")
   .asString();
@@ -2243,14 +2242,10 @@ Returns the number of transactions sent from an address.
 - `DATA`, 20 Bytes - address.
 - `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the default block parameter
 
-```
-
-params: [
-  '0x407d73d8a49eeb85d32cf465507dd71d507100c1',
-  'latest' // state at the latest block
-]
-
-```
+      params: [
+        '0x407d73d8a49eeb85d32cf465507dd71d507100c1',
+        'latest' // state at the latest block
+      ]
 
 **Returns**
 
@@ -2295,7 +2290,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getBlockTransactionCountByHash \
+  --url https://rpc.tomochain.com/getBlockTransactionCountByHash \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByHash","params":["0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34"],"id":1}'
 ```
@@ -2307,7 +2302,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getBlockTransactionCountByHash",
+  "path": "/getBlockTransactionCountByHash",
   "headers": {
     "content-type": "application/json"
   }
@@ -2346,7 +2341,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getBlockTransactionCountByHash"
+	url := "https://rpc.tomochain.com/getBlockTransactionCountByHash"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByHash\",\"params\":[\"0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34\"],\"id\":1}")
 
@@ -2369,7 +2364,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getBlockTransactionCountByHash")
+url = URI("https://rpc.tomochain.com/getBlockTransactionCountByHash")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -2392,7 +2387,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByHash\
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getBlockTransactionCountByHash", payload, headers)
+conn.request("POST", "/getBlockTransactionCountByHash", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -2401,7 +2396,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockTransactionCountByHash")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getBlockTransactionCountByHash")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByHash\",\"params\":[\"0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34\"],\"id\":1}")
   .asString();
@@ -2415,13 +2410,9 @@ Returns the number of transactions in a block from a block matching the given bl
 
 - `DATA`, 32 Bytes - hash of a block
 
-```
-
-params: [
-  '0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34'
-]
-
-```
+    params: [
+      '0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34'
+    ]
 
 **Returns**
 
@@ -2465,7 +2456,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getBlockTransactionCountByNumber \
+  --url https://rpc.tomochain.com/getBlockTransactionCountByNumber \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByNumber","params":["0x52A8CA"],"id":1}'
 ```
@@ -2477,7 +2468,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getBlockTransactionCountByNumber",
+  "path": "/getBlockTransactionCountByNumber",
   "headers": {
     "content-type": "application/json"
   }
@@ -2515,7 +2506,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getBlockTransactionCountByNumber"
+	url := "https://rpc.tomochain.com/getBlockTransactionCountByNumber"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByNumber\",\"params\":[\"0x52A8CA\"],\"id\":1}")
 
@@ -2538,7 +2529,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getBlockTransactionCountByNumber")
+url = URI("https://rpc.tomochain.com/getBlockTransactionCountByNumber")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -2561,7 +2552,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByNumbe
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getBlockTransactionCountByNumber", payload, headers)
+conn.request("POST", "/getBlockTransactionCountByNumber", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -2570,7 +2561,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockTransactionCountByNumber")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getBlockTransactionCountByNumber")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByNumber\",\"params\":[\"0x52A8CA\"],\"id\":1}")
   .asString();
@@ -2584,11 +2575,10 @@ Returns the number of transactions in a block matching the given block number.
 
 - `QUANTITY|TAG` - integer of a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the default block parameter.
 
-```
-params: [
-  '0x85', // 232
-]
-```
+    params: [
+      '0x85', // 232
+    ]
+
 **Returns**
 
 - `QUANTITY` - integer of the number of transactions in this block.
@@ -2631,7 +2621,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getCode \
+  --url https://rpc.tomochain.com/getCode \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getCode","params":["0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b","0x2"],"id":1}'
 ```
@@ -2643,7 +2633,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getCode",
+  "path": "/getCode",
   "headers": {
     "content-type": "application/json"
   }
@@ -2681,7 +2671,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getCode"
+	url := "https://rpc.tomochain.com/getCode"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCode\",\"params\":[\"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b\",\"0x2\"],\"id\":1}")
 
@@ -2704,7 +2694,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getCode")
+url = URI("https://rpc.tomochain.com/getCode")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -2727,7 +2717,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCode\",\"params\":[\"0xa94f5
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getCode", payload, headers)
+conn.request("POST", "/getCode", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -2736,7 +2726,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getCode")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getCode")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCode\",\"params\":[\"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b\",\"0x2\"],\"id\":1}")
   .asString();
@@ -2752,12 +2742,10 @@ Returns code at a given address.
 
 - `QUANTITY|TAG` - integer block number, or the string `"latest"`, `"earliest"` or `"pending"`, see the default block parameter
 
-```
-params: [
-  '0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b',
-  '0x2'  // 2
-]
-```
+    params: [
+      '0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b',
+      '0x2'  // 2
+    ]
 
 **Returns**
 
@@ -2802,7 +2790,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//sign \
+  --url https://rpc.tomochain.com/sign \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_sign","params":["0x9b2055d370f73ec7d8a03e965129118dc8f5bf83","0xdeadbeaf"],"id":1}'
 ```
@@ -2814,7 +2802,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//sign",
+  "path": "/sign",
   "headers": {
     "content-type": "application/json"
   }
@@ -2852,7 +2840,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//sign"
+	url := "https://rpc.tomochain.com/sign"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sign\",\"params\":[\"0x9b2055d370f73ec7d8a03e965129118dc8f5bf83\",\"0xdeadbeaf\"],\"id\":1}")
 
@@ -2875,7 +2863,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//sign")
+url = URI("https://rpc.tomochain.com/sign")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -2898,7 +2886,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_sign\",\"params\":[\"0x9b2055d3
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//sign", payload, headers)
+conn.request("POST", "/sign", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -2907,7 +2895,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//sign")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/sign")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sign\",\"params\":[\"0x9b2055d370f73ec7d8a03e965129118dc8f5bf83\",\"0xdeadbeaf\"],\"id\":1}")
   .asString();
@@ -2970,7 +2958,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//sendTransaction \
+  --url https://rpc.tomochain.com/sendTransaction \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"0xb60e8dd61c5d32be8058bb8eb970870f07233155","to":"0xd46e8dd67c5d32be8058bb8eb970870f07244567","gas":"0x76c0","gasPrice":"0x9184e72a000","value":"0x9184e72a","data":"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"}],"id":1}'
 ```
@@ -2982,7 +2970,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//sendTransaction",
+  "path": "/sendTransaction",
   "headers": {
     "content-type": "application/json"
   }
@@ -3026,7 +3014,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//sendTransaction"
+	url := "https://rpc.tomochain.com/sendTransaction"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendTransaction\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}")
 
@@ -3049,7 +3037,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//sendTransaction")
+url = URI("https://rpc.tomochain.com/sendTransaction")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -3072,7 +3060,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendTransaction\",\"params\":[{
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//sendTransaction", payload, headers)
+conn.request("POST", "/sendTransaction", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -3081,7 +3069,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//sendTransaction")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/sendTransaction")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendTransaction\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}")
   .asString();
@@ -3109,17 +3097,15 @@ Creates new message call transaction or a contract creation, if the data field c
 
   - `nonce`: `QUANTITY` - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 
-```
-params: [{
-  "from": " 0xb60e8dd61c5d32be8058bb8eb970870f07233155",
-  "to": " 0xd46e8dd67c5d32be8058bb8eb970870f07244567",
-  "gas": "0x76c0", // 30400
-  "gasPrice": "0x9184e72a000", // 10000000000000
-  "value": "0x9184e72a", // 2441406250
-  "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
-}]
+    params: [{
+      "from": " 0xb60e8dd61c5d32be8058bb8eb970870f07233155",
+      "to": " 0xd46e8dd67c5d32be8058bb8eb970870f07244567",
+      "gas": "0x76c0", // 30400
+      "gasPrice": "0x9184e72a000", // 10000000000000
+      "value": "0x9184e72a", // 2441406250
+      "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+    }]
 
-```
 **Returns**
 - `DATA`, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.
 
@@ -3170,7 +3156,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//sendRawTransaction \
+  --url https://rpc.tomochain.com/sendRawTransaction \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_sendRawTransaction","params":["0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"],"id":1}'
 ```
@@ -3182,7 +3168,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//sendRawTransaction",
+  "path": "/sendRawTransaction",
   "headers": {
     "content-type": "application/json"
   }
@@ -3221,7 +3207,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//sendRawTransaction"
+	url := "https://rpc.tomochain.com/sendRawTransaction"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendRawTransaction\",\"params\":[\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"],\"id\":1}")
 
@@ -3244,7 +3230,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//sendRawTransaction")
+url = URI("https://rpc.tomochain.com/sendRawTransaction")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -3267,7 +3253,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendRawTransaction\",\"params\"
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//sendRawTransaction", payload, headers)
+conn.request("POST", "/sendRawTransaction", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -3276,7 +3262,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//sendRawTransaction")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/sendRawTransaction")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendRawTransaction\",\"params\":[\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"],\"id\":1}")
   .asString();
@@ -3290,9 +3276,8 @@ Creates new message call transaction or a contract creation for signed transacti
 
 - `DATA`, The signed transaction data.
 
-```
-params: ["0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"]
-```
+    params: ["0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"]
+
 **Returns**
 
 - `DATA`, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.
@@ -3337,7 +3322,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//call \
+  --url https://rpc.tomochain.com/call \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_call","params":[{"from":"0xb60e8dd61c5d32be8058bb8eb970870f07233155","to":"0xd46e8dd67c5d32be8058bb8eb970870f07244567","gas":"0x76c0","gasPrice":"0x9184e72a000","value":"0x9184e72a","data":"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"},"latest"],"id":1}'
 ```
@@ -3349,7 +3334,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//call",
+  "path": "/call",
   "headers": {
     "content-type": "application/json"
   }
@@ -3394,7 +3379,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//call"
+	url := "https://rpc.tomochain.com/call"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"},\"latest\"],\"id\":1}")
 
@@ -3417,7 +3402,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//call")
+url = URI("https://rpc.tomochain.com/call")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -3440,7 +3425,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\",\"params\":[{\"from\":\"
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//call", payload, headers)
+conn.request("POST", "/call", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -3449,7 +3434,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//call")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/call")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"},\"latest\"],\"id\":1}")
   .asString();
@@ -3526,7 +3511,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//estimateGas \
+  --url https://rpc.tomochain.com/estimateGas \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_estimateGas","params":[{"from":"0xb60e8dd61c5d32be8058bb8eb970870f07233155","to":"0xd46e8dd67c5d32be8058bb8eb970870f07244567","gas":"0x76c0","gasPrice":"0x9184e72a000","value":"0x9184e72a","data":"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"}],"id":1}'
 ```
@@ -3538,7 +3523,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//estimateGas",
+  "path": "/estimateGas",
   "headers": {
     "content-type": "application/json"
   }
@@ -3582,7 +3567,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//estimateGas"
+	url := "https://rpc.tomochain.com/estimateGas"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}")
 
@@ -3605,7 +3590,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//estimateGas")
+url = URI("https://rpc.tomochain.com/estimateGas")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -3628,7 +3613,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[{\"fr
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//estimateGas", payload, headers)
+conn.request("POST", "/estimateGas", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -3637,7 +3622,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//estimateGas")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/estimateGas")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}")
   .asString();
@@ -3699,7 +3684,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getBlockByHash \
+  --url https://rpc.tomochain.com/getBlockByHash \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getBlockByHash","params":["0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624",true],"id":1}'
 ```
@@ -3711,7 +3696,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getBlockByHash",
+  "path": "/getBlockByHash",
   "headers": {
     "content-type": "application/json"
   }
@@ -3751,7 +3736,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getBlockByHash"
+	url := "https://rpc.tomochain.com/getBlockByHash"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624\",true],\"id\":1}")
 
@@ -3774,7 +3759,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getBlockByHash")
+url = URI("https://rpc.tomochain.com/getBlockByHash")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -3797,7 +3782,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getBlockByHash", payload, headers)
+conn.request("POST", "/getBlockByHash", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -3806,7 +3791,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockByHash")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getBlockByHash")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624\",true],\"id\":1}")
   .asString();
@@ -3820,12 +3805,11 @@ Returns information about a block by hash.
 
 - `BLOCKHASH` [required] - a string representing a BLOCKHASH
 - `Boolean` [required] - If true it returns the full transaction objects, if false only the hashes of the transactions.
-```
-params: [
-  '0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624',
-  true
-]
-```
+
+    params: [
+      '0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624',
+      true
+    ]
 
 **Returns**
 `Object` - A block object, or null when no block was found:
@@ -3907,7 +3891,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getBlockByNumber \
+  --url https://rpc.tomochain.com/getBlockByNumber \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["0x0",true],"id":1}'
 ```
@@ -3919,7 +3903,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getBlockByNumber",
+  "path": "/getBlockByNumber",
   "headers": {
     "content-type": "application/json"
   }
@@ -3957,7 +3941,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getBlockByNumber"
+	url := "https://rpc.tomochain.com/getBlockByNumber"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"0x0\",true],\"id\":1}")
 
@@ -3980,7 +3964,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getBlockByNumber")
+url = URI("https://rpc.tomochain.com/getBlockByNumber")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -4003,7 +3987,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getBlockByNumber", payload, headers)
+conn.request("POST", "/getBlockByNumber", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -4012,7 +3996,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockByNumber")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getBlockByNumber")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"0x0\",true],\"id\":1}")
   .asString();
@@ -4034,12 +4018,10 @@ Returns information about a block by block number.
 
 `FULLTX` [required] - a boolean value specified whether you want to get transactions list or not
 
-```
-params: [
-  '0x0',
-  true
-]
-```
+    params: [
+      '0x0',
+      true
+    ]
 
 **Returns**
 
@@ -4086,7 +4068,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getBlockSignersByNumber \
+  --url https://rpc.tomochain.com/getBlockSignersByNumber \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getBlockSignersByNumber","params":["0xA61F98"],"id":1}'
 ```
@@ -4098,7 +4080,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getBlockSignersByNumber",
+  "path": "/getBlockSignersByNumber",
   "headers": {
     "content-type": "application/json"
   }
@@ -4136,7 +4118,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getBlockSignersByNumber"
+	url := "https://rpc.tomochain.com/getBlockSignersByNumber"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}")
 
@@ -4159,7 +4141,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getBlockSignersByNumber")
+url = URI("https://rpc.tomochain.com/getBlockSignersByNumber")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -4182,7 +4164,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByNumber\",\"par
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getBlockSignersByNumber", payload, headers)
+conn.request("POST", "/getBlockSignersByNumber", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -4191,7 +4173,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockSignersByNumber")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getBlockSignersByNumber")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}")
   .asString();
@@ -4211,11 +4193,9 @@ Returns the signers set of the block of given `BLOCKNUMBER`.
 
   - `earliest`: get the genesis block
 
-```
-params: [
-  '0xA61F98'
-]
-```
+    params: [
+      '0xA61F98'
+    ]
 
 **Returns**
 
@@ -4259,7 +4239,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getBlockSignersByHash \
+  --url https://rpc.tomochain.com/getBlockSignersByHash \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getBlockSignersByHash","params":["0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"],"id":1}'
 ```
@@ -4271,7 +4251,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getBlockSignersByHash",
+  "path": "/getBlockSignersByHash",
   "headers": {
     "content-type": "application/json"
   }
@@ -4310,7 +4290,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getBlockSignersByHash"
+	url := "https://rpc.tomochain.com/getBlockSignersByHash"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}")
 
@@ -4333,7 +4313,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getBlockSignersByHash")
+url = URI("https://rpc.tomochain.com/getBlockSignersByHash")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -4356,7 +4336,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByHash\",\"param
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getBlockSignersByHash", payload, headers)
+conn.request("POST", "/getBlockSignersByHash", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -4365,7 +4345,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockSignersByHash")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getBlockSignersByHash")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}")
   .asString();
@@ -4379,11 +4359,9 @@ Returns the signers set of the block of given `BLOCKHASH`.
 
 - `BLOCKHASH` [required] - a string representing a `BLOCKHASH`
 
-```
-params: [
-  '0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f'
-]
-```
+    params: [
+      '0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f'
+    ]
 
 **Returns**
 
@@ -4427,7 +4405,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getBlockFinalityByNumber \
+  --url https://rpc.tomochain.com/getBlockFinalityByNumber \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getBlockFinalityByNumber","params":["0xA61F98"],"id":1}'
 ```
@@ -4439,7 +4417,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getBlockFinalityByNumber",
+  "path": "/getBlockFinalityByNumber",
   "headers": {
     "content-type": "application/json"
   }
@@ -4477,7 +4455,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getBlockFinalityByNumber"
+	url := "https://rpc.tomochain.com/getBlockFinalityByNumber"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}")
 
@@ -4500,7 +4478,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getBlockFinalityByNumber")
+url = URI("https://rpc.tomochain.com/getBlockFinalityByNumber")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -4523,7 +4501,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByNumber\",\"pa
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getBlockFinalityByNumber", payload, headers)
+conn.request("POST", "/getBlockFinalityByNumber", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -4532,7 +4510,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockFinalityByNumber")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getBlockFinalityByNumber")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}")
   .asString();
@@ -4552,11 +4530,9 @@ Returns the the finality of the block of given BLOCKNUMBER.
 
   - `earliest`: get the genesis block
 
-```
-params: [
-  '0xA61F98'
-]
-```
+    params: [
+      '0xA61F98'
+    ]
 
 **Returns**
 
@@ -4600,7 +4576,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getBlockFinalityByHash \
+  --url https://rpc.tomochain.com/getBlockFinalityByHash \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getBlockFinalityByHash","params":["0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"],"id":1}'
 ```
@@ -4612,7 +4588,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getBlockFinalityByHash",
+  "path": "/getBlockFinalityByHash",
   "headers": {
     "content-type": "application/json"
   }
@@ -4651,7 +4627,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getBlockFinalityByHash"
+	url := "https://rpc.tomochain.com/getBlockFinalityByHash"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}")
 
@@ -4674,7 +4650,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getBlockFinalityByHash")
+url = URI("https://rpc.tomochain.com/getBlockFinalityByHash")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -4697,7 +4673,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByHash\",\"para
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getBlockFinalityByHash", payload, headers)
+conn.request("POST", "/getBlockFinalityByHash", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -4706,7 +4682,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getBlockFinalityByHash")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getBlockFinalityByHash")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}")
   .asString();
@@ -4720,11 +4696,9 @@ Returns the the finality of the block of given `BLOCKHASH`.
 
 `BLOCKHASH` [required] - a string representing a `BLOCKHASH`
 
-```
-params: [
-  '0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f'
-]
-```
+    params: [
+      '0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f'
+    ]
 
 **Returns**
 
@@ -4768,7 +4742,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getCandidates \
+  --url https://rpc.tomochain.com/getCandidates \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getCandidates","params":["latest"],"id":1}'
 ```
@@ -4780,7 +4754,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getCandidates",
+  "path": "/getCandidates",
   "headers": {
     "content-type": "application/json"
   }
@@ -4818,7 +4792,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getCandidates"
+	url := "https://rpc.tomochain.com/getCandidates"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidates\",\"params\":[\"latest\"],\"id\":1}")
 
@@ -4841,7 +4815,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getCandidates")
+url = URI("https://rpc.tomochain.com/getCandidates")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -4864,7 +4838,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidates\",\"params\":[\"l
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getCandidates", payload, headers)
+conn.request("POST", "/getCandidates", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -4873,7 +4847,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getCandidates")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getCandidates")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidates\",\"params\":[\"latest\"],\"id\":1}")
   .asString();
@@ -4889,13 +4863,9 @@ Returns the statuses of all candidates at a specific epoch
 
       - `latest`: get the status of candidate at the current time
 
-  ```
-
-  params: [
-    'latest'
-  ]
-
-  ```
+      params: [
+        'latest'
+      ]
 
 **Returns**
 
@@ -4955,7 +4925,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getCandidateStatus \
+  --url https://rpc.tomochain.com/getCandidateStatus \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getCandidateStatus","params":["0x1d50df657b6dce50bac634bf18e2d986d807e940","latest"],"id":1}'
 ```
@@ -4967,7 +4937,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getCandidateStatus",
+  "path": "/getCandidateStatus",
   "headers": {
     "content-type": "application/json"
   }
@@ -5005,7 +4975,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getCandidateStatus"
+	url := "https://rpc.tomochain.com/getCandidateStatus"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidateStatus\",\"params\":[\"0x1d50df657b6dce50bac634bf18e2d986d807e940\",\"latest\"],\"id\":1}")
 
@@ -5028,7 +4998,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getCandidateStatus")
+url = URI("https://rpc.tomochain.com/getCandidateStatus")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -5051,7 +5021,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidateStatus\",\"params\"
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getCandidateStatus", payload, headers)
+conn.request("POST", "/getCandidateStatus", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -5060,7 +5030,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getCandidateStatus")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getCandidateStatus")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidateStatus\",\"params\":[\"0x1d50df657b6dce50bac634bf18e2d986d807e940\",\"latest\"],\"id\":1}")
   .asString();
@@ -5078,15 +5048,12 @@ Returns the status of the candidate of given `COINBASE_ADDRESS` at a specific ep
 
       - `latest`: get the status of candidate at the current time
 
-  ```
+      params: [
+        '0x1d50df657b6dce50bac634bf18e2d986d807e940',
+        'latest'
+      ]
 
-  params: [
-    '0x1d50df657b6dce50bac634bf18e2d986d807e940',
-    'latest'
-  ]
-
-  ```
-
+  
 **Returns**
 
   - `STATUS` - a string representing status of the candicate of given `COINBASE_ADDRESS`
@@ -5144,7 +5111,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getTransactionByHash \
+  --url https://rpc.tomochain.com/getTransactionByHash \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getTransactionByHash","params":["0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1"],"id":1}'
 ```
@@ -5156,7 +5123,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getTransactionByHash",
+  "path": "/getTransactionByHash",
   "headers": {
     "content-type": "application/json"
   }
@@ -5195,7 +5162,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getTransactionByHash"
+	url := "https://rpc.tomochain.com/getTransactionByHash"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\":[\"0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1\"],\"id\":1}")
 
@@ -5218,7 +5185,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getTransactionByHash")
+url = URI("https://rpc.tomochain.com/getTransactionByHash")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -5241,7 +5208,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getTransactionByHash", payload, headers)
+conn.request("POST", "/getTransactionByHash", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -5250,7 +5217,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getTransactionByHash")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getTransactionByHash")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\":[\"0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1\"],\"id\":1}")
   .asString();
@@ -5264,11 +5231,10 @@ Returns the information about a transaction requested by transaction hash.
 
 - `DATA`, 32 Bytes - hash of a transaction
 
-```
-params: [
-  "0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1"
-]
-```
+    params: [
+      "0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1"
+    ]
+
 **Returns**
 
 `Object` - A transaction object, or null when no transaction was found:
@@ -5333,7 +5299,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getTransactionByBlockHashAndIndex \
+  --url https://rpc.tomochain.com/getTransactionByBlockHashAndIndex \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockHashAndIndex","params":["0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7","0x0"],"id":1}'
 ```
@@ -5345,7 +5311,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getTransactionByBlockHashAndIndex",
+  "path": "/getTransactionByBlockHashAndIndex",
   "headers": {
     "content-type": "application/json"
   }
@@ -5385,7 +5351,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getTransactionByBlockHashAndIndex"
+	url := "https://rpc.tomochain.com/getTransactionByBlockHashAndIndex"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockHashAndIndex\",\"params\":[\"0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7\",\"0x0\"],\"id\":1}")
 
@@ -5408,7 +5374,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getTransactionByBlockHashAndIndex")
+url = URI("https://rpc.tomochain.com/getTransactionByBlockHashAndIndex")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -5431,7 +5397,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockHashAndInd
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getTransactionByBlockHashAndIndex", payload, headers)
+conn.request("POST", "/getTransactionByBlockHashAndIndex", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -5440,7 +5406,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getTransactionByBlockHashAndIndex")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getTransactionByBlockHashAndIndex")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockHashAndIndex\",\"params\":[\"0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7\",\"0x0\"],\"id\":1}")
   .asString();
@@ -5453,12 +5419,12 @@ Returns information about a transaction by block hash and transaction index posi
 
 - `DATA`, 32 Bytes - hash of a block.
 - `QUANTITY` - integer of the transaction index position.
-```
-params: [
-  '0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7',
-  '0x0' // 0
-]
-```
+
+    params: [
+      '0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7',
+      '0x0' // 0
+    ]
+
 **Returns**
 See `eth_getTransactionByHash`
 
@@ -5501,7 +5467,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex \
+  --url https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockNumberAndIndex","params":["0x52A96E","0x1"],"id":1}'
 ```
@@ -5513,7 +5479,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getTransactionByBlockNumberAndIndex",
+  "path": "/getTransactionByBlockNumberAndIndex",
   "headers": {
     "content-type": "application/json"
   }
@@ -5551,7 +5517,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex"
+	url := "https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockNumberAndIndex\",\"params\":[\"0x52A96E\",\"0x1\"],\"id\":1}")
 
@@ -5574,7 +5540,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex")
+url = URI("https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -5597,7 +5563,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockNumberAndI
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getTransactionByBlockNumberAndIndex", payload, headers)
+conn.request("POST", "/getTransactionByBlockNumberAndIndex", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -5606,7 +5572,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockNumberAndIndex\",\"params\":[\"0x52A96E\",\"0x1\"],\"id\":1}")
   .asString();
@@ -5620,12 +5586,11 @@ Returns information about a transaction by block number and transaction index po
 
 - `QUANTITY|TAG` - a block number, or the string `"earliest"`, `"latest"` or `"pending"`, as in the default block parameter.
 - `QUANTITY` - the transaction index position.
-```
-params: [
-  '0x29c', // 668
-  '0x0' // 0
-]
-```
+
+    params: [
+      '0x29c', // 668
+      '0x0' // 0
+    ]
 
 **Returns**
 
@@ -5670,7 +5635,7 @@ This operation does not require authentication
 
 ```shell
 curl --request POST \
-  --url https://rpc.tomochain.com//getTransactionReceipt \
+  --url https://rpc.tomochain.com/getTransactionReceipt \
   --header 'content-type: application/json' \
   --data '{"jsonrpc":"2.0","method":"eth_getTransactionReceipt","params":["0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f"],"id":1}'
 ```
@@ -5682,7 +5647,7 @@ var options = {
   "method": "POST",
   "hostname": "rpc.tomochain.com",
   "port": null,
-  "path": "//getTransactionReceipt",
+  "path": "/getTransactionReceipt",
   "headers": {
     "content-type": "application/json"
   }
@@ -5721,7 +5686,7 @@ import (
 
 func main() {
 
-	url := "https://rpc.tomochain.com//getTransactionReceipt"
+	url := "https://rpc.tomochain.com/getTransactionReceipt"
 
 	payload := strings.NewReader("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f\"],\"id\":1}")
 
@@ -5744,7 +5709,7 @@ func main() {
 require 'uri'
 require 'net/http'
 
-url = URI("https://rpc.tomochain.com//getTransactionReceipt")
+url = URI("https://rpc.tomochain.com/getTransactionReceipt")
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
@@ -5767,7 +5732,7 @@ payload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"param
 
 headers = { 'content-type': "application/json" }
 
-conn.request("POST", "//getTransactionReceipt", payload, headers)
+conn.request("POST", "/getTransactionReceipt", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -5776,7 +5741,7 @@ print(data.decode("utf-8"))
 ```
 
 ```java
-HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com//getTransactionReceipt")
+HttpResponse<String> response = Unirest.post("https://rpc.tomochain.com/getTransactionReceipt")
   .header("content-type", "application/json")
   .body("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f\"],\"id\":1}")
   .asString();

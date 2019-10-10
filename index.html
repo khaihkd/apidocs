@@ -41,6 +41,7 @@ window.onpopstate = function() {
     
     <meta name="theme-color" content="#F3F7F9" />
 <!-- Renderer: Shins v2.3.2-3 -->
+<!-- Generator: Widdershins v3.6.6 -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
@@ -79,7 +80,7 @@ window.onpopstate = function() {
 <!-- backwards compatibility -->
   </head>
 
-  <body data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;go&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;java&quot;]">
+  <body data-languages="[&quot;shell&quot;,&quot;node&quot;,&quot;go&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;java&quot;]">
     <div class="navbar-container">
       <nav class="navbar">
         <div style="background-image: url(source/images/logo.png)" class="logo"></div>
@@ -114,7 +115,7 @@ window.onpopstate = function() {
             
           
             
-              <a href="#" data-language-name="javascript">JavaScript</a>
+              <a href="#" data-language-name="node">Node.js</a>
             
           
             
@@ -853,7 +854,7 @@ window.onpopstate = function() {
 <p>A collection holding all the Tomochain JSON​ RPC API calls</p>
 <p>Base URLs:</p>
 <ul>
-<li><a href="https://rpc.tomochain.com/">https://rpc.tomochain.com/</a></li>
+<li><a href="https://rpc.tomochain.com">https://rpc.tomochain.com</a></li>
 </ul>
 <h1 id="tomochain-json-rpc-web3">web3</h1>
 <p>API for web3 request</p>
@@ -863,30 +864,40 @@ window.onpopstate = function() {
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//clientVersion \
+  --url https://rpc.tomochain.com/clientVersion \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"web3_clientVersion"</span>,
-  <span class="hljs-string">"params"</span>: [],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/clientVersion&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//clientVersion"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'web3_clientVersion',
+  params: [],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -899,7 +910,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//clientVersion"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/clientVersion"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":1}"</span>)
 
@@ -920,7 +931,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//clientVersion"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/clientVersion"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -941,14 +952,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"web3_clie
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//clientVersion"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/clientVersion"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//clientVersion"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/clientVersion"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":1}"</span>)
   .asString();
@@ -1024,32 +1035,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//sha3 \
+  --url https://rpc.tomochain.com/sha3 \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"web3_sha3","params":["0x68656c6c6f20776f726c64"],"id":64}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"web3_sha3"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x68656c6c6f20776f726c64"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">64</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/sha3&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//sha3"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'web3_sha3',
+  params: [ '0x68656c6c6f20776f726c64' ],
+  id: 64 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -1062,7 +1081,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//sha3"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/sha3"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"web3_sha3\",\"params\":[\"0x68656c6c6f20776f726c64\"],\"id\":64}"</span>)
 
@@ -1083,7 +1102,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//sha3"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/sha3"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -1104,14 +1123,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"web3_sha3
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//sha3"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/sha3"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//sha3"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/sha3"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"web3_sha3\",\"params\":[\"0x68656c6c6f20776f726c64\"],\"id\":64}"</span>)
   .asString();
@@ -1194,30 +1213,37 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//version \
+  --url https://rpc.tomochain.com/version \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"net_version","params":[],"id":67}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"net_version"</span>,
-  <span class="hljs-string">"params"</span>: [],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">67</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/version&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//version"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0', method: 'net_version', params: [], id: 67 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -1230,7 +1256,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//version"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/version"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"net_version\",\"params\":[],\"id\":67}"</span>)
 
@@ -1251,7 +1277,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//version"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/version"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -1272,14 +1298,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"net_versi
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//version"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/version"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//version"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/version"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"net_version\",\"params\":[],\"id\":67}"</span>)
   .asString();
@@ -1367,30 +1393,37 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//listening \
+  --url https://rpc.tomochain.com/listening \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"net_listening","params":[],"id":67}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"net_listening"</span>,
-  <span class="hljs-string">"params"</span>: [],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">67</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/listening&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//listening"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0', method: 'net_listening', params: [], id: 67 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -1403,7 +1436,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//listening"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/listening"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"net_listening\",\"params\":[],\"id\":67}"</span>)
 
@@ -1424,7 +1457,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//listening"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/listening"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -1445,14 +1478,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"net_liste
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//listening"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/listening"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//listening"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/listening"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"net_listening\",\"params\":[],\"id\":67}"</span>)
   .asString();
@@ -1530,30 +1563,37 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//peerCount \
+  --url https://rpc.tomochain.com/peerCount \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":74}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"net_peerCount"</span>,
-  <span class="hljs-string">"params"</span>: [],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">74</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/peerCount&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//peerCount"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0', method: 'net_peerCount', params: [], id: 74 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -1566,7 +1606,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//peerCount"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/peerCount"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"net_peerCount\",\"params\":[],\"id\":74}"</span>)
 
@@ -1587,7 +1627,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//peerCount"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/peerCount"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -1608,14 +1648,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"net_peerC
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//peerCount"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/peerCount"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//peerCount"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/peerCount"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"net_peerCount\",\"params\":[],\"id\":74}"</span>)
   .asString();
@@ -1695,30 +1735,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//protocolVersion \
+  --url https://rpc.tomochain.com/protocolVersion \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_protocolVersion","params":[],"id":67}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_protocolVersion"</span>,
-  <span class="hljs-string">"params"</span>: [],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">67</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/protocolVersion&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//protocolVersion"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_protocolVersion',
+  params: [],
+  id: 67 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -1731,7 +1781,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//protocolVersion"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/protocolVersion"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_protocolVersion\",\"params\":[],\"id\":67}"</span>)
 
@@ -1752,7 +1802,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//protocolVersion"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/protocolVersion"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -1773,14 +1823,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_proto
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//protocolVersion"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/protocolVersion"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//protocolVersion"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/protocolVersion"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_protocolVersion\",\"params\":[],\"id\":67}"</span>)
   .asString();
@@ -1858,30 +1908,37 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//syncing \
+  --url https://rpc.tomochain.com/syncing \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_syncing"</span>,
-  <span class="hljs-string">"params"</span>: [],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/syncing&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//syncing"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0', method: 'eth_syncing', params: [], id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -1894,7 +1951,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//syncing"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/syncing"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":1}"</span>)
 
@@ -1915,7 +1972,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//syncing"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/syncing"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -1936,14 +1993,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_synci
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//syncing"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/syncing"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//syncing"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/syncing"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":1}"</span>)
   .asString();
@@ -2034,30 +2091,37 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//coinbase \
+  --url https://rpc.tomochain.com/coinbase \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_coinbase","params":[],"id":64}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_coinbase"</span>,
-  <span class="hljs-string">"params"</span>: [],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">64</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/coinbase&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//coinbase"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0', method: 'eth_coinbase', params: [], id: 64 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -2070,7 +2134,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//coinbase"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/coinbase"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_coinbase\",\"params\":[],\"id\":64}"</span>)
 
@@ -2091,7 +2155,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//coinbase"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/coinbase"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -2112,14 +2176,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_coinb
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//coinbase"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/coinbase"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//coinbase"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/coinbase"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_coinbase\",\"params\":[],\"id\":64}"</span>)
   .asString();
@@ -2197,30 +2261,37 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//gasPrice \
+  --url https://rpc.tomochain.com/gasPrice \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":73}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_gasPrice"</span>,
-  <span class="hljs-string">"params"</span>: [],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">73</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/gasPrice&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//gasPrice"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0', method: 'eth_gasPrice', params: [], id: 73 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -2233,7 +2304,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//gasPrice"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/gasPrice"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_gasPrice\",\"params\":[],\"id\":73}"</span>)
 
@@ -2254,7 +2325,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//gasPrice"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/gasPrice"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -2275,14 +2346,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_gasPr
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//gasPrice"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/gasPrice"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//gasPrice"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/gasPrice"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_gasPrice\",\"params\":[],\"id\":73}"</span>)
   .asString();
@@ -2360,30 +2431,37 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//accounts \
+  --url https://rpc.tomochain.com/accounts \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_accounts"</span>,
-  <span class="hljs-string">"params"</span>: [],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/accounts&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//accounts"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0', method: 'eth_accounts', params: [], id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -2396,7 +2474,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//accounts"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/accounts"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}"</span>)
 
@@ -2417,7 +2495,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//accounts"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/accounts"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -2438,14 +2516,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_accou
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//accounts"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/accounts"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//accounts"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/accounts"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}"</span>)
   .asString();
@@ -2523,30 +2601,37 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//blockNumber \
+  --url https://rpc.tomochain.com/blockNumber \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":83}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_blockNumber"</span>,
-  <span class="hljs-string">"params"</span>: [],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">83</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/blockNumber&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//blockNumber"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0', method: 'eth_blockNumber', params: [], id: 83 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -2559,7 +2644,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//blockNumber"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/blockNumber"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":83}"</span>)
 
@@ -2580,7 +2665,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//blockNumber"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/blockNumber"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -2601,14 +2686,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_block
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//blockNumber"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/blockNumber"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//blockNumber"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/blockNumber"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":83}"</span>)
   .asString();
@@ -2686,33 +2771,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getBalance \
+  --url https://rpc.tomochain.com/getBalance \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x2b5634c42055806a59e9107ed44d43c426e58258","latest"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getBalance"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x2b5634c42055806a59e9107ed44d43c426e58258"</span>,
-    <span class="hljs-string">"latest"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getBalance&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getBalance"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getBalance',
+  params: [ '0x2b5634c42055806a59e9107ed44d43c426e58258', 'latest' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -2725,7 +2817,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getBalance"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getBalance"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x2b5634c42055806a59e9107ed44d43c426e58258\",\"latest\"],\"id\":1}"</span>)
 
@@ -2746,7 +2838,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getBalance"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getBalance"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -2767,14 +2859,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBa
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getBalance"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getBalance"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getBalance"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getBalance"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"0x2b5634c42055806a59e9107ed44d43c426e58258\",\"latest\"],\"id\":1}"</span>)
   .asString();
@@ -2783,27 +2875,33 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p>Returns the balance of the account of given address.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>DATA</code>, 20 Bytes - address to check for balance.</li>
-<li><code>QUANTITY|TAG</code> - integer block number, or the string &quot;latest&quot;, &quot;earliest&quot; or &quot;pending&quot;, see the default block parameter</li>
+<li>
+<p><code>DATA</code>, 20 Bytes - address to check for balance.</p>
+</li>
+<li>
+<p><code>QUANTITY|TAG</code> - integer block number, or the string &quot;latest&quot;, &quot;earliest&quot; or &quot;pending&quot;, see the default block parameter</p>
+<pre><code>params: [
+  ' 0x2b5634c42055806a59e9107ed44d43c426e58258',
+  'latest'
+]
+</code></pre>
+</li>
 </ul>
-<pre class="highlight"><code>   ' 0x2b5634c42055806a59e9107ed44d43c426e58258',
-   'latest'
-] ```
-
-**Returns**
-- `QUANTITY` - integer of the current balance in wei.
-
-&gt; Body parameter
-
-```json
-{
-  &quot;jsonrpc&quot;: &quot;2.0&quot;,
-  &quot;method&quot;: &quot;eth_getBalance&quot;,
-  &quot;params&quot;: [
-    &quot;0x2b5634c42055806a59e9107ed44d43c426e58258&quot;,
-    &quot;latest&quot;
+<p><strong>Returns</strong></p>
+<ul>
+<li><code>QUANTITY</code> - integer of the current balance in wei.</li>
+</ul>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
+  <span class="hljs-attr">"method"</span>: <span class="hljs-string">"eth_getBalance"</span>,
+  <span class="hljs-attr">"params"</span>: [
+    <span class="hljs-string">"0x2b5634c42055806a59e9107ed44d43c426e58258"</span>,
+    <span class="hljs-string">"latest"</span>
   ],
-  &quot;id&quot;: 1
+  <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>
 }
 </code></pre>
 <h3 id="getbalance-parameters">Parameters</h3>
@@ -2861,34 +2959,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getStorageAt \
+  --url https://rpc.tomochain.com/getStorageAt \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getStorageAt","params":["0x295a70b2de5e3953354a6a8344e616ed314d7251","0x0","latest"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getStorageAt"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x295a70b2de5e3953354a6a8344e616ed314d7251"</span>,
-    <span class="hljs-string">"0x0"</span>,
-    <span class="hljs-string">"latest"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getStorageAt&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getStorageAt"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getStorageAt',
+  params: [ '0x295a70b2de5e3953354a6a8344e616ed314d7251', '0x0', 'latest' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -2901,7 +3005,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getStorageAt"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getStorageAt"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getStorageAt\",\"params\":[\"0x295a70b2de5e3953354a6a8344e616ed314d7251\",\"0x0\",\"latest\"],\"id\":1}"</span>)
 
@@ -2922,7 +3026,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getStorageAt"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getStorageAt"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -2943,14 +3047,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getSt
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getStorageAt"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getStorageAt"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getStorageAt"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getStorageAt"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getStorageAt\",\"params\":[\"0x295a70b2de5e3953354a6a8344e616ed314d7251\",\"0x0\",\"latest\"],\"id\":1}"</span>)
   .asString();
@@ -2964,15 +3068,13 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </li>
 <li>
 <p><code>QUANTITY|TAG</code> - integer block number, or the string &quot;latest&quot;, &quot;earliest&quot; or &quot;pending&quot;, see the default block parameter</p>
-</li>
-</ul>
-<pre class="highlight"><code>
-params: [
+<pre><code>params: [
       '0x2b5634c42055806a59e9107ed44d43c426e58258',
       'latest'
       ]
-
 </code></pre>
+</li>
+</ul>
 <p><strong>Returns</strong></p>
 <ul>
 <li><code>QUANTITY</code> - integer of the current balance in wei.</li>
@@ -3046,33 +3148,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getTransactionCount \
+  --url https://rpc.tomochain.com/getTransactionCount \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getTransactionCount","params":["0xbf1dcb735e512b731abd3404c15df6431bd03d42","latest"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getTransactionCount"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0xbf1dcb735e512b731abd3404c15df6431bd03d42"</span>,
-    <span class="hljs-string">"latest"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getTransactionCount&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getTransactionCount"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getTransactionCount',
+  params: [ '0xbf1dcb735e512b731abd3404c15df6431bd03d42', 'latest' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -3085,7 +3194,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getTransactionCount"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getTransactionCount"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"0xbf1dcb735e512b731abd3404c15df6431bd03d42\",\"latest\"],\"id\":1}"</span>)
 
@@ -3106,7 +3215,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getTransactionCount"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getTransactionCount"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -3127,14 +3236,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTr
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getTransactionCount"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getTransactionCount"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getTransactionCount"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getTransactionCount"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"0xbf1dcb735e512b731abd3404c15df6431bd03d42\",\"latest\"],\"id\":1}"</span>)
   .asString();
@@ -3143,16 +3252,18 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p>Returns the number of transactions sent from an address.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>DATA</code>, 20 Bytes - address.</li>
-<li><code>QUANTITY|TAG</code> - integer block number, or the string <code>&quot;latest&quot;</code>, <code>&quot;earliest&quot;</code> or <code>&quot;pending&quot;</code>, see the default block parameter</li>
-</ul>
-<pre class="highlight"><code>
-params: [
+<li>
+<p><code>DATA</code>, 20 Bytes - address.</p>
+</li>
+<li>
+<p><code>QUANTITY|TAG</code> - integer block number, or the string <code>&quot;latest&quot;</code>, <code>&quot;earliest&quot;</code> or <code>&quot;pending&quot;</code>, see the default block parameter</p>
+<pre><code>params: [
   '0x407d73d8a49eeb85d32cf465507dd71d507100c1',
   'latest' // state at the latest block
 ]
-
 </code></pre>
+</li>
+</ul>
 <p><strong>Returns</strong></p>
 <ul>
 <li><code>QUANTITY</code> - integer of the number of transactions send from this address.</li>
@@ -3225,32 +3336,41 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getBlockTransactionCountByHash \
+  --url https://rpc.tomochain.com/getBlockTransactionCountByHash \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByHash","params":["0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getBlockTransactionCountByHash"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getBlockTransactionCountByHash&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getBlockTransactionCountByHash"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getBlockTransactionCountByHash',
+  params: 
+   [ '0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -3263,7 +3383,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getBlockTransactionCountByHash"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getBlockTransactionCountByHash"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByHash\",\"params\":[\"0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34\"],\"id\":1}"</span>)
 
@@ -3284,7 +3404,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getBlockTransactionCountByHash"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getBlockTransactionCountByHash"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -3305,14 +3425,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBl
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getBlockTransactionCountByHash"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getBlockTransactionCountByHash"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getBlockTransactionCountByHash"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getBlockTransactionCountByHash"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByHash\",\"params\":[\"0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34\"],\"id\":1}"</span>)
   .asString();
@@ -3321,14 +3441,13 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p>Returns the number of transactions in a block from a block matching the given block hash.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>DATA</code>, 32 Bytes - hash of a block</li>
+<li>
+<p><code>DATA</code>, 32 Bytes - hash of a block</p>
+<p>params: [
+'0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34'
+]</p>
+</li>
 </ul>
-<pre class="highlight"><code>
-params: [
-  '0xc8b967161c671ce952a3d50987a78d64157fb5a8e1724804b87d3e9b11e3aa34'
-]
-
-</code></pre>
 <p><strong>Returns</strong></p>
 <ul>
 <li><code>QUANTITY</code> - integer of the number of transactions in this block.</li>
@@ -3400,32 +3519,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getBlockTransactionCountByNumber \
+  --url https://rpc.tomochain.com/getBlockTransactionCountByNumber \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByNumber","params":["0x52A8CA"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getBlockTransactionCountByNumber"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x52A8CA"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getBlockTransactionCountByNumber&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getBlockTransactionCountByNumber"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getBlockTransactionCountByNumber',
+  params: [ '0x52A8CA' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -3438,7 +3565,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getBlockTransactionCountByNumber"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getBlockTransactionCountByNumber"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByNumber\",\"params\":[\"0x52A8CA\"],\"id\":1}"</span>)
 
@@ -3459,7 +3586,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getBlockTransactionCountByNumber"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getBlockTransactionCountByNumber"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -3480,14 +3607,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBl
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getBlockTransactionCountByNumber"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getBlockTransactionCountByNumber"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getBlockTransactionCountByNumber"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getBlockTransactionCountByNumber"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByNumber\",\"params\":[\"0x52A8CA\"],\"id\":1}"</span>)
   .asString();
@@ -3496,12 +3623,13 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p>Returns the number of transactions in a block matching the given block number.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>QUANTITY|TAG</code> - integer of a block number, or the string <code>&quot;earliest&quot;</code>, <code>&quot;latest&quot;</code> or <code>&quot;pending&quot;</code>, as in the default block parameter.</li>
+<li>
+<p><code>QUANTITY|TAG</code> - integer of a block number, or the string <code>&quot;earliest&quot;</code>, <code>&quot;latest&quot;</code> or <code>&quot;pending&quot;</code>, as in the default block parameter.</p>
+<p>params: [
+'0x85', // 232
+]</p>
+</li>
 </ul>
-<pre class="highlight"><code>params: [
-  '0x85', // 232
-]
-</code></pre>
 <p><strong>Returns</strong></p>
 <ul>
 <li><code>QUANTITY</code> - integer of the number of transactions in this block.</li>
@@ -3573,33 +3701,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getCode \
+  --url https://rpc.tomochain.com/getCode \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getCode","params":["0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b","0x2"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getCode"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"</span>,
-    <span class="hljs-string">"0x2"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getCode&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getCode"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getCode',
+  params: [ '0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b', '0x2' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -3612,7 +3747,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getCode"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getCode"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCode\",\"params\":[\"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b\",\"0x2\"],\"id\":1}"</span>)
 
@@ -3633,7 +3768,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getCode"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getCode"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -3654,14 +3789,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCo
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getCode"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getCode"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getCode"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getCode"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCode\",\"params\":[\"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b\",\"0x2\"],\"id\":1}"</span>)
   .asString();
@@ -3675,13 +3810,12 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </li>
 <li>
 <p><code>QUANTITY|TAG</code> - integer block number, or the string <code>&quot;latest&quot;</code>, <code>&quot;earliest&quot;</code> or <code>&quot;pending&quot;</code>, see the default block parameter</p>
+<p>params: [
+'0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b',
+'0x2'  // 2
+]</p>
 </li>
 </ul>
-<pre class="highlight"><code>params: [
-  '0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b',
-  '0x2'  // 2
-]
-</code></pre>
 <p><strong>Returns</strong></p>
 <ul>
 <li><code>DATA</code> - the code from the given address.</li>
@@ -3754,33 +3888,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//sign \
+  --url https://rpc.tomochain.com/sign \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_sign","params":["0x9b2055d370f73ec7d8a03e965129118dc8f5bf83","0xdeadbeaf"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_sign"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x9b2055d370f73ec7d8a03e965129118dc8f5bf83"</span>,
-    <span class="hljs-string">"0xdeadbeaf"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/sign&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//sign"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_sign',
+  params: [ '0x9b2055d370f73ec7d8a03e965129118dc8f5bf83', '0xdeadbeaf' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -3793,7 +3934,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//sign"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/sign"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_sign\",\"params\":[\"0x9b2055d370f73ec7d8a03e965129118dc8f5bf83\",\"0xdeadbeaf\"],\"id\":1}"</span>)
 
@@ -3814,7 +3955,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//sign"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/sign"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -3835,14 +3976,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_sign\
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//sign"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/sign"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//sign"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/sign"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_sign\",\"params\":[\"0x9b2055d370f73ec7d8a03e965129118dc8f5bf83\",\"0xdeadbeaf\"],\"id\":1}"</span>)
   .asString();
@@ -3932,39 +4073,46 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//sendTransaction \
+  --url https://rpc.tomochain.com/sendTransaction \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{"from":"0xb60e8dd61c5d32be8058bb8eb970870f07233155","to":"0xd46e8dd67c5d32be8058bb8eb970870f07244567","gas":"0x76c0","gasPrice":"0x9184e72a000","value":"0x9184e72a","data":"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"}],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_sendTransaction"</span>,
-  <span class="hljs-string">"params"</span>: [
-    {
-      <span class="hljs-string">"from"</span>: <span class="hljs-string">"0xb60e8dd61c5d32be8058bb8eb970870f07233155"</span>,
-      <span class="hljs-string">"to"</span>: <span class="hljs-string">"0xd46e8dd67c5d32be8058bb8eb970870f07244567"</span>,
-      <span class="hljs-string">"gas"</span>: <span class="hljs-string">"0x76c0"</span>,
-      <span class="hljs-string">"gasPrice"</span>: <span class="hljs-string">"0x9184e72a000"</span>,
-      <span class="hljs-string">"value"</span>: <span class="hljs-string">"0x9184e72a"</span>,
-      <span class="hljs-string">"data"</span>: <span class="hljs-string">"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"</span>
-    }
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/sendTransaction&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//sendTransaction"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_sendTransaction',
+  params: 
+   [ { from: '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
+       to: '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
+       gas: '0x76c0',
+       gasPrice: '0x9184e72a000',
+       value: '0x9184e72a',
+       data: '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675' } ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -3977,7 +4125,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//sendTransaction"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/sendTransaction"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendTransaction\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}"</span>)
 
@@ -3998,7 +4146,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//sendTransaction"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/sendTransaction"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -4019,14 +4167,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendT
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//sendTransaction"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/sendTransaction"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//sendTransaction"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/sendTransaction"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendTransaction\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}"</span>)
   .asString();
@@ -4056,18 +4204,16 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </li>
 <li>
 <p><code>nonce</code>: <code>QUANTITY</code> - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.</p>
+<p>params: [{
+&quot;from&quot;: &quot; 0xb60e8dd61c5d32be8058bb8eb970870f07233155&quot;,
+&quot;to&quot;: &quot; 0xd46e8dd67c5d32be8058bb8eb970870f07244567&quot;,
+&quot;gas&quot;: &quot;0x76c0&quot;, // 30400
+&quot;gasPrice&quot;: &quot;0x9184e72a000&quot;, // 10000000000000
+&quot;value&quot;: &quot;0x9184e72a&quot;, // 2441406250
+&quot;data&quot;: &quot;0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675&quot;
+}]</p>
 </li>
 </ul>
-<pre class="highlight"><code>params: [{
-  &quot;from&quot;: &quot; 0xb60e8dd61c5d32be8058bb8eb970870f07233155&quot;,
-  &quot;to&quot;: &quot; 0xd46e8dd67c5d32be8058bb8eb970870f07244567&quot;,
-  &quot;gas&quot;: &quot;0x76c0&quot;, // 30400
-  &quot;gasPrice&quot;: &quot;0x9184e72a000&quot;, // 10000000000000
-  &quot;value&quot;: &quot;0x9184e72a&quot;, // 2441406250
-  &quot;data&quot;: &quot;0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675&quot;
-}]
-
-</code></pre>
 <p><strong>Returns</strong></p>
 <ul>
 <li><code>DATA</code>, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.</li>
@@ -4147,32 +4293,41 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//sendRawTransaction \
+  --url https://rpc.tomochain.com/sendRawTransaction \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_sendRawTransaction","params":["0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_sendRawTransaction"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/sendRawTransaction&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//sendRawTransaction"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_sendRawTransaction',
+  params: 
+   [ '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -4185,7 +4340,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//sendRawTransaction"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/sendRawTransaction"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendRawTransaction\",\"params\":[\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"],\"id\":1}"</span>)
 
@@ -4206,7 +4361,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//sendRawTransaction"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/sendRawTransaction"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -4227,14 +4382,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendR
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//sendRawTransaction"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/sendRawTransaction"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//sendRawTransaction"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/sendRawTransaction"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendRawTransaction\",\"params\":[\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"],\"id\":1}"</span>)
   .asString();
@@ -4243,10 +4398,11 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p>Creates new message call transaction or a contract creation for signed transactions.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>DATA</code>, The signed transaction data.</li>
+<li>
+<p><code>DATA</code>, The signed transaction data.</p>
+<p>params: [&quot;0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675&quot;]</p>
+</li>
 </ul>
-<pre class="highlight"><code>params: [&quot;0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675&quot;]
-</code></pre>
 <p><strong>Returns</strong></p>
 <ul>
 <li><code>DATA</code>, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.</li>
@@ -4319,40 +4475,47 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//call \
+  --url https://rpc.tomochain.com/call \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_call","params":[{"from":"0xb60e8dd61c5d32be8058bb8eb970870f07233155","to":"0xd46e8dd67c5d32be8058bb8eb970870f07244567","gas":"0x76c0","gasPrice":"0x9184e72a000","value":"0x9184e72a","data":"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"},"latest"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_call"</span>,
-  <span class="hljs-string">"params"</span>: [
-    {
-      <span class="hljs-string">"from"</span>: <span class="hljs-string">"0xb60e8dd61c5d32be8058bb8eb970870f07233155"</span>,
-      <span class="hljs-string">"to"</span>: <span class="hljs-string">"0xd46e8dd67c5d32be8058bb8eb970870f07244567"</span>,
-      <span class="hljs-string">"gas"</span>: <span class="hljs-string">"0x76c0"</span>,
-      <span class="hljs-string">"gasPrice"</span>: <span class="hljs-string">"0x9184e72a000"</span>,
-      <span class="hljs-string">"value"</span>: <span class="hljs-string">"0x9184e72a"</span>,
-      <span class="hljs-string">"data"</span>: <span class="hljs-string">"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"</span>
-    },
-    <span class="hljs-string">"latest"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/call&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//call"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_call',
+  params: 
+   [ { from: '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
+       to: '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
+       gas: '0x76c0',
+       gasPrice: '0x9184e72a000',
+       value: '0x9184e72a',
+       data: '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675' },
+     'latest' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -4365,7 +4528,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//call"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/call"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"},\"latest\"],\"id\":1}"</span>)
 
@@ -4386,7 +4549,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//call"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/call"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -4407,14 +4570,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//call"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/call"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//call"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/call"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"},\"latest\"],\"id\":1}"</span>)
   .asString();
@@ -4525,39 +4688,46 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//estimateGas \
+  --url https://rpc.tomochain.com/estimateGas \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_estimateGas","params":[{"from":"0xb60e8dd61c5d32be8058bb8eb970870f07233155","to":"0xd46e8dd67c5d32be8058bb8eb970870f07244567","gas":"0x76c0","gasPrice":"0x9184e72a000","value":"0x9184e72a","data":"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"}],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_estimateGas"</span>,
-  <span class="hljs-string">"params"</span>: [
-    {
-      <span class="hljs-string">"from"</span>: <span class="hljs-string">"0xb60e8dd61c5d32be8058bb8eb970870f07233155"</span>,
-      <span class="hljs-string">"to"</span>: <span class="hljs-string">"0xd46e8dd67c5d32be8058bb8eb970870f07244567"</span>,
-      <span class="hljs-string">"gas"</span>: <span class="hljs-string">"0x76c0"</span>,
-      <span class="hljs-string">"gasPrice"</span>: <span class="hljs-string">"0x9184e72a000"</span>,
-      <span class="hljs-string">"value"</span>: <span class="hljs-string">"0x9184e72a"</span>,
-      <span class="hljs-string">"data"</span>: <span class="hljs-string">"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"</span>
-    }
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/estimateGas&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//estimateGas"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_estimateGas',
+  params: 
+   [ { from: '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
+       to: '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
+       gas: '0x76c0',
+       gasPrice: '0x9184e72a000',
+       value: '0x9184e72a',
+       data: '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675' } ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -4570,7 +4740,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//estimateGas"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/estimateGas"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}"</span>)
 
@@ -4591,7 +4761,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//estimateGas"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/estimateGas"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -4612,14 +4782,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_estim
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//estimateGas"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/estimateGas"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//estimateGas"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/estimateGas"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[{\"from\":\"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\"to\":\"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\"gas\":\"0x76c0\",\"gasPrice\":\"0x9184e72a000\",\"value\":\"0x9184e72a\",\"data\":\"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"}],\"id\":1}"</span>)
   .asString();
@@ -4706,33 +4876,42 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getBlockByHash \
+  --url https://rpc.tomochain.com/getBlockByHash \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getBlockByHash","params":["0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624",true],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getBlockByHash"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624"</span>,
-    <span class="hljs-literal">true</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getBlockByHash&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getBlockByHash"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getBlockByHash',
+  params: 
+   [ '0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624',
+     true ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -4745,7 +4924,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getBlockByHash"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getBlockByHash"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624\",true],\"id\":1}"</span>)
 
@@ -4766,7 +4945,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getBlockByHash"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getBlockByHash"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -4787,14 +4966,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBl
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getBlockByHash"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getBlockByHash"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getBlockByHash"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getBlockByHash"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624\",true],\"id\":1}"</span>)
   .asString();
@@ -4803,14 +4982,17 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p>Returns information about a block by hash.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>BLOCKHASH</code> [required] - a string representing a BLOCKHASH</li>
-<li><code>Boolean</code> [required] - If true it returns the full transaction objects, if false only the hashes of the transactions.</li>
+<li>
+<p><code>BLOCKHASH</code> [required] - a string representing a BLOCKHASH</p>
+</li>
+<li>
+<p><code>Boolean</code> [required] - If true it returns the full transaction objects, if false only the hashes of the transactions.</p>
+<p>params: [
+'0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624',
+true
+]</p>
+</li>
 </ul>
-<pre class="highlight"><code>params: [
-  '0x9326145f8a2c8c00bbe13afc7d7f3d9c868b5ef39d89f2f4e9390e9720298624',
-  true
-]
-</code></pre>
 <p><strong>Returns</strong>
 <code>Object</code> - A block object, or null when no block was found:</p>
 <ul>
@@ -4940,33 +5122,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getBlockByNumber \
+  --url https://rpc.tomochain.com/getBlockByNumber \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["0x0",true],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getBlockByNumber"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x0"</span>,
-    <span class="hljs-literal">true</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getBlockByNumber&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getBlockByNumber"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getBlockByNumber',
+  params: [ '0x0', true ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -4979,7 +5168,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getBlockByNumber"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getBlockByNumber"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"0x0\",true],\"id\":1}"</span>)
 
@@ -5000,7 +5189,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getBlockByNumber"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getBlockByNumber"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -5021,14 +5210,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBl
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getBlockByNumber"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getBlockByNumber"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getBlockByNumber"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getBlockByNumber"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"0x0\",true],\"id\":1}"</span>)
   .asString();
@@ -5049,7 +5238,7 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </li>
 </ul>
 <p><code>FULLTX</code> [required] - a boolean value specified whether you want to get transactions list or not</p>
-<pre class="highlight"><code>params: [
+<pre><code>params: [
   '0x0',
   true
 ]
@@ -5127,32 +5316,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getBlockSignersByNumber \
+  --url https://rpc.tomochain.com/getBlockSignersByNumber \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getBlockSignersByNumber","params":["0xA61F98"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getBlockSignersByNumber"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0xA61F98"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getBlockSignersByNumber&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getBlockSignersByNumber"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getBlockSignersByNumber',
+  params: [ '0xA61F98' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -5165,7 +5362,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getBlockSignersByNumber"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getBlockSignersByNumber"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}"</span>)
 
@@ -5186,7 +5383,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getBlockSignersByNumber"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getBlockSignersByNumber"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -5207,14 +5404,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBl
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getBlockSignersByNumber"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getBlockSignersByNumber"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getBlockSignersByNumber"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getBlockSignersByNumber"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}"</span>)
   .asString();
@@ -5232,12 +5429,11 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </li>
 <li>
 <p><code>earliest</code>: get the genesis block</p>
+<p>params: [
+'0xA61F98'
+]</p>
 </li>
 </ul>
-<pre class="highlight"><code>params: [
-  '0xA61F98'
-]
-</code></pre>
 <p><strong>Returns</strong></p>
 <ul>
 <li><code>SIGNERS</code> - signers set of the block of given <code>BLOCKNUMBER</code></li>
@@ -5309,32 +5505,41 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getBlockSignersByHash \
+  --url https://rpc.tomochain.com/getBlockSignersByHash \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getBlockSignersByHash","params":["0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getBlockSignersByHash"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getBlockSignersByHash&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getBlockSignersByHash"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getBlockSignersByHash',
+  params: 
+   [ '0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -5347,7 +5552,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getBlockSignersByHash"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getBlockSignersByHash"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}"</span>)
 
@@ -5368,7 +5573,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getBlockSignersByHash"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getBlockSignersByHash"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -5389,14 +5594,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBl
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getBlockSignersByHash"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getBlockSignersByHash"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getBlockSignersByHash"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getBlockSignersByHash"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockSignersByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}"</span>)
   .asString();
@@ -5405,12 +5610,13 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p>Returns the signers set of the block of given <code>BLOCKHASH</code>.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>BLOCKHASH</code> [required] - a string representing a <code>BLOCKHASH</code></li>
+<li>
+<p><code>BLOCKHASH</code> [required] - a string representing a <code>BLOCKHASH</code></p>
+<p>params: [
+'0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f'
+]</p>
+</li>
 </ul>
-<pre class="highlight"><code>params: [
-  '0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f'
-]
-</code></pre>
 <p><strong>Returns</strong></p>
 <ul>
 <li><code>SIGNERS</code> - signers set of the block of given <code>BLOCKHASH</code></li>
@@ -5482,32 +5688,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getBlockFinalityByNumber \
+  --url https://rpc.tomochain.com/getBlockFinalityByNumber \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getBlockFinalityByNumber","params":["0xA61F98"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getBlockFinalityByNumber"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0xA61F98"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getBlockFinalityByNumber&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getBlockFinalityByNumber"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getBlockFinalityByNumber',
+  params: [ '0xA61F98' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -5520,7 +5734,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getBlockFinalityByNumber"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getBlockFinalityByNumber"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}"</span>)
 
@@ -5541,7 +5755,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getBlockFinalityByNumber"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getBlockFinalityByNumber"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -5562,14 +5776,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBl
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getBlockFinalityByNumber"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getBlockFinalityByNumber"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getBlockFinalityByNumber"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getBlockFinalityByNumber"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByNumber\",\"params\":[\"0xA61F98\"],\"id\":1}"</span>)
   .asString();
@@ -5589,14 +5803,13 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </li>
 <li>
 <p><code>earliest</code>: get the genesis block</p>
+<p>params: [
+'0xA61F98'
+]</p>
 </li>
 </ul>
 </li>
 </ul>
-<pre class="highlight"><code>params: [
-  '0xA61F98'
-]
-</code></pre>
 <p><strong>Returns</strong></p>
 <ul>
 <li><code>BLOCK_FINALITY</code> - integer of the the finality of the block of given <code>BLOCKNUMBER</code>.</li>
@@ -5668,32 +5881,41 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getBlockFinalityByHash \
+  --url https://rpc.tomochain.com/getBlockFinalityByHash \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getBlockFinalityByHash","params":["0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getBlockFinalityByHash"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getBlockFinalityByHash&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getBlockFinalityByHash"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getBlockFinalityByHash',
+  params: 
+   [ '0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -5706,7 +5928,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getBlockFinalityByHash"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getBlockFinalityByHash"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}"</span>)
 
@@ -5727,7 +5949,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getBlockFinalityByHash"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getBlockFinalityByHash"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -5748,14 +5970,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBl
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getBlockFinalityByHash"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getBlockFinalityByHash"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getBlockFinalityByHash"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getBlockFinalityByHash"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockFinalityByHash\",\"params\":[\"0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f\"],\"id\":1}"</span>)
   .asString();
@@ -5764,7 +5986,7 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p>Returns the the finality of the block of given <code>BLOCKHASH</code>.</p>
 <p><strong>Parameters</strong></p>
 <p><code>BLOCKHASH</code> [required] - a string representing a <code>BLOCKHASH</code></p>
-<pre class="highlight"><code>params: [
+<pre><code>params: [
   '0x605777ee60ef3ccf21e079fa1b091b0196cf1a2c1dd7c088dd5b1ab03f680b6f'
 ]
 </code></pre>
@@ -5839,32 +6061,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getCandidates \
+  --url https://rpc.tomochain.com/getCandidates \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getCandidates","params":["latest"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getCandidates"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"latest"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getCandidates&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getCandidates"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getCandidates',
+  params: [ 'latest' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -5877,7 +6107,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getCandidates"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getCandidates"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidates\",\"params\":[\"latest\"],\"id\":1}"</span>)
 
@@ -5898,7 +6128,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getCandidates"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getCandidates"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -5919,14 +6149,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCa
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getCandidates"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getCandidates"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getCandidates"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getCandidates"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidates\",\"params\":[\"latest\"],\"id\":1}"</span>)
   .asString();
@@ -5940,14 +6170,11 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <ul>
 <li><code>latest</code>: get the status of candidate at the current time</li>
 </ul>
+<p>params: [
+'latest'
+]</p>
 </li>
 </ul>
-<pre class="highlight"><code>
-params: [
-  'latest'
-]
-
-</code></pre>
 <p><strong>Returns</strong></p>
 <ul>
 <li>
@@ -6047,33 +6274,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getCandidateStatus \
+  --url https://rpc.tomochain.com/getCandidateStatus \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getCandidateStatus","params":["0x1d50df657b6dce50bac634bf18e2d986d807e940","latest"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getCandidateStatus"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x1d50df657b6dce50bac634bf18e2d986d807e940"</span>,
-    <span class="hljs-string">"latest"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getCandidateStatus&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getCandidateStatus"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getCandidateStatus',
+  params: [ '0x1d50df657b6dce50bac634bf18e2d986d807e940', 'latest' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -6086,7 +6320,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getCandidateStatus"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getCandidateStatus"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidateStatus\",\"params\":[\"0x1d50df657b6dce50bac634bf18e2d986d807e940\",\"latest\"],\"id\":1}"</span>)
 
@@ -6107,7 +6341,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getCandidateStatus"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getCandidateStatus"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -6128,14 +6362,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCa
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getCandidateStatus"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getCandidateStatus"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getCandidateStatus"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getCandidateStatus"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getCandidateStatus\",\"params\":[\"0x1d50df657b6dce50bac634bf18e2d986d807e940\",\"latest\"],\"id\":1}"</span>)
   .asString();
@@ -6152,15 +6386,12 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <ul>
 <li><code>latest</code>: get the status of candidate at the current time</li>
 </ul>
+<p>params: [
+'0x1d50df657b6dce50bac634bf18e2d986d807e940',
+'latest'
+]</p>
 </li>
 </ul>
-<pre class="highlight"><code>
-params: [
-  '0x1d50df657b6dce50bac634bf18e2d986d807e940',
-  'latest'
-]
-
-</code></pre>
 <p><strong>Returns</strong></p>
 <ul>
 <li>
@@ -6258,32 +6489,41 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getTransactionByHash \
+  --url https://rpc.tomochain.com/getTransactionByHash \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getTransactionByHash","params":["0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getTransactionByHash"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getTransactionByHash&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getTransactionByHash"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getTransactionByHash',
+  params: 
+   [ '0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -6296,7 +6536,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getTransactionByHash"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getTransactionByHash"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\":[\"0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1\"],\"id\":1}"</span>)
 
@@ -6317,7 +6557,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getTransactionByHash"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getTransactionByHash"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -6338,14 +6578,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTr
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getTransactionByHash"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getTransactionByHash"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getTransactionByHash"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getTransactionByHash"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\":[\"0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1\"],\"id\":1}"</span>)
   .asString();
@@ -6354,12 +6594,13 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p>Returns the information about a transaction requested by transaction hash.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>DATA</code>, 32 Bytes - hash of a transaction</li>
+<li>
+<p><code>DATA</code>, 32 Bytes - hash of a transaction</p>
+<p>params: [
+&quot;0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1&quot;
+]</p>
+</li>
 </ul>
-<pre class="highlight"><code>params: [
-  &quot;0xd83b26e101dd6480764bade90fc283407919f60b7e65ff83fbf6cdc92f1138a1&quot;
-]
-</code></pre>
 <p><strong>Returns</strong></p>
 <p><code>Object</code> - A transaction object, or null when no transaction was found:</p>
 <ul>
@@ -6464,33 +6705,42 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getTransactionByBlockHashAndIndex \
+  --url https://rpc.tomochain.com/getTransactionByBlockHashAndIndex \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getTransactionByBlockHashAndIndex","params":["0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7","0x0"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getTransactionByBlockHashAndIndex"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7"</span>,
-    <span class="hljs-string">"0x0"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getTransactionByBlockHashAndIndex&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getTransactionByBlockHashAndIndex"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getTransactionByBlockHashAndIndex',
+  params: 
+   [ '0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7',
+     '0x0' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -6503,7 +6753,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getTransactionByBlockHashAndIndex"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getTransactionByBlockHashAndIndex"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockHashAndIndex\",\"params\":[\"0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7\",\"0x0\"],\"id\":1}"</span>)
 
@@ -6524,7 +6774,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getTransactionByBlockHashAndIndex"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getTransactionByBlockHashAndIndex"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -6545,14 +6795,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTr
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getTransactionByBlockHashAndIndex"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getTransactionByBlockHashAndIndex"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getTransactionByBlockHashAndIndex"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getTransactionByBlockHashAndIndex"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockHashAndIndex\",\"params\":[\"0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7\",\"0x0\"],\"id\":1}"</span>)
   .asString();
@@ -6561,14 +6811,17 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p>Returns information about a transaction by block hash and transaction index position.
 <strong>Parameters</strong></p>
 <ul>
-<li><code>DATA</code>, 32 Bytes - hash of a block.</li>
-<li><code>QUANTITY</code> - integer of the transaction index position.</li>
+<li>
+<p><code>DATA</code>, 32 Bytes - hash of a block.</p>
+</li>
+<li>
+<p><code>QUANTITY</code> - integer of the transaction index position.</p>
+<p>params: [
+'0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7',
+'0x0' // 0
+]</p>
+</li>
 </ul>
-<pre class="highlight"><code>params: [
-  '0x3c82bc62179602b67318c013c10f99011037c49cba84e31ffe6e465a21c521a7',
-  '0x0' // 0
-]
-</code></pre>
 <p><strong>Returns</strong>
 See <code>eth_getTransactionByHash</code></p>
 <blockquote>
@@ -6639,33 +6892,40 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex \
+  --url https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getTransactionByBlockNumberAndIndex","params":["0x52A96E","0x1"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getTransactionByBlockNumberAndIndex"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0x52A96E"</span>,
-    <span class="hljs-string">"0x1"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getTransactionByBlockNumberAndIndex&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getTransactionByBlockNumberAndIndex',
+  params: [ '0x52A96E', '0x1' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -6678,7 +6938,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockNumberAndIndex\",\"params\":[\"0x52A96E\",\"0x1\"],\"id\":1}"</span>)
 
@@ -6699,7 +6959,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -6720,14 +6980,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTr
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getTransactionByBlockNumberAndIndex"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getTransactionByBlockNumberAndIndex"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getTransactionByBlockNumberAndIndex"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getTransactionByBlockNumberAndIndex"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockNumberAndIndex\",\"params\":[\"0x52A96E\",\"0x1\"],\"id\":1}"</span>)
   .asString();
@@ -6736,14 +6996,17 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p>Returns information about a transaction by block number and transaction index position.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>QUANTITY|TAG</code> - a block number, or the string <code>&quot;earliest&quot;</code>, <code>&quot;latest&quot;</code> or <code>&quot;pending&quot;</code>, as in the default block parameter.</li>
-<li><code>QUANTITY</code> - the transaction index position.</li>
+<li>
+<p><code>QUANTITY|TAG</code> - a block number, or the string <code>&quot;earliest&quot;</code>, <code>&quot;latest&quot;</code> or <code>&quot;pending&quot;</code>, as in the default block parameter.</p>
+</li>
+<li>
+<p><code>QUANTITY</code> - the transaction index position.</p>
+<p>params: [
+'0x29c', // 668
+'0x0' // 0
+]</p>
+</li>
 </ul>
-<pre class="highlight"><code>params: [
-  '0x29c', // 668
-  '0x0' // 0
-]
-</code></pre>
 <p><strong>Returns</strong></p>
 <p>See <code>eth_getTransactionByHash</code></p>
 <blockquote>
@@ -6814,32 +7077,41 @@ This operation does not require authentication
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --request POST \
-  --url https://rpc.tomochain.com//getTransactionReceipt \
+  --url https://rpc.tomochain.com/getTransactionReceipt \
   --header <span class="hljs-string">'content-type: application/json'</span> \
   --data <span class="hljs-string">'{"jsonrpc":"2.0","method":"eth_getTransactionReceipt","params":["0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f"],"id":1}'</span>
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify({
-  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
-  <span class="hljs-string">"method"</span>: <span class="hljs-string">"eth_getTransactionReceipt"</span>,
-  <span class="hljs-string">"params"</span>: [
-    <span class="hljs-string">"0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f"</span>
-  ],
-  <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>
-});
+<pre class="highlight"><code>var http = require(&quot;https&quot;);
 
-<span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-xhr.withCredentials = <span class="hljs-literal">true</span>;
-
-xhr.addEventListener(<span class="hljs-string">"readystatechange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState === <span class="hljs-keyword">this</span>.DONE) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.responseText);
+var options = {
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;hostname&quot;: &quot;rpc.tomochain.com&quot;,
+  &quot;port&quot;: null,
+  &quot;path&quot;: &quot;/getTransactionReceipt&quot;,
+  &quot;headers&quot;: {
+    &quot;content-type&quot;: &quot;application/json&quot;
   }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on(&quot;data&quot;, function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on(&quot;end&quot;, function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
 });
 
-xhr.open(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"https://rpc.tomochain.com//getTransactionReceipt"</span>);
-xhr.setRequestHeader(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>);
-
-xhr.send(data);
+req.write(JSON.stringify({ jsonrpc: '2.0',
+  method: 'eth_getTransactionReceipt',
+  params: 
+   [ '0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f' ],
+  id: 1 }));
+req.end();
 </code></pre>
 <pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
 
@@ -6852,7 +7124,7 @@ xhr.send(data);
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-	url := <span class="hljs-string">"https://rpc.tomochain.com//getTransactionReceipt"</span>
+	url := <span class="hljs-string">"https://rpc.tomochain.com/getTransactionReceipt"</span>
 
 	payload := strings.NewReader(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f\"],\"id\":1}"</span>)
 
@@ -6873,7 +7145,7 @@ xhr.send(data);
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
-url = URI(<span class="hljs-string">"https://rpc.tomochain.com//getTransactionReceipt"</span>)
+url = URI(<span class="hljs-string">"https://rpc.tomochain.com/getTransactionReceipt"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = <span class="hljs-literal">true</span>
@@ -6894,14 +7166,14 @@ payload = <span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTr
 
 headers = { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">"application/json"</span> }
 
-conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"//getTransactionReceipt"</span>, payload, headers)
+conn.request(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/getTransactionReceipt"</span>, payload, headers)
 
 res = conn.getresponse()
 data = res.read()
 
 print(data.decode(<span class="hljs-string">"utf-8"</span>))
 </code></pre>
-<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com//getTransactionReceipt"</span>)
+<pre class="highlight tab tab-java"><code>HttpResponse response = Unirest.post(<span class="hljs-string">"https://rpc.tomochain.com/getTransactionReceipt"</span>)
   .header(<span class="hljs-string">"content-type"</span>, <span class="hljs-string">"application/json"</span>)
   .body(<span class="hljs-string">"{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"0xa3ece39ae137617669c6933b7578b94e705e765683f260fcfe30eaa41932610f\"],\"id\":1}"</span>)
   .asString();
@@ -6911,15 +7183,7 @@ print(data.decode(<span class="hljs-string">"utf-8"</span>))
 <p><strong>Note:</strong> That the receipt is not available for pending transactions.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li>
-<p><code>DATA</code>, 32 Bytes - hash of a transaction</p>
-<pre class="highlight"><code>
-params: [
-  '0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238'
-]
-
-</code></pre>
-</li>
+<li><code>DATA</code>, 32 Bytes - hash of a transaction</li>
 </ul>
 <p><strong>Returns</strong></p>
 <p><code>Object</code> - A transaction receipt object, or <code>null</code> when no receipt was found:</p>
@@ -13351,6 +13615,7 @@ This operation does not require authentication
 </tbody>
 </table>
 <!-- Renderer: Shins v2.3.2-3 -->
+<!-- Generator: Widdershins v3.6.6 -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
@@ -13397,7 +13662,7 @@ This operation does not require authentication
               
             
               
-                <a href="#" data-language-name="javascript">JavaScript</a>
+                <a href="#" data-language-name="node">Node.js</a>
               
             
               
