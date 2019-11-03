@@ -6916,23 +6916,6 @@ getCandidateStatusRequest
 |id|integer(int32)|true|none|none|
 
 
----
-title: TomoDex APIs
-language_tabs:
-  - shell: cURL
-  - node: request
-  - go: GO
-  - ruby: Ruby
-  - python: Python
-  - java: Java
-toc_footers: []
-includes: []
-search: true
-highlight_theme: darkula
-headingLevel: 2
-
----
-
 <h1 id="tomodex-apis">TomoDex APIs v1.0.0</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
@@ -6953,6 +6936,28 @@ Account endpoints
 # You can also use wget
 curl -X GET /account/{userAddress} \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/account/{userAddress}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -7072,6 +7077,28 @@ None
 # You can also use wget
 curl -X GET /account/{userAddress}/{tokenAddress} \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/account/{userAddress}/{tokenAddress}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -7199,6 +7226,28 @@ curl -X POST /account/create \
 
 ```
 
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/account/create',
+{
+  method: 'POST',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
 ```go
 package main
 
@@ -7322,6 +7371,28 @@ curl -X GET /tokens \
 
 ```
 
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/tokens',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
 ```go
 package main
 
@@ -7422,8 +7493,8 @@ Return all tokens in an array
     "makeFee": "string",
     "takeFee": "string",
     "usd": "string",
-    "createdAt": "2019-11-03T15:42:56Z",
-    "updatedAt": "2019-11-03T15:42:56Z"
+    "createdAt": "2019-11-03T16:33:00Z",
+    "updatedAt": "2019-11-03T16:33:00Z"
   }
 ]
 ```
@@ -7475,6 +7546,42 @@ This operation does not require authentication
 curl -X POST /tokens \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "name": "string",
+  "symbol": "string",
+  "address": "string",
+  "image": {
+    "url": "string",
+    "meta": {}
+  },
+  "contractAddress": "string",
+  "active": true,
+  "quote": true,
+  "makeFee": "string",
+  "takeFee": "string"
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+
+};
+
+fetch('/tokens',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -7582,6 +7689,23 @@ Returns newly created token
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|[Token](#schematoken)|true|Token object that needs to be added|
+|» id|body|string|false|none|
+|» name|body|string|false|none|
+|» symbol|body|string|false|none|
+|» address|body|string|false|none|
+|» image|body|[Image](#schemaimage)|false|none|
+|»» url|body|string|false|none|
+|»» meta|body|object|false|none|
+|» contractAddress|body|string|false|none|
+|» decimals|body|integer(int32)|false|none|
+|» active|body|boolean|false|none|
+|» listed|body|boolean|false|none|
+|» quote|body|boolean|false|none|
+|» makeFee|body|string|false|none|
+|» takeFee|body|string|false|none|
+|» usd|body|string|false|none|
+|» createdAt|body|string(date-time)|false|none|
+|» updatedAt|body|string(date-time)|false|none|
 
 > Example responses
 
@@ -7605,8 +7729,8 @@ Returns newly created token
   "makeFee": "string",
   "takeFee": "string",
   "usd": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 ```
 
@@ -7632,6 +7756,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /tokens/base \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/tokens/base',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -7735,8 +7881,8 @@ Return all base tokens in an array
     "makeFee": "string",
     "takeFee": "string",
     "usd": "string",
-    "createdAt": "2019-11-03T15:42:56Z",
-    "updatedAt": "2019-11-03T15:42:56Z"
+    "createdAt": "2019-11-03T16:33:00Z",
+    "updatedAt": "2019-11-03T16:33:00Z"
   }
 ]
 ```
@@ -7787,6 +7933,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /tokens/quote \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/tokens/quote',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -7890,8 +8058,8 @@ Return all quote tokens in an array
     "makeFee": "string",
     "takeFee": "string",
     "usd": "string",
-    "createdAt": "2019-11-03T15:42:56Z",
-    "updatedAt": "2019-11-03T15:42:56Z"
+    "createdAt": "2019-11-03T16:33:00Z",
+    "updatedAt": "2019-11-03T16:33:00Z"
   }
 ]
 ```
@@ -7942,6 +8110,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /tokens/{address} \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/tokens/{address}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -8050,8 +8240,8 @@ Return token object
   "makeFee": "string",
   "takeFee": "string",
   "usd": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 ```
 
@@ -8081,6 +8271,28 @@ Pair endpoints
 # You can also use wget
 curl -X GET /pairs?baseToken=string&quoteToken=string \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/pairs?baseToken=string&quoteToken=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -8189,8 +8401,8 @@ Return all pairs in an array
     "rank": 0,
     "makeFee": "string",
     "takeFee": "string",
-    "createdAt": "2019-11-03T15:42:56Z",
-    "updatedAt": "2019-11-03T15:42:56Z"
+    "createdAt": "2019-11-03T16:33:00Z",
+    "updatedAt": "2019-11-03T16:33:00Z"
   }
 ]
 ```
@@ -8239,6 +8451,35 @@ This operation does not require authentication
 curl -X POST /pairs \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "baseTokenSymbol": "string",
+  "baseTokenAddress": "string",
+  "quoteTokenSymbol": "string",
+  "quoteTokenAddress": "string",
+  "active": true
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+
+};
+
+fetch('/pairs',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -8339,6 +8580,20 @@ Returns newly created pair
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|[Pair](#schemapair)|true|Pair object that needs to be added|
+|» id|body|string|false|none|
+|» baseTokenSymbol|body|string|false|none|
+|» baseTokenAddress|body|string|false|none|
+|» baseTokenDecimals|body|integer(int32)|false|none|
+|» quoteTokenSymbol|body|string|false|none|
+|» quoteTokenAddress|body|string|false|none|
+|» quoteTokenDecimals|body|integer(int32)|false|none|
+|» listed|body|boolean|false|none|
+|» active|body|boolean|false|none|
+|» rank|body|integer(int32)|false|none|
+|» makeFee|body|string|false|none|
+|» takeFee|body|string|false|none|
+|» createdAt|body|string(date-time)|false|none|
+|» updatedAt|body|string(date-time)|false|none|
 
 > Example responses
 
@@ -8358,8 +8613,8 @@ Returns newly created pair
   "rank": 0,
   "makeFee": "string",
   "takeFee": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 ```
 
@@ -8385,6 +8640,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /pair?baseToken=string&quoteToken=string \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/pair?baseToken=string&quoteToken=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -8492,8 +8769,8 @@ Multiple status values can be provided with comma separated strings
   "rank": 0,
   "makeFee": "string",
   "takeFee": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 ```
 
@@ -8519,6 +8796,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /pair/data?baseToken=string&quoteToken=string \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/pair/data?baseToken=string&quoteToken=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -8662,6 +8961,28 @@ curl -X GET /pairs/data \
 
 ```
 
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/pairs/data',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
 ```go
 package main
 
@@ -8797,6 +9118,28 @@ curl -X GET /orders \
 
 ```
 
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/orders',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
 ```go
 package main
 
@@ -8921,8 +9264,8 @@ Return all orders in an array
       "makeFee": "string",
       "takeFee": "string",
       "pairName": "string",
-      "createdAt": "2019-11-03T15:42:56Z",
-      "updatedAt": "2019-11-03T15:42:56Z"
+      "createdAt": "2019-11-03T16:33:00Z",
+      "updatedAt": "2019-11-03T16:33:00Z"
     }
   ]
 }
@@ -8982,6 +9325,48 @@ This operation does not require authentication
 curl -X POST /orders \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "userAddress": "0x15e08dE16f534c890828F2a0D935433aF5B3CE0C",
+  "exchangeAddress": "0x0D3ab14BBaD3D99F4203bd7a11aCB94882050E7e",
+  "baseToken": "0x4d7eA2cE949216D6b120f3AA10164173615A2b6C",
+  "quoteToken": "0x0000000000000000000000000000000000000001",
+  "side": "SELL/BUY",
+  "type": "LO/MO",
+  "status": "NEW/CANCELLED",
+  "hash": "string",
+  "signature": {
+    "V": "string",
+    "R": "string",
+    "S": "string"
+  },
+  "pricepoint": "21207020000000000000000",
+  "amount": "4693386710283129",
+  "nonce": "1",
+  "makeFee": "1",
+  "takeFee": "1"
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+
+};
+
+fetch('/orders',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -9123,8 +9508,8 @@ Returns newly created order
   "makeFee": "string",
   "takeFee": "string",
   "pairName": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 ```
 
@@ -9151,6 +9536,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /orders/positions?address=string&limit=string \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/orders/positions?address=string&limit=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -9268,8 +9675,8 @@ Return all orders in an array
     "makeFee": "string",
     "takeFee": "string",
     "pairName": "string",
-    "createdAt": "2019-11-03T15:42:56Z",
-    "updatedAt": "2019-11-03T15:42:56Z"
+    "createdAt": "2019-11-03T16:33:00Z",
+    "updatedAt": "2019-11-03T16:33:00Z"
   }
 ]
 ```
@@ -9326,6 +9733,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /orders/history?address=string \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/orders/history?address=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -9454,8 +9883,8 @@ Return all orders in an array
       "makeFee": "string",
       "takeFee": "string",
       "pairName": "string",
-      "createdAt": "2019-11-03T15:42:56Z",
-      "updatedAt": "2019-11-03T15:42:56Z"
+      "createdAt": "2019-11-03T16:33:00Z",
+      "updatedAt": "2019-11-03T16:33:00Z"
     }
   ]
 }
@@ -9514,6 +9943,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /orders/count?address=string \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/orders/count?address=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -9631,6 +10082,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /orders/nonce?address=string \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/orders/nonce?address=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -9752,6 +10225,38 @@ curl -X POST /orders/cancel \
 
 ```
 
+```nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "orderHash": "string",
+  "nonce": "string",
+  "hash": "string",
+  "signature": {
+    "V": "string",
+    "R": "string",
+    "S": "string"
+  }
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+
+};
+
+fetch('/orders/cancel',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
 ```go
 package main
 
@@ -9852,6 +10357,13 @@ Returns the hash of cancelled order
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|[OrderCancel](#schemaordercancel)|true|Cancel order object|
+|» orderHash|body|string|false|none|
+|» nonce|body|string|false|none|
+|» hash|body|string|false|none|
+|» signature|body|[Signature](#schemasignature)|false|none|
+|»» V|body|string|false|none|
+|»» R|body|string|false|none|
+|»» S|body|string|false|none|
 
 > Example responses
 
@@ -9883,6 +10395,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X POST /orders/cancelAll?address=string \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/orders/cancelAll?address=string',
+{
+  method: 'POST',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -10004,6 +10538,28 @@ Order book endpoints
 # You can also use wget
 curl -X GET /orderbook?baseToken=string&quoteToken=string \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/orderbook?baseToken=string&quoteToken=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -10141,6 +10697,28 @@ curl -X GET /orderbook/raw?baseToken=string&quoteToken=string \
 
 ```
 
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/orderbook/raw?baseToken=string&quoteToken=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
 ```go
 package main
 
@@ -10258,8 +10836,8 @@ corresponding-to-a-basetoken-and-a-quotetoken-parameters">Parameters</h3>
       "makeFee": "string",
       "takeFee": "string",
       "pairName": "string",
-      "createdAt": "2019-11-03T15:42:56Z",
-      "updatedAt": "2019-11-03T15:42:56Z"
+      "createdAt": "2019-11-03T16:33:00Z",
+      "updatedAt": "2019-11-03T16:33:00Z"
     }
   ]
 }
@@ -10292,6 +10870,28 @@ Trade endpoints
 # You can also use wget
 curl -X GET /trades \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/trades',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -10407,8 +11007,8 @@ Return all trades in an array with total match
       "pricepoint": "string",
       "amount": "string",
       "status": "string",
-      "createdAt": "2019-11-03T15:42:56Z",
-      "updatedAt": "2019-11-03T15:42:56Z"
+      "createdAt": "2019-11-03T16:33:00Z",
+      "updatedAt": "2019-11-03T16:33:00Z"
     }
   ]
 }
@@ -10460,6 +11060,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /trades/history?address=string \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/trades/history?address=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -10577,8 +11199,8 @@ Return trades array
       "pricepoint": "string",
       "amount": "string",
       "status": "string",
-      "createdAt": "2019-11-03T15:42:56Z",
-      "updatedAt": "2019-11-03T15:42:56Z"
+      "createdAt": "2019-11-03T16:33:00Z",
+      "updatedAt": "2019-11-03T16:33:00Z"
     }
   ]
 }
@@ -10634,6 +11256,28 @@ OHLCV endpoints
 # You can also use wget
 curl -X GET /ohlcv?baseToken=string&quoteToken=string&timeInterval=string&from=string&to=string \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/ohlcv?baseToken=string&quoteToken=string&timeInterval=string&from=string&to=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -10800,6 +11444,28 @@ curl -X GET /notifications?userAddress=string&page=string&perPage=string \
 
 ```
 
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/notifications?userAddress=string&page=string&perPage=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
 ```go
 package main
 
@@ -10900,8 +11566,8 @@ Return notifications in an array
     "message": "string",
     "type": "string",
     "status": "string",
-    "createdAt": "2019-11-03T15:42:56Z",
-    "updatedAt": "2019-11-03T15:42:56Z"
+    "createdAt": "2019-11-03T16:33:00Z",
+    "updatedAt": "2019-11-03T16:33:00Z"
   }
 ]
 ```
@@ -10944,6 +11610,34 @@ This operation does not require authentication
 curl -X PUT /notifications/{id} \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "recipient": "string",
+  "message": "string",
+  "type": "string",
+  "status": "string"
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+
+};
+
+fetch('/notifications/{id}',
+{
+  method: 'PUT',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -11043,6 +11737,13 @@ Returns newly updated notification
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|[Notification](#schemanotification)|true|Notification object that needs to be updated|
+|» id|body|string|false|none|
+|» recipient|body|string|false|none|
+|» message|body|string|false|none|
+|» type|body|string|false|none|
+|» status|body|string|false|none|
+|» createdAt|body|string(date-time)|false|none|
+|» updatedAt|body|string(date-time)|false|none|
 
 > Example responses
 
@@ -11055,8 +11756,8 @@ Returns newly updated notification
   "message": "string",
   "type": "string",
   "status": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 ```
 
@@ -11084,6 +11785,28 @@ Info endpoints
 # You can also use wget
 curl -X GET /info \
   -H 'Accept: */*'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'*/*'
+
+};
+
+fetch('/info',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -11197,6 +11920,28 @@ curl -X GET /info/exchange \
 
 ```
 
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'*/*'
+
+};
+
+fetch('/info/exchange',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
 ```go
 package main
 
@@ -11302,6 +12047,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /info/fees \
   -H 'Accept: */*'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'*/*'
+
+};
+
+fetch('/info/fees',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -11415,6 +12182,28 @@ curl -X GET /market/stats?baseToken=string&quoteToken=string \
 
 ```
 
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/market/stats?baseToken=string&quoteToken=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
 ```go
 package main
 
@@ -11519,8 +12308,8 @@ Multiple status values can be provided with comma separated strings
   "rank": 0,
   "makeFee": "string",
   "takeFee": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 ```
 
@@ -11544,6 +12333,28 @@ This operation does not require authentication
 # You can also use wget
 curl -X GET /market/stats/all \
   -H 'Accept: application/json'
+
+```
+
+```nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('/market/stats/all',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -11741,8 +12552,8 @@ This operation does not require authentication
   "makeFee": "string",
   "takeFee": "string",
   "usd": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 
 ```
@@ -11785,8 +12596,8 @@ This operation does not require authentication
   "rank": 0,
   "makeFee": "string",
   "takeFee": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 
 ```
@@ -11928,8 +12739,8 @@ This operation does not require authentication
   "makeFee": "string",
   "takeFee": "string",
   "pairName": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 
 ```
@@ -12118,8 +12929,8 @@ This operation does not require authentication
       "makeFee": "string",
       "takeFee": "string",
       "pairName": "string",
-      "createdAt": "2019-11-03T15:42:56Z",
-      "updatedAt": "2019-11-03T15:42:56Z"
+      "createdAt": "2019-11-03T16:33:00Z",
+      "updatedAt": "2019-11-03T16:33:00Z"
     }
   ]
 }
@@ -12152,8 +12963,8 @@ This operation does not require authentication
   "pricepoint": "string",
   "amount": "string",
   "status": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 
 ```
@@ -12224,8 +13035,8 @@ This operation does not require authentication
   "message": "string",
   "type": "string",
   "status": "string",
-  "createdAt": "2019-11-03T15:42:56Z",
-  "updatedAt": "2019-11-03T15:42:56Z"
+  "createdAt": "2019-11-03T16:33:00Z",
+  "updatedAt": "2019-11-03T16:33:00Z"
 }
 
 ```
@@ -12262,6 +13073,7 @@ This operation does not require authentication
 |code|integer(int32)|false|none|none|
 |type|string|false|none|none|
 |message|string|false|none|none|
+
 
 
 <h1 id="tomoscan-apis">TomoScan APIs v1.0.0</h1>
