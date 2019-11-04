@@ -536,11 +536,6 @@ html, body {
     display: none;
     background-color: #f8f8f8;
     font-weight: 500; }
-  .toc-wrapper .toc-h1 {
-    border-top: solid 1px #ccc;
-    margin-top: 15px;
-    padding-top: 10px;
-    font-weight: bold; }
   .toc-wrapper .toc-h2 {
     padding-left: 25px;
     font-size: 12px; }

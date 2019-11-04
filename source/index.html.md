@@ -6922,6 +6922,8 @@ getCandidateStatusRequest
 
 TomoDex API Document
 
+Base Url: https://dex.testnet.tomochain.com/api (testnet)
+
 <h1 id="tomodex-apis-accounts">accounts</h1>
 
 Account endpoints
